@@ -1,0 +1,18 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: helloc
+spec:
+  template:
+    metadata:
+      # This is the name of our new "Revision," it must follow the convention {service-name}-{revision-name}
+      name: helloc-world
+    spec:
+      containers:
+        - image:  dev.local:10001/library/dev.local/helloworld-go:v1.2.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TARGET
+              value: "World"
+

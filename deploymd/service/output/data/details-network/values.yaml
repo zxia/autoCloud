@@ -1,0 +1,33 @@
+istio:
+  deployed: true
+  destination:
+    host: details-internal
+    name: details
+    subsets:
+    - labels:
+        version: v1
+      name: v1
+  gateway: null
+  virtualservice:
+  - gateways: null
+    hosts:
+    - details-internal
+    http:
+    - route:
+      - destination:
+          host: details-internal
+          subset: v1
+    name: details
+service:
+- name: details-exporter
+  protocols:
+  - appProtocol: http
+    port: '8081'
+    protocol: TCP
+    targetPort: '8081'
+- name: details-internal
+  protocols:
+  - appProtocol: http
+    port: '9080'
+    protocol: TCP
+    targetPort: '9080'

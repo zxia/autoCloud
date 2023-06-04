@@ -1,0 +1,87 @@
+istio:
+  deployed: true
+  destination:
+    host: product-pager-internal
+    name: productpager
+    subsets:
+    - labels:
+        version: v1
+      name: v1
+  gateway:
+  - name: product-pager-gateway
+    selector: ingressgateway
+    servers:
+    - hosts:
+      - '*'
+      port:
+        name: http
+        number: '80'
+        protocol: HTTP
+  virtualservice:
+  - gateways:
+    - product-pager-gateway
+    hosts:
+    - '*'
+    http:
+    - match:
+      - uri:
+          exact: /productpage
+      - uri:
+          prefix: /static
+      - uri:
+          exact: /login
+      - uri:
+          exact: /logout
+      - uri:
+          prefix: /api/v1/products
+      route:
+      - destination:
+          host: product-pager-internal
+          subset: v1
+    name: product-pager-gateway-vs
+server:
+  command: null
+  env:
+  - name: appVersion
+    value: 1.0.0
+  - name: DETAILS_HOSTNAME
+    value: details-internal
+  - name: RATINGS_HOSTNAME
+    value: rating-internal
+  - name: REVIEWS_HOSTNAME
+    value: reviews-internal
+  extraContainerargs:
+    ports:
+    - containerPort: 9080
+    securityContext:
+      runAsUser: 1000
+  image:
+    imagePullSecrets: ''
+    pullPolicy: IfNotPresent
+    repository: docker.io/istio/examples-bookinfo-productpage-v1
+    tag: 1.16.2
+  livenessProbe: null
+  name: product-pager
+  readinessProbe: null
+  replica: 1
+  resources: null
+  version: v1
+  volumeMounts:
+  - mountPath: /tmp
+    name: tmp
+  volumes:
+  - emptyDir: {}
+    name: tmp
+service:
+- name: product-pager-exporter
+  protocols:
+  - appProtocol: http
+    port: '8081'
+    protocol: TCP
+    targetPort: '8081'
+- name: product-pager-internal
+  protocols:
+  - appProtocol: http
+    port: '9080'
+    protocol: TCP
+    targetPort: '9080'

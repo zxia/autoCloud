@@ -1,0 +1,48 @@
+istio:
+  deployed: true
+  destination:
+    host: reviews-internal
+    name: reviews
+    subsets:
+    - labels:
+        version: v1
+      name: v1
+    - labels:
+        version: v2
+      name: v2
+    - labels:
+        version: v3
+      name: v3
+  gateway: null
+  virtualservice:
+  - gateways: null
+    hosts:
+    - reviews-internal
+    http:
+    - route:
+      - destination:
+          host: reviews-internal
+          subset: v1
+        weight: 10
+      - destination:
+          host: reviews-internal
+          subset: v2
+        weight: 20
+      - destination:
+          host: reviews-internal
+          subset: v3
+        weight: 70
+    name: reviews
+service:
+- name: reviews-exporter
+  protocols:
+  - appProtocol: http
+    port: '8081'
+    protocol: TCP
+    targetPort: '8081'
+- name: reviews-internal
+  protocols:
+  - appProtocol: http
+    port: '9080'
+    protocol: TCP
+    targetPort: '9080'

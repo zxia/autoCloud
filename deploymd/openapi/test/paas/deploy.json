@@ -1,0 +1,20 @@
+{
+  "deploy": {
+    "lab": "dev36",
+    "component": [
+      {
+        "label": [
+          {
+            "nodes": [
+              "dev36",
+              "dev37"
+            ],
+            "key": "argocd",
+            "value": "argocd"
+          }
+        ],
+        "component_name": "argocd"
+      }
+    ]
+  }
+}

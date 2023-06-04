@@ -1,0 +1,15 @@
+{
+  "servicePackageName": "details",
+  "servicePackageDescription": "the microservice contains book details information",
+  "servicePackageVersion": "1.0.0",
+  "serviceApplicationVersion": "v1",
+  "serviceWorkLoad": "deployment",
+  "k8sService": "exporter internal",
+  "gatewayStatus": "disable",
+  "destinationRuleStatus": "enable",
+  "virtualServiceStatus": "enable",
+  "faultInjectionStatus": "disable",
+  "serviceEntryStatus": "disable",
+  "servicePackageType": "helm",
+  "serviceMesh": "istio"
+}

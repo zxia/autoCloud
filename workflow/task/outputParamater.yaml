@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: output-
+spec:
+  entrypoint: gen-output-steps
+  templates:
+    - name: gen-output-steps
+      steps:
+        - - name: gen-output-script
+            template: gen-output-script
+        - - name: con-output-script
+            arguments:
+              parameters:
+                - name: message
+                  value: "{{steps.gen-output-script.outputs.parameters.hello-param}}"
+            template: con-output-script
+    - name: gen-output-script
+      container:
+        image: alpine:latest
+        command:
+          - sh
+          - -c
+          - "echo hello world jackey! >/tmp/hello.txt"
+      outputs:
+        parameters:
+          - name: hello-param
+            valueFrom:
+              path: /tmp/hello.txt
+    - name: con-output-script
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: docker/whalesay:latest
+        command:
+          - cowsay
+          - "{{inputs.parameters.message}}"
+

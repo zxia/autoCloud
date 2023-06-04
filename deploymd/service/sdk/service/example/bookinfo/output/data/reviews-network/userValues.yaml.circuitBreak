@@ -1,0 +1,61 @@
+##define the K8s service for the workload
+service:
+  - name: reviews-exporter
+    protocols:
+      - protocol: TCP
+        port: 8081
+        appProtocol: http
+        targetPort: 8081
+  - name: reviews-internal
+    protocols:
+      - protocol: TCP
+        port: 9080
+        appProtocol: http
+        targetPort: 9080
+## Service mesh with Istio
+## see more ref. https://istio.io/latest/docs/concepts/traffic-management/#retries
+istio:
+  deployed: true
+  virtualservice:
+  - name: reviews
+    hosts:
+      - reviews-internal
+    http:
+      - route:
+          - destination:
+              host: reviews-internal
+              subset: v1
+            weight: 10
+          - destination:
+              host: reviews-internal
+              subset: v2
+            weight: 20
+          - destination:
+              host: reviews-internal
+              subset: v3
+            weight: 70
+  destination:
+    name: reviews
+    host: reviews-internal
+    subsets:
+      - name: v1
+        labels:
+          version: v1
+      - name: v2
+        labels:
+          version: v2
+      - name: v3
+        labels:
+          version: v3
+        trafficPolicy:
+          connectionPool:
+            tcp:
+              maxConnections: 1
+            http:
+              http1MaxPendingRequests: 1
+              maxRequestsPerConnection: 1
+          outlierDetection:
+            consecutive5xxErrors: 1
+            interval: 1s
+            baseEjectionTime: 3m
+            maxEjectionPercent: 100

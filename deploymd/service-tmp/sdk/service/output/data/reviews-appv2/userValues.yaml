@@ -1,0 +1,41 @@
+## define the workload
+server:
+  image:
+    repository: "docker.io/istio/examples-bookinfo-reviews-v2"
+    tag:  "1.16.2"
+    pullPolicy: IfNotPresent
+    imagePullSecrets: ""
+## the number of the replication of the pod
+  replica: 1
+  version: v2
+## define the resource for the pod
+# resources:
+#   requests:
+#     memory: "512Mi"
+#     cpu: "500m"
+#   limits:
+#     memory: "1200Mi"
+#     cpu: "1200m"
+  env:
+    - name: appVersion
+      value: 1.0.0
+    - name: LOG_DIR
+      value: "/tmp/logs"
+    - name: RATINGS_HOSTNAME
+      value: rating-internal
+  extraContainerargs:
+    ports:
+      - containerPort: 9080
+    securityContext:
+      runAsUser: 1000
+  volumeMounts:
+    - name: tmp
+      mountPath: /tmp
+    - name: wlp-output
+      mountPath: /opt/ibm/wlp/output
+  volumes:
+    - name: wlp-output
+      emptyDir: {}
+    - name: tmp
+      emptyDir: {}
+

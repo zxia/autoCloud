@@ -1,0 +1,33 @@
+istio:
+  deployed: true
+  destination:
+    host: rating-internal
+    name: rating
+    subsets:
+    - labels:
+        version: v1
+      name: v1
+  gateway: null
+  virtualservice:
+  - gateways: null
+    hosts:
+    - rating-internal
+    http:
+    - route:
+      - destination:
+          host: rating-internal
+          subset: v1
+    name: rating
+service:
+- name: rating-exporter
+  protocols:
+  - appProtocol: tcp
+    port: '8081'
+    protocol: TCP
+    targetPort: '8081'
+- name: rating-internal
+  protocols:
+  - appProtocol: http
+    port: '9080'
+    protocol: TCP
+    targetPort: '9080'

@@ -1,0 +1,7 @@
+fastapi
+pydantic
+uvicorn
+python-shell
+jsonmerge
+pyyaml
+shell

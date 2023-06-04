@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: knative-serving
+---
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeServing
+metadata:
+  name: knative-serving
+  namespace: knative-serving
+spec:
+  registry:
+    default: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/serving/cmd/${NAME}:v1.8.2
+    override:
+      net-istio-controller/controller: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/net-istio/cmd/controller:v1.8.2
+      net-istio-webhook/webhook: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/net-istio/cmd/webhook:v1.8.2
+      migrate: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/pkg/apiextensions/storageversion/cmd/migrate:v1.8.2
+  config:
+    deployment:
+      registries-skipping-tag-resolving: "kind.local,ko.local,dev.local,HARBOR_URI"
+      queueSidecarImage: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/serving/cmd/queue:v1.8.2
+      queue-sidecar-image: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/serving/cmd/queue:v1.8.2
+  controller-custom-certs:
+    name: regcred
+    type: Secret

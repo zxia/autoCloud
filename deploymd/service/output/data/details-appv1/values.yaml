@@ -1,0 +1,23 @@
+server:
+  command: null
+  env:
+  - name: appVersion
+    value: 1.0.0
+  extraContainerargs:
+    ports:
+    - containerPort: 9080
+    securityContext:
+      runAsUser: 1000
+  image:
+    imagePullSecrets: ''
+    pullPolicy: IfNotPresent
+    repository: docker.io/istio/examples-bookinfo-details-v1
+    tag: 1.16.2
+  livenessProbe: null
+  name: details
+  readinessProbe: null
+  replica: 1
+  resources: null
+  version: v1
+  volumeMounts: null
+  volumes: null

@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: loop-sleep
+spec:
+  entrypoint:  execute-sleep
+
+  templates:
+    - name: execute-sleep
+      steps:
+        - - name:  gen-loop-value # the json list
+            template: gen-loop-value
+        - - name: sleep-step
+            template: sleep-script
+            arguments:
+              parameters:
+                - name: sleep-seconds
+                  value: "{{item}}"
+            withParam: "{{steps.gen-loop-value.outputs.result}}"
+    - name: gen-loop-value
+      script:
+        image: python:alpine3.6
+        command:
+          - python
+        source: |
+          import json
+          import sys
+          json.dump([i for i in range(20,31)], sys.stdout)
+    - name: sleep-script
+      inputs:
+        parameters:
+          - name: sleep-seconds
+      container:
+        image: alpine:latest
+        command:
+          - sh
+          - -c
+          - |
+            echo sleeping for "{{inputs.parameters.sleep-seconds}}" seconds
+            sleep "{{inputs.parameters.sleep-seconds}}"
+            echo "done"

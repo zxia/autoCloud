@@ -1,0 +1,1631 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/podIP: 10.231.51.253/32
+    cni.projectcalico.org/podIPs: 10.231.51.253/32
+  creationTimestamp: "2022-03-15T09:23:57Z"
+  generateName: eventing-controller-654fb6476c-
+  labels:
+    app: eventing-controller
+    app.kubernetes.io/component: eventing-autoscaler
+    app.kubernetes.io/name: knative-eventing
+    app.kubernetes.io/version: 1.2.0
+    eventing.knative.dev/release: v1.2.0
+    pod-template-hash: 654fb6476c
+  name: eventing-controller-654fb6476c-5lqjl
+  namespace: knative-eventing
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: eventing-controller-654fb6476c
+    uid: e462494d-143e-451d-a033-0d909cc75723
+  resourceVersion: "47983847"
+  uid: 199b5aa1-5239-4ade-aada-319a7c335382
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app: eventing-controller
+          topologyKey: kubernetes.io/hostname
+        weight: 100
+  containers:
+  - env:
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: CONFIG_LOGGING_NAME
+      value: config-logging
+    - name: CONFIG_OBSERVABILITY_NAME
+      value: config-observability
+    - name: METRICS_DOMAIN
+      value: knative.dev/eventing
+    - name: APISERVER_RA_IMAGE
+      value: gcr.io/knative-releases/knative.dev/eventing/cmd/apiserver_receive_adapter@sha256:b2d41d5daaca21b63ba884e1456563ee4379bfb0325be6570dbe2b1a46741bfd
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/controller:v1.2.0
+    imagePullPolicy: IfNotPresent
+    name: eventing-controller
+    ports:
+    - containerPort: 9090
+      name: metrics
+      protocol: TCP
+    - containerPort: 8008
+      name: profiling
+      protocol: TCP
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - all
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: FallbackToLogsOnError
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-9j7kh
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: false
+  imagePullSecrets:
+  - name: harbor-xzw
+  nodeName: node32
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: eventing-controller
+  serviceAccountName: eventing-controller
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-9j7kh
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:55Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:29Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:29Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:23:57Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://17cffa0a4787cb9d86b10d7a73373fffd591b1327ccd44a002fa14ad4a07fb33
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/controller:v1.2.0
+    imageID: docker-pullable://192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/controller@sha256:0bb605efa6c547ffbb049eb746800b892b5f87c9f76b19e3dcf26937217883ca
+    lastState:
+      terminated:
+        containerID: docker://df8c173bad25916ed45e947880adb1c5e957ab9494c94589200cb4c01403b308
+        exitCode: 0
+        finishedAt: "2022-03-17T00:59:48Z"
+        reason: Completed
+        startedAt: "2022-03-15T09:24:57Z"
+    name: eventing-controller
+    ready: true
+    restartCount: 1
+    started: true
+    state:
+      running:
+        startedAt: "2022-03-17T01:00:28Z"
+  hostIP: 192.168.0.32
+  phase: Running
+  podIP: 10.231.51.253
+  podIPs:
+  - ip: 10.231.51.253
+  qosClass: Burstable
+  startTime: "2022-03-15T09:24:55Z"
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/podIP: 10.231.120.163/32
+    cni.projectcalico.org/podIPs: 10.231.120.163/32
+  creationTimestamp: "2022-03-15T09:23:58Z"
+  generateName: eventing-webhook-7dd9ff7c67-
+  labels:
+    app: eventing-webhook
+    app.kubernetes.io/component: eventing-webhook
+    app.kubernetes.io/name: knative-eventing
+    app.kubernetes.io/version: 1.2.0
+    eventing.knative.dev/release: v1.2.0
+    pod-template-hash: 7dd9ff7c67
+    role: eventing-webhook
+  name: eventing-webhook-7dd9ff7c67-ndnfl
+  namespace: knative-eventing
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: eventing-webhook-7dd9ff7c67
+    uid: fac4d97d-fe1e-45ed-a7d4-f17bf3875d74
+  resourceVersion: "47984729"
+  uid: 56220868-7dad-4537-8e0d-7b69a76905e8
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app: eventing-webhook
+          topologyKey: kubernetes.io/hostname
+        weight: 100
+  containers:
+  - env:
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: CONFIG_LOGGING_NAME
+      value: config-logging
+    - name: METRICS_DOMAIN
+      value: knative.dev/eventing
+    - name: WEBHOOK_NAME
+      value: eventing-webhook
+    - name: WEBHOOK_PORT
+      value: "8443"
+    - name: SINK_BINDING_SELECTION_MODE
+      value: exclusion
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/webhook:v1.2.0
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        httpHeaders:
+        - name: k-kubelet-probe
+          value: webhook
+        path: /
+        port: 8443
+        scheme: HTTPS
+      initialDelaySeconds: 20
+      periodSeconds: 1
+      successThreshold: 1
+      timeoutSeconds: 1
+    name: eventing-webhook
+    ports:
+    - containerPort: 8443
+      name: https-webhook
+      protocol: TCP
+    - containerPort: 9090
+      name: metrics
+      protocol: TCP
+    - containerPort: 8008
+      name: profiling
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        httpHeaders:
+        - name: k-kubelet-probe
+          value: webhook
+        path: /
+        port: 8443
+        scheme: HTTPS
+      periodSeconds: 1
+      successThreshold: 1
+      timeoutSeconds: 1
+    resources:
+      limits:
+        cpu: 200m
+        memory: 200Mi
+      requests:
+        cpu: 100m
+        memory: 50Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - all
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: FallbackToLogsOnError
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-97jkx
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: false
+  imagePullSecrets:
+  - name: harbor-xzw
+  nodeName: node35
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: eventing-webhook
+  serviceAccountName: eventing-webhook
+  terminationGracePeriodSeconds: 300
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-97jkx
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:48Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:29Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:29Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:23:58Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://96f27256817d1c643fc388d7fb4ed13e1da1e0e7a7da86a6e0fc7af57e5ab7f8
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/webhook:v1.2.0
+    imageID: docker-pullable://192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/webhook@sha256:b907699ce3be8360826dc7abd3aca194cf68d21245c559abd0922dc8b77f9e7f
+    lastState:
+      terminated:
+        containerID: docker://6fb622b91afd88df7d4dd18e0c30c9532085528ceb87ab43791787415ea9e613
+        exitCode: 137
+        finishedAt: "2022-03-17T01:00:16Z"
+        message: |
+          -webhook","caller":"leaderelection/context.go:160","msg":"\"eventing-webhook-7dd9ff7c67-ndnfl_06b683aa-04fa-47d1-b167-3a7fb7e605da\" has stopped leading \"eventing-webhook.defaultingwebhook.00-of-01\"","commit":"0310bf9","knative.dev/pod":"eventing-webhook-7dd9ff7c67-ndnfl"}
+          {"level":"info","ts":"2022-03-17T01:00:06.491Z","logger":"eventing-webhook","caller":"leaderelection/context.go:160","msg":"\"eventing-webhook-7dd9ff7c67-ndnfl_a92b3c8c-7c22-4163-9de2-aa2780900c0c\" has stopped leading \"eventing-webhook.conversionwebhook.00-of-01\"","commit":"0310bf9","knative.dev/pod":"eventing-webhook-7dd9ff7c67-ndnfl"}
+          {"level":"info","ts":"2022-03-17T01:00:06.491Z","logger":"eventing-webhook","caller":"leaderelection/context.go:160","msg":"\"eventing-webhook-7dd9ff7c67-ndnfl_26739fea-d6d0-43a0-ab8a-c8df92862316\" has stopped leading \"eventing-webhook.webhookcertificates.00-of-01\"","commit":"0310bf9","knative.dev/pod":"eventing-webhook-7dd9ff7c67-ndnfl"}
+          {"level":"info","ts":"2022-03-17T01:00:06.491Z","logger":"eventing-webhook","caller":"leaderelection/context.go:160","msg":"\"eventing-webhook-7dd9ff7c67-ndnfl_a428211a-fc86-4425-9484-4249b8464a0f\" has stopped leading \"eventing-webhook.sinkbindings.webhook.sources.knative.dev.00-of-01\"","commit":"0310bf9","knative.dev/pod":"eventing-webhook-7dd9ff7c67-ndnfl"}
+          {"level":"info","ts":"2022-03-17T01:00:06.491Z","logger":"eventing-webhook","caller":"leaderelection/context.go:160","msg":"\"eventing-webhook-7dd9ff7c67-ndnfl_75893f42-b1b3-462e-9554-6a05554fc772\" has stopped leading \"eventing-webhook.validationwebhook.00-of-01\"","commit":"0310bf9","knative.dev/pod":"eventing-webhook-7dd9ff7c67-ndnfl"}
+          {"level":"info","ts":"2022-03-17T01:00:06.491Z","logger":"eventing-webhook.DefaultingWebhook","caller":"controller/controller.go:550","msg":"Reconcile succeeded","commit":"0310bf9","knative.dev/pod":"eventing-webhook-7dd9ff7c67-ndnfl","knative.dev/traceid":"8e036651-019c-48da-8e91-64a16ab29ba4","knative.dev/key":"knative-eventing/eventing-webhook-certs","duration":1.41320196}
+        reason: Error
+        startedAt: "2022-03-15T09:24:51Z"
+    name: eventing-webhook
+    ready: true
+    restartCount: 1
+    started: true
+    state:
+      running:
+        startedAt: "2022-03-17T01:00:28Z"
+  hostIP: 192.168.0.35
+  phase: Running
+  podIP: 10.231.120.163
+  podIPs:
+  - ip: 10.231.120.163
+  qosClass: Burstable
+  startTime: "2022-03-15T09:24:48Z"
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/podIP: 10.231.120.150/32
+    cni.projectcalico.org/podIPs: 10.231.120.150/32
+  creationTimestamp: "2022-03-15T09:24:00Z"
+  generateName: imc-controller-6c486d4cd7-
+  labels:
+    app.kubernetes.io/component: imc-controller
+    app.kubernetes.io/name: knative-eventing
+    app.kubernetes.io/version: 1.2.0
+    messaging.knative.dev/channel: in-memory-channel
+    messaging.knative.dev/role: controller
+    pod-template-hash: 6c486d4cd7
+  name: imc-controller-6c486d4cd7-x4c56
+  namespace: knative-eventing
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: imc-controller-6c486d4cd7
+    uid: 89a76c59-e49a-442f-b729-c4805ff56e39
+  resourceVersion: "47984598"
+  uid: b0e51b30-0c8e-45ec-835c-eddd5497cf60
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              messaging.knative.dev/channel: in-memory-channel
+              messaging.knative.dev/role: controller
+          topologyKey: kubernetes.io/hostname
+        weight: 100
+  containers:
+  - env:
+    - name: WEBHOOK_NAME
+      value: inmemorychannel-webhook
+    - name: WEBHOOK_PORT
+      value: "8443"
+    - name: CONFIG_LOGGING_NAME
+      value: config-logging
+    - name: CONFIG_OBSERVABILITY_NAME
+      value: config-observability
+    - name: METRICS_DOMAIN
+      value: knative.dev/inmemorychannel-controller
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: DISPATCHER_IMAGE
+      value: gcr.io/knative-releases/knative.dev/eventing/cmd/in_memory/channel_dispatcher@sha256:75f12b93c8cb39f748c3f5a48de255e27a435e71791527568cb9d797c2723c9a
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/in_memory/channel_controller:v1.2.0
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        httpHeaders:
+        - name: k-kubelet-probe
+          value: webhook
+        path: /
+        port: 8443
+        scheme: HTTPS
+      initialDelaySeconds: 20
+      periodSeconds: 1
+      successThreshold: 1
+      timeoutSeconds: 1
+    name: controller
+    ports:
+    - containerPort: 9090
+      name: metrics
+      protocol: TCP
+    - containerPort: 8008
+      name: profiling
+      protocol: TCP
+    - containerPort: 8443
+      name: https-webhook
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        httpHeaders:
+        - name: k-kubelet-probe
+          value: webhook
+        path: /
+        port: 8443
+        scheme: HTTPS
+      periodSeconds: 1
+      successThreshold: 1
+      timeoutSeconds: 1
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - all
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-tsgnh
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: false
+  imagePullSecrets:
+  - name: harbor-xzw
+  nodeName: node35
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: imc-controller
+  serviceAccountName: imc-controller
+  terminationGracePeriodSeconds: 300
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-tsgnh
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:51Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:29Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:29Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:00Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://f56cace5160f74091e33c8205a6303e770c8e9364f909530e5e6edcb3d387c2f
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/in_memory/channel_controller:v1.2.0
+    imageID: docker-pullable://192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/in_memory/channel_controller@sha256:8b5d9e13de32fbd41c4d8c33330c867f3990593e9df4c3672031d13d5d216977
+    lastState:
+      terminated:
+        containerID: docker://74fe0e2da9dd39c10037103a7e94fec2805c10fb1280d0749cfe75272ee570b3
+        exitCode: 1
+        finishedAt: "2022-03-17T01:00:07Z"
+        reason: Error
+        startedAt: "2022-03-15T09:24:53Z"
+    name: controller
+    ready: true
+    restartCount: 1
+    started: true
+    state:
+      running:
+        startedAt: "2022-03-17T01:00:29Z"
+  hostIP: 192.168.0.35
+  phase: Running
+  podIP: 10.231.120.150
+  podIPs:
+  - ip: 10.231.120.150
+  qosClass: BestEffort
+  startTime: "2022-03-15T09:24:51Z"
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/podIP: 10.231.51.247/32
+    cni.projectcalico.org/podIPs: 10.231.51.247/32
+  creationTimestamp: "2022-03-15T09:24:01Z"
+  generateName: imc-dispatcher-d955d7d6f-
+  labels:
+    app.kubernetes.io/component: imc-dispatcher
+    app.kubernetes.io/name: knative-eventing
+    app.kubernetes.io/version: 1.2.0
+    messaging.knative.dev/channel: in-memory-channel
+    messaging.knative.dev/role: dispatcher
+    pod-template-hash: d955d7d6f
+  name: imc-dispatcher-d955d7d6f-bswgx
+  namespace: knative-eventing
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: imc-dispatcher-d955d7d6f
+    uid: eda59e0c-2558-4f41-876d-35b1d2316702
+  resourceVersion: "47983447"
+  uid: 40ed5cde-b24c-4ec5-9346-f3471f52cf46
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              messaging.knative.dev/channel: in-memory-channel
+              messaging.knative.dev/role: dispatcher
+          topologyKey: kubernetes.io/hostname
+        weight: 100
+  containers:
+  - env:
+    - name: CONFIG_LOGGING_NAME
+      value: config-logging
+    - name: CONFIG_OBSERVABILITY_NAME
+      value: config-observability
+    - name: METRICS_DOMAIN
+      value: knative.dev/inmemorychannel-dispatcher
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    - name: CONTAINER_NAME
+      value: dispatcher
+    - name: MAX_IDLE_CONNS
+      value: "1000"
+    - name: MAX_IDLE_CONNS_PER_HOST
+      value: "1000"
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/in_memory/channel_dispatcher:v1.2.0
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /healthz
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 5
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 1
+    name: dispatcher
+    ports:
+    - containerPort: 8080
+      name: http
+      protocol: TCP
+    - containerPort: 9090
+      name: metrics
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /healthz
+        port: 8080
+        scheme: HTTP
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 1
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - all
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-mcjq6
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: false
+  imagePullSecrets:
+  - name: harbor-xzw
+  nodeName: node32
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: imc-dispatcher
+  serviceAccountName: imc-dispatcher
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-mcjq6
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:25:00Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:24Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:24Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:01Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://491c2c09b4f4507412558a00bd56003b621447981d3a903e7a172e28ec953b44
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/in_memory/channel_dispatcher:v1.2.0
+    imageID: docker-pullable://192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/in_memory/channel_dispatcher@sha256:e684aee860b1de03a95014b9534cebd56c051d53c77b939f9ba7d7ab742ac592
+    lastState:
+      terminated:
+        containerID: docker://4ce0fa3ad4062070101808d7dad8c4efc4046bafa0b95984c82993b1100b4413
+        exitCode: 0
+        finishedAt: "2022-03-17T00:59:48Z"
+        reason: Completed
+        startedAt: "2022-03-15T09:25:01Z"
+    name: dispatcher
+    ready: true
+    restartCount: 1
+    started: true
+    state:
+      running:
+        startedAt: "2022-03-17T01:00:22Z"
+  hostIP: 192.168.0.32
+  phase: Running
+  podIP: 10.231.51.247
+  podIPs:
+  - ip: 10.231.51.247
+  qosClass: BestEffort
+  startTime: "2022-03-15T09:25:00Z"
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/podIP: 10.231.236.233/32
+    cni.projectcalico.org/podIPs: 10.231.236.233/32
+  creationTimestamp: "2022-03-15T09:24:05Z"
+  generateName: kafka-controller-manager-5dd5995cbc-
+  labels:
+    control-plane: kafka-controller-manager
+    pod-template-hash: 5dd5995cbc
+  name: kafka-controller-manager-5dd5995cbc-4hkb6
+  namespace: knative-eventing
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: kafka-controller-manager-5dd5995cbc
+    uid: f135c830-bf4d-47db-9f39-f1f6c0e9985d
+  resourceVersion: "52438652"
+  uid: f7640869-49e3-465f-82ca-1f2a79d53bda
+spec:
+  containers:
+  - env:
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: METRICS_DOMAIN
+      value: knative.dev/sources
+    - name: CONFIG_OBSERVABILITY_NAME
+      value: config-observability
+    - name: CONFIG_LEADERELECTION_NAME
+      value: config-leader-election
+    - name: KAFKA_RA_IMAGE
+      value: gcr.io/knative-releases/knative.dev/eventing-kafka/cmd/source/receive_adapter@sha256:fc1a3b9b625a68134b32c77bf896ac90a1bf1ac14e792ace8a1e87d5070f927b
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing-kafka/cmd/source/controller:v1.2.0
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        httpHeaders:
+        - name: k-kubelet-probe
+          value: webhook
+        path: /
+        port: 8443
+        scheme: HTTPS
+      initialDelaySeconds: 20
+      periodSeconds: 1
+      successThreshold: 1
+      timeoutSeconds: 1
+    name: manager
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        httpHeaders:
+        - name: k-kubelet-probe
+          value: webhook
+        path: /
+        port: 8443
+        scheme: HTTPS
+      periodSeconds: 1
+      successThreshold: 1
+      timeoutSeconds: 1
+    resources:
+      requests:
+        cpu: 20m
+        memory: 20Mi
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-fzmvd
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  imagePullSecrets:
+  - name: harbor-xzw
+  nodeName: node39
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: kafka-controller-manager
+  serviceAccountName: kafka-controller-manager
+  terminationGracePeriodSeconds: 10
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-fzmvd
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:27Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-21T07:22:13Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-21T07:22:13Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:05Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://f02b27285ebf7e594cec43f1b4443d8ce9a98e1473fafce81e4b9e6993227679
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing-kafka/cmd/source/controller:v1.2.0
+    imageID: docker-pullable://192.168.0.34:10001/library/knative-releases/knative.dev/eventing-kafka/cmd/source/controller@sha256:f059e374d8e66d5f0f09b1c96fa007c548e2173ead92e93b651bc4972a045199
+    lastState:
+      terminated:
+        containerID: docker://5a761f751a1c688d20fc4d20e29ecf490a88cfab70a0d7776c587242d7a115a6
+        exitCode: 1
+        finishedAt: "2022-03-21T07:22:11Z"
+        reason: Error
+        startedAt: "2022-03-21T07:21:36Z"
+    name: manager
+    ready: true
+    restartCount: 3
+    started: true
+    state:
+      running:
+        startedAt: "2022-03-21T07:22:11Z"
+  hostIP: 192.168.0.39
+  phase: Running
+  podIP: 10.231.236.233
+  podIPs:
+  - ip: 10.231.236.233
+  qosClass: Burstable
+  startTime: "2022-03-15T09:24:27Z"
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/podIP: 10.231.51.249/32
+    cni.projectcalico.org/podIPs: 10.231.51.249/32
+  creationTimestamp: "2022-03-15T09:24:03Z"
+  generateName: mt-broker-controller-76859c779f-
+  labels:
+    app: mt-broker-controller
+    app.kubernetes.io/component: broker-controller
+    app.kubernetes.io/name: knative-eventing
+    app.kubernetes.io/version: 1.2.0
+    eventing.knative.dev/release: v1.2.0
+    pod-template-hash: 76859c779f
+  name: mt-broker-controller-76859c779f-97kjc
+  namespace: knative-eventing
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: mt-broker-controller-76859c779f
+    uid: 8674235a-3497-4ff4-8915-ac7a544f28e6
+  resourceVersion: "47983892"
+  uid: a992ac2e-94c7-4e41-84f3-c94b1c8cc442
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app: mt-broker-controller
+          topologyKey: kubernetes.io/hostname
+        weight: 100
+  containers:
+  - env:
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: CONFIG_LOGGING_NAME
+      value: config-logging
+    - name: CONFIG_OBSERVABILITY_NAME
+      value: config-observability
+    - name: METRICS_DOMAIN
+      value: knative.dev/eventing
+    - name: BROKER_INJECTION_DEFAULT
+      value: "false"
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/mtchannel_broker:v1.2.0
+    imagePullPolicy: IfNotPresent
+    name: mt-broker-controller
+    ports:
+    - containerPort: 9090
+      name: metrics
+      protocol: TCP
+    - containerPort: 8008
+      name: profiling
+      protocol: TCP
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - all
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: FallbackToLogsOnError
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-xrsg6
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: false
+  imagePullSecrets:
+  - name: harbor-xzw
+  nodeName: node32
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: eventing-controller
+  serviceAccountName: eventing-controller
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-xrsg6
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:25:01Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:29Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:29Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:03Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://c9929d99075c7c53985d3160fab619bba99be3f3f8e500996bcadc547ea4b528
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/mtchannel_broker:v1.2.0
+    imageID: docker-pullable://192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/mtchannel_broker@sha256:363c3ab22fcc6cc1559734120d0ab5693ccbeb84149d8e7895ff61ea6721c4d4
+    lastState:
+      terminated:
+        containerID: docker://5eec0430f0ce84dad9612de59e065d5d83cf715ac52c234f40c681d7b17c4cff
+        exitCode: 0
+        finishedAt: "2022-03-17T00:59:48Z"
+        reason: Completed
+        startedAt: "2022-03-15T09:25:03Z"
+    name: mt-broker-controller
+    ready: true
+    restartCount: 1
+    started: true
+    state:
+      running:
+        startedAt: "2022-03-17T01:00:28Z"
+  hostIP: 192.168.0.32
+  phase: Running
+  podIP: 10.231.51.249
+  podIPs:
+  - ip: 10.231.51.249
+  qosClass: Burstable
+  startTime: "2022-03-15T09:25:01Z"
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/podIP: 10.231.236.210/32
+    cni.projectcalico.org/podIPs: 10.231.236.210/32
+  creationTimestamp: "2022-03-15T09:24:02Z"
+  generateName: mt-broker-filter-59b9b45d44-
+  labels:
+    app.kubernetes.io/component: broker-filter
+    app.kubernetes.io/name: knative-eventing
+    app.kubernetes.io/version: 1.2.0
+    eventing.knative.dev/brokerRole: filter
+    eventing.knative.dev/release: v1.2.0
+    pod-template-hash: 59b9b45d44
+  name: mt-broker-filter-59b9b45d44-dh6cn
+  namespace: knative-eventing
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: mt-broker-filter-59b9b45d44
+    uid: b1131232-e109-4fe5-8d6d-a0ac2ac369da
+  resourceVersion: "52438604"
+  uid: d308856e-88d8-4063-a540-fce329c667db
+spec:
+  containers:
+  - env:
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    - name: CONTAINER_NAME
+      value: filter
+    - name: CONFIG_LOGGING_NAME
+      value: config-logging
+    - name: CONFIG_OBSERVABILITY_NAME
+      value: config-observability
+    - name: METRICS_DOMAIN
+      value: knative.dev/internal/eventing
+    - name: FILTER_PORT
+      value: "8080"
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/broker/filter:v1.2.0
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /healthz
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 5
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 1
+    name: filter
+    ports:
+    - containerPort: 8080
+      name: http
+      protocol: TCP
+    - containerPort: 9092
+      name: metrics
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /healthz
+        port: 8080
+        scheme: HTTP
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - all
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: FallbackToLogsOnError
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-8tpxz
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: false
+  imagePullSecrets:
+  - name: harbor-xzw
+  nodeName: node39
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: mt-broker-filter
+  serviceAccountName: mt-broker-filter
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-8tpxz
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:24Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-21T07:22:10Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-21T07:22:10Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:02Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://144525ffeb7030251ffd2bebed004ea172ec41b4945f01ae9b8af5430605a917
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/broker/filter:v1.2.0
+    imageID: docker-pullable://192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/broker/filter@sha256:fa50dc7c5c70d543fda62ab5846cc93162ee472971d473412ca9a292bd0df93b
+    lastState:
+      terminated:
+        containerID: docker://131fec05249877d64790b0fac4c8ef5d3dd22007544857738094ebef7039f429
+        exitCode: 255
+        finishedAt: "2022-03-21T07:20:51Z"
+        message: |
+          tools/cache/reflector.go:167: Failed to watch *v1.ConfigMap: the server has asked for the client to provide credentials (get configmaps)
+          E0318 19:31:39.713224       1 reflector.go:138] k8s.io/client-go@v0.22.5/tools/cache/reflector.go:167: Failed to watch *v1.ConfigMap: the server has asked for the client to provide credentials (get configmaps)
+          E0318 19:31:41.270981       1 reflector.go:138] k8s.io/client-go@v0.22.5/tools/cache/reflector.go:167: Failed to watch *v1.ConfigMap: failed to list *v1.ConfigMap: Unauthorized
+          E0318 19:31:44.186026       1 reflector.go:138] k8s.io/client-go@v0.22.5/tools/cache/reflector.go:167: Failed to watch *v1.ConfigMap: failed to list *v1.ConfigMap: Unauthorized
+          E0320 07:43:19.824179       1 reflector.go:138] k8s.io/client-go@v0.22.5/tools/cache/reflector.go:167: Failed to watch *v1.Trigger: the server has asked for the client to provide credentials (get triggers.eventing.knative.dev)
+          E0320 07:43:20.934884       1 reflector.go:138] k8s.io/client-go@v0.22.5/tools/cache/reflector.go:167: Failed to watch *v1.Trigger: failed to list *v1.Trigger: Unauthorized
+          E0320 07:43:23.809460       1 reflector.go:138] k8s.io/client-go@v0.22.5/tools/cache/reflector.go:167: Failed to watch *v1.Trigger: failed to list *v1.Trigger: Unauthorized
+          E0320 20:03:00.704998       1 reflector.go:138] k8s.io/client-go@v0.22.5/tools/cache/reflector.go:167: Failed to watch *v1.ConfigMap: the server has asked for the client to provide credentials (get configmaps)
+          E0320 20:03:01.805951       1 reflector.go:138] k8s.io/client-go@v0.22.5/tools/cache/reflector.go:167: Failed to watch *v1.ConfigMap: failed to list *v1.ConfigMap: Unauthorized
+          E0321 02:36:28.068182       1 reflector.go:138] k8s.io/client-go@v0.22.5/tools/cache/reflector.go:167: Failed to watch *v1.ConfigMap: the server has asked for the client to provide credentials (get configmaps)
+          E0321 02:36:29.125494       1 reflector.go:138] k8s.io/client-go@v0.22.5/tools/cache/reflector.go:167: Failed to watch *v1.ConfigMap: failed to list *v1.ConfigMap: Unauthorized
+        reason: Error
+        startedAt: "2022-03-17T01:00:52Z"
+    name: filter
+    ready: true
+    restartCount: 2
+    started: true
+    state:
+      running:
+        startedAt: "2022-03-21T07:22:05Z"
+  hostIP: 192.168.0.39
+  phase: Running
+  podIP: 10.231.236.210
+  podIPs:
+  - ip: 10.231.236.210
+  qosClass: Burstable
+  startTime: "2022-03-15T09:24:24Z"
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/podIP: 10.231.236.196/32
+    cni.projectcalico.org/podIPs: 10.231.236.196/32
+  creationTimestamp: "2022-03-15T09:24:02Z"
+  generateName: mt-broker-ingress-5fd4f479f6-
+  labels:
+    app.kubernetes.io/component: broker-ingress
+    app.kubernetes.io/name: knative-eventing
+    app.kubernetes.io/version: 1.2.0
+    eventing.knative.dev/brokerRole: ingress
+    eventing.knative.dev/release: v1.2.0
+    pod-template-hash: 5fd4f479f6
+  name: mt-broker-ingress-5fd4f479f6-rf972
+  namespace: knative-eventing
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: mt-broker-ingress-5fd4f479f6
+    uid: 613fed01-6cec-4950-ac61-f51b96559bdb
+  resourceVersion: "52438596"
+  uid: 70c148b6-6052-47a3-81a6-d0fc96716347
+spec:
+  containers:
+  - env:
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    - name: CONTAINER_NAME
+      value: ingress
+    - name: CONFIG_LOGGING_NAME
+      value: config-logging
+    - name: CONFIG_OBSERVABILITY_NAME
+      value: config-observability
+    - name: METRICS_DOMAIN
+      value: knative.dev/internal/eventing
+    - name: INGRESS_PORT
+      value: "8080"
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/broker/ingress:v1.2.0
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /healthz
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 5
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 1
+    name: ingress
+    ports:
+    - containerPort: 8080
+      name: http
+      protocol: TCP
+    - containerPort: 9092
+      name: metrics
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /healthz
+        port: 8080
+        scheme: HTTP
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 1
+    resources:
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - all
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: FallbackToLogsOnError
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-kll56
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: false
+  imagePullSecrets:
+  - name: harbor-xzw
+  nodeName: node39
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: mt-broker-ingress
+  serviceAccountName: mt-broker-ingress
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-kll56
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:24Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-21T07:22:10Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-21T07:22:10Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:02Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://6486a22bf788b5be64b4edd1bb56861b5ad1e3fa21065d4c69c560a983930205
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/broker/ingress:v1.2.0
+    imageID: docker-pullable://192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/broker/ingress@sha256:d983ce811aa00d931a13cbe315b648a3f86290343f98507e378c8c64ccde4280
+    lastState:
+      terminated:
+        containerID: docker://81513f56bdaa7295a3caa3cce39da18f0eb852ae686727b67dfccf526491ae81
+        exitCode: 1
+        finishedAt: "2022-03-21T07:22:07Z"
+        message: |
+          2022/03/21 07:21:39 Using TTL of 255
+          2022/03/21 07:21:39 Registering 3 clients
+          2022/03/21 07:21:39 Registering 1 informer factories
+          2022/03/21 07:21:39 Registering 1 informers
+          2022/03/21 07:22:07 Error loading/parsing logging configuration:Get "https://10.96.0.1:443/api/v1/namespaces/knative-eventing/configmaps/config-logging": context canceled
+        reason: Error
+        startedAt: "2022-03-21T07:21:39Z"
+    name: ingress
+    ready: true
+    restartCount: 5
+    started: true
+    state:
+      running:
+        startedAt: "2022-03-21T07:22:08Z"
+  hostIP: 192.168.0.39
+  phase: Running
+  podIP: 10.231.236.196
+  podIPs:
+  - ip: 10.231.236.196
+  qosClass: Burstable
+  startTime: "2022-03-15T09:24:24Z"
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/podIP: 10.231.120.134/32
+    cni.projectcalico.org/podIPs: 10.231.120.134/32
+  creationTimestamp: "2022-03-15T09:24:03Z"
+  generateName: sugar-controller-68b846488d-
+  labels:
+    eventing.knative.dev/role: sugar-controller
+    pod-template-hash: 68b846488d
+  name: sugar-controller-68b846488d-ls8vb
+  namespace: knative-eventing
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: sugar-controller-68b846488d
+    uid: d7983c7a-8d97-46c3-b5e5-42d849ed4df3
+  resourceVersion: "47984846"
+  uid: fe55eaad-dcdf-475e-b75b-8bb0a93a32d1
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              eventing.knative.dev/role: sugar-controller
+          topologyKey: kubernetes.io/hostname
+        weight: 100
+  containers:
+  - env:
+    - name: CONFIG_LOGGING_NAME
+      value: config-logging
+    - name: CONFIG_OBSERVABILITY_NAME
+      value: config-observability
+    - name: METRICS_DOMAIN
+      value: knative.dev/sugar-controller
+    - name: SYSTEM_NAMESPACE
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.namespace
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: metadata.name
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/sugar_controller:v1.2.0
+    imagePullPolicy: IfNotPresent
+    name: controller
+    ports:
+    - containerPort: 9090
+      name: metrics
+      protocol: TCP
+    - containerPort: 8008
+      name: profiling
+      protocol: TCP
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - all
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-gl7h7
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: false
+  imagePullSecrets:
+  - name: harbor-xzw
+  nodeName: node35
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: eventing-controller
+  serviceAccountName: eventing-controller
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-gl7h7
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:54Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:30Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-17T01:00:30Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-03-15T09:24:03Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://6ce24b763e73ba4a2260d2c6e13ac0de370041242040d1f80fc6caedf8aaf402
+    image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/sugar_controller:v1.2.0
+    imageID: docker-pullable://192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/sugar_controller@sha256:1c17db25ecd3d3aef3e68df3dbf05d35e631613ee98e167082e11b7ad9d5da70
+    lastState:
+      terminated:
+        containerID: docker://4143885354b5b1e97dbd462a86fdb30930e4fd3bcfe22fade146889acae46bbe
+        exitCode: 0
+        finishedAt: "2022-03-17T01:00:05Z"
+        reason: Completed
+        startedAt: "2022-03-15T09:24:56Z"
+    name: controller
+    ready: true
+    restartCount: 1
+    started: true
+    state:
+      running:
+        startedAt: "2022-03-17T01:00:29Z"
+  hostIP: 192.168.0.35
+  phase: Running
+  podIP: 10.231.120.134
+  podIPs:
+  - ip: 10.231.120.134
+  qosClass: BestEffort
+  startTime: "2022-03-15T09:24:54Z"

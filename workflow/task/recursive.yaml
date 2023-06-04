@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: condition-
+spec:
+  entrypoint: coin-test
+  templates:
+    - name: coin-test
+      steps:
+        - - name: coin-first
+            template:  flip-coin
+        # coin test
+        - - name: coin-head
+            arguments:
+              parameters:
+                - name: message
+                  value: heads
+            template: print
+            when: "{{steps.coin-first.outputs.result}} == heads"
+          - name: coin-tail
+            template: coin-test
+            when: "{{steps.coin-first.outputs.result}} == tails"
+        - - name: coin-again
+            template: flip-coin
+        #complex test
+        - - name: coin-header-tailer-or-tailer-tailer
+            arguments:
+              parameters:
+                - name: message
+                  value: header-tailer-or-tailer-tailer
+            template: print
+            when: >-
+              ( {{steps.coin-first.outputs.result}} == heads &&
+                {{steps.coin-again.outputs.result}} == tails ) ||
+              ( {{steps.coin-first.outputs.result}} == tails &&
+                {{steps.coin-again.outputs.result}} == tails)
+          - name: heads-regex
+            template: print
+            arguments:
+              parameters:
+                - name: message
+                  value: heads
+            when: "{{steps.coin-again.outputs.result}} =~ hea"
+          - name: tails-regex
+            template: print
+            arguments:
+              parameters:
+                - name: message
+                  value: tails
+            when: "{{steps.coin-again.outputs.result}} =~ tai"
+    - name: flip-coin
+      script:
+        image: python:alpine3.6
+        command:
+          - python
+        source: |
+          import random
+          result = "heads" if random.randint(0,1) ==0 else "tails"
+          print(result)
+    - name: print
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: alpine:latest
+        command:
+          - sh
+          - -c
+          - echo "the coin is {{inputs.parameters.message}}"

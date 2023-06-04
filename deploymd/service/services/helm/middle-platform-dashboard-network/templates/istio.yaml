@@ -1,0 +1,80 @@
+#////////////////////////////////////////////////////////////
+#/
+  #/ File: istio.yaml
+  #/
+  #////////////////////////////////////////////////////////////
+  #/
+  #/ Author: Xia Zeng Wu
+  #/
+  #/ China telecom digital intelligent - Confidential
+  #/ Do not use, distribute, or copy without consent of CTSI.
+  #/ Copyright (c) 2018, 2022 All rights reserved.
+  #/
+  #////////////////////////////////////////////////////////////
+  { { - $server := (empty .Values.server.name | ternary  .Release.Name .Values.server.name   ) } }
+  { { - range .Values.istio.gateway } }
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: { { .name } }
+spec:
+  selector:
+    istio: { { .selector } }
+  servers:
+  { { - range .servers } }
+- port:
+    number: { { .port.number } }
+    name: { { .port.name } }
+    protocol: { { .port.protocol } }
+  hosts:
+  { { - range .hosts } }
+- { { . | quote } }
+  { { - end } }
+  { { - if .tls } }
+tls:
+  { { - if .tls.mode } }
+mode: { { .tls.mode } }
+  { { - end } }
+  { { - if .tls.serverCertificate } }
+serverCertificate: { { .tls.serverCertificate } }
+  { { - end } }
+  { { - if .tls.privateKey } }
+privateKey: { { .tls.privateKey } }
+  { { - end } }
+  { { - end } }
+  { { - end } }
+---
+{ { - end } }
+
+  { { - range .Values.istio.virtualservice } }
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: { { .name } }
+spec:
+  { { - if .hosts } }
+hosts:
+  { { - range .hosts } }
+- { { . | quote } }
+  { { - end } }
+  { { - end } }
+  { { - if .gateways } }
+gateways:
+  { { toYaml .gateways | indent 2 } }
+  { { - end } }
+  { { - if .http } }
+http:
+  { { toYaml .http | indent 2 } }
+  { { - end } }
+---
+{ { - end } }
+  { { - if .Values.istio.destination } }
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: { { .Values.istio.destination.name } }
+spec:
+  host: { { .Values.istio.destination.host } }
+  subsets:
+  { { toYaml .Values.istio.destination.subsets | indent 2 } }
+  { { - end } }

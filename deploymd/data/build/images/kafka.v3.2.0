@@ -1,0 +1,6 @@
+docker.io/bitnami/kafka             3.2.0-debian-11-r12
+docker.io/bitnami/kubectl           1.24.2-debian-11-r4
+docker.io/bitnami/bitnami-shell     11-debian-11-r12
+docker.io/bitnami/kafka-exporter    1.4.2-debian-11-r12
+docker.io/bitnami/jmx-exporter      0.17.0-debian-11-r12
+docker.io/bitnami/zookeeper        3.8.0-debian-11-r11

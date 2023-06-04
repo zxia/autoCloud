@@ -1,0 +1,14 @@
+apiVersion: serving.knative.dev/v1
+kind: service 
+metadata:
+  name: nginxa
+spec:
+  template: 
+    metadata:
+      name: nginxa-hello
+    spec:
+      containers:
+      - image: nginx
+        ports:
+        - containerPort: 80
+

@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: retry-
+spec:
+  entrypoint: retry-test
+  templates:
+    - name: retry-test
+      retryStrategy:
+        limit:  10
+        retryPolicy: "Always"
+        backoff:
+          duration: "1"
+          factor: 2
+          maxDuration: "1m"
+        affinity:
+          nodeAntiAffinity: {}
+      script:
+        image: python:alpine3.6
+        command:
+          - python
+        source: |
+         import random
+         import sys
+         exit_code = random.choice([0,1])
+         sys.exit(exit_code)
+

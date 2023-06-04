@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: existing-volume
+spec:
+  accessModes: [ "ReadWriteOnce" ]
+  storageClassName: topolvm-provisioner
+  resources:
+    requests:
+      storage: 1Gi
+---
+
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName:  volumes-
+spec:
+  entrypoint:  volumes-test
+  volumes:
+    - name: workdir
+      persistentVolumeClaim:
+        claimName: existing-volume
+  templates:
+    - name: volumes-test
+      steps:
+        - - name: create-volume
+            arguments:
+              paramaters:
+                - name: pvc-size
+                  value: '1Gi'
+            template: create-volume
+        - - name: generate
+            template:  gen-data
+        - - name: print
+            template:  consume-data
+    - name: gen-data
+      volumes:
+        - name: workdir
+          persistentVolumeClaim:
+            claimName:
+      container:
+        image: docker/whalesay:latest
+        command:
+          - sh
+          - -c
+        args:
+          - "echo hello world $(date) > /mnt/vol/hello-world.txt"
+        volumeMounts:
+          - name: workdir
+            mountPath: /mnt/vol
+    - name: consume-data
+      container:
+        image: alpine:latest
+        command:
+          - sh
+          - -c
+          - "cat /mnt/vol1/hello-world.txt"
+        volumeMounts:
+          - name: workdir
+            mountPath: /mnt/vol1
+    - name: create-volume
+      inputs:
+        paramaters:
+          name: pvc-size
+      resource:
+        action: create
+        setOwnerReference: true
+        manifest: |
+          apiVersion: v1
+          kind: PersistentVolumeClaim
+          metadata:
+            generateName: pvc-example-
+          spec:
+            storageClassName: topolvm-provisioner
+            accessModes: ["readwriteonly"]
+            resources:
+              requests:
+                storage: "{{inputs.parameters.pvc-size}}"
+        outputs:
+          parameters:
+            - name: pvc-name
+              valueFrom:
+                jsonPath: '{.metadata.name}'

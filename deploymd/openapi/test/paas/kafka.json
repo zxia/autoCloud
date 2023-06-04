@@ -1,0 +1,26 @@
+{
+  "deploy": {
+    "lab": "dev36",
+    "component": [
+      {
+        "label": [
+          {
+            "nodes": [
+              "dev36"
+            ],
+            "key": "zookeeper",
+            "value": "zookeeper"
+          },
+          {
+            "nodes": [
+              "dev36"
+            ],
+            "key": "kafka",
+            "value": "kafka"
+          }
+        ],
+        "component_name": "kafka"
+      }
+    ]
+  }
+}

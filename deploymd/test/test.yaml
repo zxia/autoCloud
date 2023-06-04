@@ -1,0 +1,32 @@
+server:
+  command: null
+  env:
+    - name: appVersion
+      value: 1.0.0
+    - name: DETAILS_HOSTNAME
+      value: details-internal
+    - name: RATINGS_HOSTNAME
+      value: rating-internal
+    - name: REVIEWS_HOSTNAME
+      value: reviews-internal
+  extraContainerargs:
+    ports:
+      - containerPort: 9080
+    securityContext:
+      runAsUser: 1000
+  image:
+    imagePullSecrets: ''
+    pullPolicy: IfNotPresent
+    repository: docker.io/istio/examples-bookinfo-productpage-v1
+    tag: 1.16.2
+  livenessProbe: null
+  name: product-pager
+  readinessProbe: null
+  replica: 1
+  resources: null
+  version: v1
+  volumeMounts:
+    - mountPath: /tmp
+      name: tmp
+  volumes:
+    - emptyDir: {}

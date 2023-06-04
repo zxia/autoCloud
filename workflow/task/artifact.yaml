@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: artifact-
+spec:
+  entrypoint: invoke-artifact
+  templates:
+    - name: invoke-artifact
+      steps:
+        - - name: product-artifact
+            template: product-artifact
+        - - name:  consume-artifact
+            template: consume-artifact
+            arguments:
+              artifacts:
+                - name: message
+                  from: "{{steps.product-artifact.outputs.artifacts.out-art}}"
+    - name: product-artifact
+      container:
+        image: docker/whalesay:latest
+        command:
+          - sh
+          - -c
+          - "cowsay hello world | tee /tmp/hello_world.txt"
+      outputs:
+        artifacts:
+          - name: out-art
+            path: /tmp/hello_world.txt
+    - name: consume-artifact
+      inputs:
+        artifacts:
+          - name: message
+            path: /tmp/message
+      container:
+        image: alpine:latest
+        command:
+          - sh
+          - -c
+          - cat /tmp/message
+

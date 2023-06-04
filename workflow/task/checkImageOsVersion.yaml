@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: loop2-
+spec:
+  entrypoint: check-os-version
+  templates:
+    - name: check-os-version
+      steps:
+        - - name: cat-os-version
+            template: cat-os-version
+            arguments:
+              parameters:
+                - name: image
+                  value: "{{item.image}}"
+            withItems:
+              - { image: debian }
+              - { image: alpine }
+              - { image: ubuntu }
+    - name: cat-os-version
+      inputs:
+        parameters:
+          - name: image
+      container:
+        image: "{{inputs.parameters.image}}"
+        command:
+          - cat
+          - /etc/os-release

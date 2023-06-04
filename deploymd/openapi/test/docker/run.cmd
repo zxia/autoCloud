@@ -1,0 +1,1 @@
+  docker run --detach   --publish 8000:8000    --name openapi --env work_dir="/deploy/"  --restart always    --volume /largeDisk/openapi/lab:/deploy/lab   --volume /largeDisk/openapi/output:/deploy/output gmct.storage.com/library/openapi:v4.0.0.01025 bash /deploy/openapi/start.sh

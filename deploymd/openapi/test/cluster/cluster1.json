@@ -1,0 +1,51 @@
+{
+  "nodes": [
+    {
+      "info": {
+        "name": "dev36",
+        "type": "master",
+        "zone": "zone1",
+        "private_ip": "192.168.0.36"
+      },
+      "disk": {
+        "erased": "true",
+        "disk": "/dev/vdb",
+        "vg": "vg01"
+      },
+      "docker": {
+        "path": "/largeDisk",
+        "volume": "60Gi",
+        "lv": "lv01"
+      },
+      "containerd": {
+        "path": "/largeDisk",
+        "volume": "60Gi",
+        "lv": "lv01"
+      }
+    }
+  ],
+  "harbor": {
+    "name": "gmct.storage.com",
+    "ip": "192.168.0.104",
+    "uri": "gmct.storage.com",
+    "user": "admin",
+    "password": "Ctsi5G@2021",
+    "library": "library",
+    "crt_root": "/etc/docker/certs.d/gmct.storage.com"
+  },
+  "repo": {
+    "host": "192.168.0.104",
+    "path": "/usr/local/middlePlatform"
+  },
+  "gitops": {
+    "user": "root",
+    "password": "Ctsi5G@2021",
+    "uri": "http://192.168.0.32:8080/gitlab-instance-b9319445/paas.git",
+    "local": "/git"
+  },
+  "ssh": {
+    "user": "opuser",
+    "user_password": "Opuser5G@2021",
+    "root_password": "Ctsi5G@2021"
+  }
+}

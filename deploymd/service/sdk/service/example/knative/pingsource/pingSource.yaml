@@ -1,0 +1,14 @@
+apiVersion: sources.knative.dev/v1
+kind: PingSource
+metadata: 
+  name: pingsource
+  namespace: event-example
+spec:
+  schedule: "*/1 * * * *"
+  contentType: appication/json
+  data: '{"message": "hello xia zeng wu!"}'
+  sink:
+    ref:
+      apiVersion: v1 
+      kind: Service
+      name:  hello-display

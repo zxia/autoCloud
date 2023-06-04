@@ -1,0 +1,85 @@
+{
+  "argocd": {
+    "uri": "192.168.0.100:31529",
+    "user": "admin",
+    "password": "Ctsi5G@2021"
+  },
+  "elasticsearch": {
+    "master_volume": "2Gi",
+    "data_volume": "2Gi",
+    "master_replicas": "1",
+    "master_password": "Ctsi5G@2021",
+    "data_replicas": "1",
+    "ingest_replicas": "1",
+    "kibana_user": "kibana_user",
+    "kibana_password": "kibanapwd"
+  },
+  "filebeat": {
+    "container_path": "/largeDisk/containers"
+  },
+  "grafana": {
+    "anonymouse": "true",
+    "volume": "2Gi",
+    "password": "Ctsi5G@2021"
+  },
+  "istio": {
+    "gateway_type": "NodePort"
+  },
+  "kafka": {
+    "kafka_volume": "2Gi",
+    "zookeeper_volume": "2Gi"
+  },
+  "kibana": {
+    "replicas": "1",
+    "service_type": "NodePort"
+  },
+  "logstash": {
+    "replicas": "1"
+  },
+  "mariadb": {
+    "volume": "2Gi",
+    "password": "Ctsi5G@2021"
+  },
+  "mongodb_sharded": {
+    "shard_number": "1",
+    "data_volume": "2Gi",
+    "config_volume": "2Gi",
+    "password": "Ctsi5G@2021"
+  },
+  "nacos": {
+    "replicas": "3",
+    "db_type": "mysql",
+    "db_host": "mariadb-primary-0.mariadb-primary.mariadb-system.svc.cluster.local",
+    "db_name": "nacos_config",
+    "db_username": "root",
+    "db_port": "3306",
+    "db_password": "OkPig965cX"
+  },
+  "prometheus": {
+    "server_volume": "2Gi",
+    "alert_manager_volume": "2Gi"
+  },
+  "redis": {
+    "volume": "2Gi",
+    "node_number": "6",
+    "password": "Ctsi5G@2021",
+    "cluster_volume": "2Gi",
+    "cluster_node_number": "6",
+    "cluster_password": "Ctsi5G@2021",
+    "cluster_replica": "1"
+  },
+  "seaweedfs": {
+    "data_volume": "2Gi",
+    "idx_volume": "2Gi",
+    "master_port": "9919",
+    "master_node_port": "30001",
+    "filer_port": "9920",
+    "filer_node_port": "30002",
+    "master_replicas": "1",
+    "volume_replicas": "3",
+    "filer_replicas": "1"
+  },
+  "topolvm": {
+    "volume": "vg01"
+  }
+}

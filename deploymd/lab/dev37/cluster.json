@@ -1,0 +1,94 @@
+{
+   "name": "dev37",
+   "nodes": [
+      {
+         "name": "dev36",
+         "type": "master",
+         "zone": "zone1",
+         "private_ip": "192.168.0.36",
+         "volume": [
+            {
+               "path": "/dev/sdb",
+               "size": "100Gi",
+               "type": "normal"
+            }
+         ]
+      },
+      {
+         "name": "dev37",
+         "type": "master",
+         "zone": "zone2",
+         "private_ip": "192.168.0.37",
+         "volume": [
+            {
+               "path": "/dev/sdb",
+               "size": "100Gi",
+               "type": "normal"
+            }
+         ]
+      },
+      {
+         "name": "dev35",
+         "type": "work",
+         "zone": "zone1",
+         "private_ip": "192.168.0.35",
+         "volume": [
+            {
+               "path": "/dev/sdb",
+               "size": "100Gi",
+               "type": "normal"
+            }
+         ]
+      },
+      {
+         "name": "dev215",
+         "type": "master",
+         "zone": "zone3",
+         "private_ip": "192.168.0.215",
+         "volume": [
+            {
+               "path": "/dev/sdb",
+               "size": "100Gi",
+               "type": "normal"
+            }
+         ]
+      },
+      {
+         "name": "dev131",
+         "type": "work",
+         "zone": "zone1",
+         "private_ip": "192.168.0.131",
+         "volume": [
+            {
+               "path": "/dev/sdb",
+               "size": "100Gi",
+               "type": "normal"
+            }
+         ]
+      }
+   ],
+   "harbor": {
+      "name": "gmct.storage.com",
+      "ip": "192.168.0.104",
+      "uri": "gmct.storage.com",
+      "user": "admin",
+      "password": "Ctsi5G@2021",
+      "path": "library",
+      "crt_root": "/etc/docker/certs.d/gmct.storage.com"
+   },
+   "repo": {
+      "host": "192.168.0.104",
+      "path": "/usr/local/middlePlatform"
+   },
+   "gitops": {
+      "user": "root",
+      "password": "Ctsi5G@2021",
+      "uri": "http://192.168.0.32:8080/gitlab-instance-b9319445/paas.git",
+      "local": "/git"
+   },
+   "ssh": {
+      "user_password": "opuser",
+      "root_password": "Ctsi5G@2021",
+      "user": "opuser"
+   }
+}

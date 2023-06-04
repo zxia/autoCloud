@@ -1,0 +1,79 @@
+[2022-05-27-17:26:36]  loadiniFile /c/telecom/middlePlatform/cnf/sdk/service/example//bookinfo/input/details.ini Success
+[2022-05-27-17:26:36]  loadiniFile /c/telecom/middlePlatform/cnf/sdk/service/example//bookinfo/input/productPager.ini Success
+[2022-05-27-17:26:36]  loadiniFile /c/telecom/middlePlatform/cnf/sdk/service/example//bookinfo/input/rating.ini Success
+[2022-05-27-17:26:36]  loadiniFile /c/telecom/middlePlatform/cnf/sdk/service/example//bookinfo/input/review.ini Success
+[2022-10-17-16:12:02]  loadiniFile example/bookinfo/input/productPager.ini Success
+[2022-10-17-16:12:02]  genServicePackage Success
+[2022-10-17-16:12:02]  genService Success
+[2022-10-18-21:25:15]  loadiniFile ../service/example/bookinfo/input/rating.ini Success
+[2022-10-18-21:25:15]  genServicePackage Success
+[2022-10-18-21:43:59]  loadiniFile ../service/example/bookinfo/input/rating.ini Success
+[2022-10-18-21:43:59]  genServicePackage Success
+[2022-10-18-21:58:09]  loadiniFile ../service/example/bookinfo/input/rating.ini Success
+[2022-10-18-21:58:09]  genServicePackage Success
+[2022-10-18-22:43:10]  loadiniFile /root/fastapi-master/docs_srcopenapiproduct-pager.ini Success
+[2022-10-18-22:43:10]  genServicePackage Success
+[2022-10-18-22:43:10]  genService Success
+[2022-10-18-22:43:48]  loadiniFile /root/fastapi-master/docs_srcopenapiproduct-pager.ini Success
+[2022-10-18-22:43:48]  genServicePackage Success
+[2022-10-18-22:43:48]  genService Success
+[2022-10-18-22:47:44]  loadiniFile /root/fastapi-master/docs_srcopenapiproduct-pager.ini Success
+[2022-10-18-22:47:44]  genServicePackage Success
+[2022-10-18-22:47:44]  genService Success
+[2022-10-18-22:50:37]  loadiniFile /root/fastapi-master/docs_src/openapiproduct-pager.ini Success
+[2022-10-18-22:50:37]  genServicePackage Success
+[2022-10-18-22:50:37]  genService Success
+[2022-10-18-22:52:30]  loadiniFile /root/fastapi-master/docs_src/openapi/product-pager.ini Success
+[2022-10-18-22:52:30]  genServicePackage Success
+[2022-10-18-22:52:30]  genService Success
+[2022-10-18-22:53:47]  loadiniFile /root/fastapi-master/docs_src/openapi/product-pager.ini Success
+[2022-10-18-22:53:47]  genServicePackage Success
+[2022-10-18-22:53:47]  genService Success
+[2022-10-20-13:59:22]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-13:59:22]  genServicePackage Success
+[2022-10-20-13:59:22]  genService Success
+[2022-10-20-14:00:28]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-14:00:28]  genServicePackage Success
+[2022-10-20-14:00:29]  genService Success
+[2022-10-20-14:01:15]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-14:01:15]  genServicePackage Success
+[2022-10-20-14:01:15]  genService Success
+[2022-10-20-14:12:33]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-14:12:33]  genServicePackage Success
+[2022-10-20-14:12:33]  genService Success
+[2022-10-20-14:13:08]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-14:13:08]  genServicePackage Success
+[2022-10-20-14:13:09]  genService Success
+[2022-10-20-14:14:31]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-14:14:31]  genServicePackage Success
+[2022-10-20-14:14:31]  genService Success
+[2022-10-20-14:25:56]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-14:25:56]  genServicePackage Success
+[2022-10-20-14:25:56]  genService Success
+[2022-10-20-14:28:29]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-14:28:29]  genServicePackage Success
+[2022-10-20-14:28:29]  genService Success
+[2022-10-20-14:39:23]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-14:39:23]  genServicePackage Success
+[2022-10-20-14:39:23]  genService Success
+[2022-10-20-14:41:20]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-14:41:20]  genServicePackage Success
+[2022-10-20-14:41:20]  genService Success
+[2022-10-20-15:16:29]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-15:16:29]  genServicePackage Success
+[2022-10-20-15:16:29]  genService Success
+[2022-10-20-15:19:44]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-15:19:44]  genServicePackage Success
+[2022-10-20-15:19:44]  genService Success
+[2022-10-20-15:51:07]  loadiniFile /d/deploymd/openapi/product-pager.ini Success
+[2022-10-20-15:51:07]  genServicePackage Success
+[2022-10-20-15:51:07]  genService Success
+[2022-10-20-17:23:34]  loadiniFile /d/deploymd/openapi/rating.ini Success
+[2022-10-20-17:23:34]  genServicePackage Success
+[2022-10-20-17:23:34]  genService Success
+[2022-10-21-10:00:53]  loadiniFile /d/deploymd/openapi/reviews.ini Success
+[2022-10-21-10:00:53]  genServicePackage Success
+[2022-10-21-10:00:53]  genService Success
+[2022-10-21-13:42:57]  loadiniFile /d/deploymd/openapi/details.ini Success
+[2022-10-21-13:42:57]  genServicePackage Success
+[2022-10-21-13:42:57]  genService Success

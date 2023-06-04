@@ -1,0 +1,28 @@
+## define the workload
+server:
+  image:
+    repository: "docker.io/istio/examples-bookinfo-ratings-v1"
+    tag: "1.16.2"
+    pullPolicy: IfNotPresent
+    imagePullSecrets: ""
+  ## the number of the replication of the pod
+  replica: 1
+
+  ## define the resource for the pod
+  # resources:
+  #   requests:
+  #     memory: "512Mi"
+  #     cpu: "500m"
+  #   limits:
+  #     memory: "1200Mi"
+  #     cpu: "1200m"
+  env:
+    - name: appVersion
+      value: 1.0.0
+  extraContainerargs:
+    ports:
+      - containerPort: 9080
+    securityContext:
+      runAsUser: 1000
+
+

@@ -1,0 +1,74 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  generateName: cron-robot
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: "Replace"
+  startingDeadlineSeconds: 0
+  workflowSpec:
+    entrypoint: main
+    arguments:
+      parameters:
+      - name: snapshot-service
+      - name: grafana-pager
+      - name: resource-gw
+    templates:
+    - name: main
+      dag:
+        tasks:
+        - name: step-A
+          template: step-template-A
+          arguments:
+            parameters:
+            - name: template-param-yy
+              value: "{{workflow.parameters.snapshot-service}}"
+            - name: template-param-grafana
+              value: "{{workflow.parameters.grafana-pager}}"
+        - name: step-B
+          dependencies: [step-A]
+          template: step-template-B
+          arguments:
+            parameters:
+            - name: template-param-stepa
+              value: "{{tasks.step-A.outputs.result}}"
+        - name: step-C
+          dependencies: [step-B]
+          template: step-template-C
+          arguments:
+            parameters:
+            - name: template-param-zg
+              value: "{{workflow.parameters.resource-gw}}"
+            - name: template-param-stepb
+              value: "{{tasks.step-B.outputs.result}}"
+    - name: step-template-A
+      inputs:
+        parameters:
+          - name: template-param-yy
+          - name: template-param-grafana
+      script:
+        image: curlimages/curl:7.87.0
+        command: [/bin/sh]
+        source: |
+          curl -X POST -H 'Content-Type: application/json' {{inputs.parameters.template-param-yy}} -d '{"url":{{inputs.parameters.template-param-grafana}},"screenshot":{"fullPage":true}}'
+    - name: step-template-B
+      inputs:
+        parameters:
+          - name: template-param-stepa
+      script:
+        image: curlimages/curl:7.87.0
+        command: [/bin/sh]
+        source: |
+         echo '"{{inputs.parameters.template-param-stepa}}"' | sed 's/.*url":\(.*\)"}}}/\1/g'
+    - name: step-template-C
+      inputs:
+        parameters:
+          - name: template-param-zg
+          - name: template-param-stepb
+      script:
+        image: curlimages/curl:7.87.0
+        command: [/bin/sh]
+        source: |
+          echo '{{inputs.parameters.template-param-zg}}' && echo '{ "screanshotUrl" : {{inputs.parameters.template-param-stepb}} }' &&
+          curl -X POST -H 'Content-Type: application/json' {{inputs.parameters.template-param-zg}} -d '{ "screenshotUrl" : "{{inputs.parameters.template-param-stepb}}" }'
+

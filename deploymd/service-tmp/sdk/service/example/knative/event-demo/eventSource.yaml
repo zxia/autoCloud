@@ -1,0 +1,16 @@
+apiVersion: sources.knative.dev/v1
+kind: ApiServerSource
+metadata:
+  name: event-source
+  namespace: test-1
+spec:
+  serviceAccountName: test1
+  mode: Reference 
+  resources: 
+    - apiVersion: v1
+      kind: Event
+  sink:
+    ref:
+      apiVersion: v1 
+      kind: Service
+      name: hello-display

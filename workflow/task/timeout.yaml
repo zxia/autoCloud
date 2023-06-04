@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: timeout-
+spec:
+  entrypoint: timeout-test
+  onExit: exit-handler
+  templates:
+    - name: timeout-test
+      script:
+        image: alpine:latest
+        command:
+          - sh
+        source: |
+          sleep 100
+          echo "end of the command"
+      activeDeadlineSeconds: 10
+    - name: exit-handler
+      script:
+        image: alpine:latest
+        command:
+          - sh
+        source: |
+          echo "end of the process "

@@ -1,0 +1,19 @@
+{
+  "package": {
+    "name": "product-pager",
+    "description": "The microservice calls the details and reviews to populate the page",
+    "version": "1.0.0",
+    "type": "helm"
+  },
+  "app": {
+    "version": "v1"
+  },
+  "workload": "deployment",
+  "definition": "exporter internal",
+  "mesh": {
+    "type": "istio",
+    "gateway": "enable",
+    "destinationrule": "enable",
+    "virtualservice": "disable"
+  }
+}

@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: scripts-
+spec:
+  entrypoint:  test-script
+  templates:
+    - name: test-script
+      steps:
+        - - name: run-bash-script
+            template: bash-script
+        - - name: print-result
+            template: print-message
+            arguments:
+              parameters:
+                - name: message
+                  value: "{{steps.run-bash-script.outputs.result}}"
+    - name: bash-script
+      script:
+        image: alpine:latest
+        command:
+          - sh
+        source: |
+          function getHostIP(){
+             cat /etc/hosts
+          }
+          getHostIP
+    - name: print-message
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: alpine:latest
+        command:
+          - sh
+          - -c
+          - "echo {{inputs.parameters.message}} | xargs "

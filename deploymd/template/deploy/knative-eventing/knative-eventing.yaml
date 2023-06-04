@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: knative-eventing
+---
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeEventing
+metadata:
+  name: knative-eventing
+  namespace: knative-eventing
+spec:
+  registry:
+    default: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing/cmd/${NAME}:v1.8.2
+    override:
+      migrate: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/pkg/apiextensions/storageversion/cmd/migrate:v1.8.2
+      mt-broker-controller: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing/cmd/mtchannel_broker:v1.8.2
+      mt-broker-filter/filter: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing/cmd/broker/filter:v1.8.2
+      mt-broker-ingress/ingress: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing/cmd/broker/ingress:v1.8.2
+      imc-controller/controller: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing/cmd/in_memory/channel_controller:v1.8.2
+      imc-dispatcher/dispatcher: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing/cmd/in_memory/channel_dispatcher:v1.8.2
+      KAFKA_RA_IMAGE: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing-kafka/cmd/source/receive_adapter:v1.8.2
+      sugar-controller/controller: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing/cmd/sugar_controller:v1.8.2
+      receive_adapter: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing/cmd/receive_adapter:v1.8.2
+      kafka-controller/controller: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing-kafka-broker/control-plane/cmd/kafka-controller:v1.8.2
+      kafka-webhook-eventing: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing-kafka-broker/control-plane/cmd/webhook-kafka:v1.8.2
+      post-install: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing-kafka-broker/control-plane/cmd/post-install:v1.8.2
+      APISERVER_RA_IMAGE: HARBOR_URI/HARBOR_LIBRARY/knative-releases/knative.dev/eventing/cmd/apiserver_receive_adapter:v1.8.2
+  source:
+    kafka:
+      enabled: true

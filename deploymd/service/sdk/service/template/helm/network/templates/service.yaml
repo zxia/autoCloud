@@ -1,0 +1,35 @@
+#////////////////////////////////////////////////////////////
+#/
+#/ File: service.yaml
+#/
+#////////////////////////////////////////////////////////////
+#/
+#/ Author: Xia Zeng Wu
+#/
+#/ China telecom digital intelligent - Confidential
+#/ Do not use, distribute, or copy without consent of CTSI.
+#/ Copyright (c) 2018, 2022 All rights reserved.
+#/
+#////////////////////////////////////////////////////////////
+{{- $server := (empty .Values.server.name | ternary  .Release.Name .Values.server.name   )  }}
+{{- range .Values.service }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+  labels:
+    app: {{ $server }}
+spec:
+  ports:
+{{- range .protocols }}
+    - protocol: {{ .protocol }}
+      name: {{ .appProtocol | lower }}-{{ $server | lower }}-{{ .port }}
+      appProtocol: {{ .appProtocol }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+{{- end }}
+  selector:
+    appbase: {{ $server }}
+---
+{{- end }}
+

@@ -1,0 +1,16 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger 
+metadata:
+  name: hello-display
+  namespace: event-example
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: greeting
+  subscriber:
+    ref:
+      apiVersion: v1
+      kind: Service
+      name: hello-display
+

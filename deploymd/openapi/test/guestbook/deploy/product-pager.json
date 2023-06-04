@@ -1,0 +1,160 @@
+{
+  "service": [
+    {
+      "name": "product-pager-exporter",
+      "protocols": [
+        {
+          "protocol": "TCP",
+          "appProtocol": "http",
+          "port": "8081",
+          "targetPort": "8081"
+        }
+      ]
+    },
+    {
+      "name": "product-pager-internal",
+      "protocols": [
+        {
+          "protocol": "TCP",
+          "appProtocol": "http",
+          "port": "9080",
+          "targetPort": "9080"
+        }
+      ]
+    }
+  ],
+  "istio": {
+    "deployed": true,
+    "gateway": [
+      {
+        "name": "product-pager-gateway",
+        "selector": "ingressgateway",
+        "servers": [
+          {
+            "port": {
+              "number": "80",
+              "name": "http",
+              "protocol": "HTTP"
+            },
+            "hosts": [
+              "*"
+            ]
+          }
+        ]
+      }
+    ],
+    "virtualservice": [
+      {
+        "name": "product-pager-gateway-vs",
+        "hosts": [
+          "*"
+        ],
+        "gateways": [
+          "product-pager-gateway"
+        ],
+        "http": [
+          {
+            "match": [
+              {
+                "uri": {
+                  "exact": "/productpage"
+                }
+              },
+              {
+                "uri": {
+                  "prefix": "/static"
+                }
+              },
+              {
+                "uri": {
+                  "exact": "/login"
+                }
+              },
+              {
+                "uri": {
+                  "exact": "/logout"
+                }
+              },
+              {
+                "uri": {
+                  "prefix": "/api/v1/products"
+                }
+              }
+            ],
+            "route": [
+              {
+                "destination": {
+                  "host": "product-pager-internal",
+                  "subset": "v1"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "destination": {
+      "name": "productpager",
+      "host": "product-pager-internal",
+      "subsets": [
+        {
+          "name": "v1",
+          "labels": {
+            "version": "v1"
+          }
+        }
+      ]
+    }
+  },
+  "server": {
+    "image": {
+      "repository": "docker.io/istio/examples-bookinfo-productpage-v1",
+      "tag": "1.16.2",
+      "pullPolicy": "IfNotPresent",
+      "imagePullSecrets": ""
+    },
+    "name": "product-pager",
+    "replica": 1,
+    "version": "v1",
+    "env": [
+      {
+        "name": "appVersion",
+        "value": "1.0.0"
+      },
+      {
+        "name": "DETAILS_HOSTNAME",
+        "value": "details-internal"
+      },
+      {
+        "name": "RATINGS_HOSTNAME",
+        "value": "rating-internal"
+      },
+      {
+        "name": "REVIEWS_HOSTNAME",
+        "value": "reviews-internal"
+      }
+    ],
+    "extraContainerargs": {
+      "ports": [
+        {
+          "containerPort": 9080
+        }
+      ],
+      "securityContext": {
+        "runAsUser": 1000
+      }
+    },
+    "volumeMounts": [
+      {
+        "name": "tmp",
+        "mountPath": "/tmp"
+      }
+    ],
+    "volumes": [
+      {
+        "name": "tmp",
+        "emptyDir": {}
+      }
+    ]
+  }
+}

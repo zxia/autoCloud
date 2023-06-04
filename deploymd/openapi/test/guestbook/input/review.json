@@ -1,0 +1,15 @@
+{
+  "servicePackageName": "reviews",
+  "servicePackageDescription": "the microservice contains book reviews, also call the ratings service",
+  "servicePackageVersion": "1.0.0",
+  "serviceApplicationVersion": "v1",
+  "serviceWorkLoad": "deployment",
+  "k8sService": "exporter internal",
+  "gatewayStatus": "disable",
+  "destinationRuleStatus": "enable",
+  "virtualServiceStatus": "enable",
+  "faultInjectionStatus": "disable",
+  "serviceEntryStatus": "disable",
+  "servicePackageType": "helm",
+  "serviceMesh": "istio"
+}

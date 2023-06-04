@@ -1,0 +1,5 @@
+dev36	master	zone1	192.168.0.36
+dev37	master	zone2	192.168.0.37
+dev35	work	zone1	192.168.0.35
+dev215	master	zone3	192.168.0.215
+dev131	work	zone1	192.168.0.131

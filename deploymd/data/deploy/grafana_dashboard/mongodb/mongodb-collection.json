@@ -1,0 +1,775 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 13,
+  "iteration": 1675819547840,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "((mongodb_collstats_storageStats_storageSize{collection=\"${collection_name}\",database=\"${database_name}\", rs_state=\"1\"}+mongodb_collstats_storageStats_totalIndexSize{collection=\"${collection_name}\",database=\"${database_name}\", rs_state=\"1\"})/${ct_5gmc_mc_mongodb_object_max_totalSize})*100",
+          "interval": "",
+          "legendFormat": "存储空间",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "(mongodb_collstats_storageStats_count{collection=\"${collection_name}\",database=\"${database_name}\", rs_state=\"1\"}/${ct_5gmc_mc_mongodb_object_max_count})*100",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "记录数",
+          "refId": "B"
+        }
+      ],
+      "title": "预期指标$database_name/$collection_name",
+      "type": "gauge"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_collstats_storageStats_count{database=\"${database_name}\", collection=\"${collection_name}\",rs_state=\"1\"}",
+          "interval": "",
+          "legendFormat": "记录数",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_insert_count{database=\"${database_name}\", collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "插入",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_queries_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "查询",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_update_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "修改",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_remove_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "删除",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_getmore_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "查询更多",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_writeLock_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "写锁",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_readLock_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "读锁",
+          "refId": "H"
+        }
+      ],
+      "title": "Query操作次数:",
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "floor(increase(mongodb_collstats_storageStats_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}[5m]))",
+          "interval": "",
+          "legendFormat": "记录数",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "floor(increase(mongodb_top_insert_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}[5m]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "插入",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "floor(increase(mongodb_top_queries_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}[5m]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "查询",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "floor(increase(mongodb_top_update_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}[5m]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "修改",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "floor(increase(mongodb_top_remove_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}[5m]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "删除",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "floor(increase(mongodb_top_getmore_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}[5m]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "查询更多",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "floor(increase(mongodb_top_writeLock_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}[5m]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "写锁",
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "floor(increase(mongodb_top_readLock_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}[5m]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "读锁",
+          "refId": "H"
+        }
+      ],
+      "title": "Query操作次数增量[$interval]",
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "µs"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_insert_time{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"} / mongodb_top_insert_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "interval": "",
+          "legendFormat": "插入",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_queries_time{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"} / mongodb_top_queries_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "查询",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_update_time{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}/mongodb_top_update_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "修改",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_remove_time{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}/mongodb_top_remove_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "删除",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_getmore_time{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"} / mongodb_top_getmore_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "查询更多",
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_writeLock_time{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"} / mongodb_top_writeLock_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "写锁",
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_top_readLock_time{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"} / mongodb_top_readLock_count{database=\"${database_name}\",collection=\"${collection_name}\",rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "读锁",
+          "refId": "G"
+        }
+      ],
+      "title": "Query操作时长(微秒)",
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_collstats_storageStats_count{database=\"${database_name}\", collection=\"${collection_name}\", rs_state=\"1\"}",
+          "interval": "",
+          "legendFormat": "记录数",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_collstats_storageStats_size{database=\"${database_name}\", collection=\"${collection_name}\", rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "totalSize",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_collstats_storageStats_avgObjSize{database=\"${database_name}\", collection=\"${collection_name}\", rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "avgObjSize",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_collstats_storageStats_size{database=\"${database_name}\", collection=\"${collection_name}\", rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "size",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Yz1FYAK4z"
+          },
+          "exemplar": true,
+          "expr": "mongodb_collstats_storageStats_totalIndexSize{database=\"${database_name}\", collection=\"${collection_name}\", rs_state=\"1\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "IndexTotalSize",
+          "refId": "E"
+        }
+      ],
+      "title": "存储空间",
+      "type": "stat"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 34,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "ct_5gmc_mc",
+          "value": "ct_5gmc_mc"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "数据库名称",
+        "multi": false,
+        "name": "database_name",
+        "options": [
+          {
+            "selected": true,
+            "text": "ct_5gmc_mc",
+            "value": "ct_5gmc_mc"
+          }
+        ],
+        "query": "ct_5gmc_mc",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "DeliveryTask",
+          "value": "DeliveryTask"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "集合名称",
+        "multi": false,
+        "name": "collection_name",
+        "options": [
+          {
+            "selected": true,
+            "text": "DeliveryTask",
+            "value": "DeliveryTask"
+          },
+          {
+            "selected": false,
+            "text": "IncomingMessage",
+            "value": "IncomingMessage"
+          },
+          {
+            "selected": false,
+            "text": "NP",
+            "value": "NP"
+          },
+          {
+            "selected": false,
+            "text": "short_url",
+            "value": "short_url"
+          }
+        ],
+        "query": "DeliveryTask, IncomingMessage, NP, short_url",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "selected": false,
+          "text": "30m",
+          "value": "30m"
+        },
+        "hide": 0,
+        "name": "interval",
+        "options": [
+          {
+            "selected": true,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "6h",
+            "value": "6h"
+          },
+          {
+            "selected": false,
+            "text": "12h",
+            "value": "12h"
+          },
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          },
+          {
+            "selected": false,
+            "text": "7d",
+            "value": "7d"
+          },
+          {
+            "selected": false,
+            "text": "14d",
+            "value": "14d"
+          },
+          {
+            "selected": false,
+            "text": "30d",
+            "value": "30d"
+          }
+        ],
+        "query": "30m,1h,6h,12h,1d,7d,14d,30d",
+        "queryValue": "",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      },
+      {
+        "hide": 2,
+        "name": "ct_5gmc_mc_mongodb_object_max_count",
+        "query": "1000000",
+        "skipUrlSync": false,
+        "type": "constant"
+      },
+      {
+        "hide": 2,
+        "name": "ct_5gmc_mc_mongodb_object_max_totalSize",
+        "query": "15000000",
+        "skipUrlSync": false,
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "ct_5gmc_mc集合指标监控大盘",
+  "uid": "mGywykp4k",
+  "version": 21,
+  "weekStart": ""
+}

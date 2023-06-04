@@ -1,0 +1,22 @@
+basic:
+  image_tag_version: "v1.6.0"
+  controller_image_name: "volcanosh/vc-controller-manager"
+  scheduler_image_name: "volcanosh/vc-scheduler"
+  admission_image_name: "volcanosh/vc-webhook-manager"
+  admission_secret_name: "volcano-admission-secret"
+  admission_config_file: "config/volcano-admission.conf"
+  scheduler_config_file: "config/volcano-scheduler.conf"
+  image_pull_secret: ""
+  admission_port: 8443
+custom:
+  metrics_enable: false
+  admission_enable: true
+  controller_enable: true
+  scheduler_enable: true
+kubestatemetrics:
+  image: docker.io/coreos/kube-state-metrics:v1.9.7
+  nodeselector: kubestatemetrics
+prom:
+  image: prom/prometheus:latest
+grafana:
+  image: grafana/grafana:latest

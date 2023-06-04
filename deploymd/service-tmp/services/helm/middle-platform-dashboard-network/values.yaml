@@ -1,0 +1,10 @@
+server:
+  name: middle-platform-dashboard
+
+###### Define network service #####
+##define the K8s service
+service: []
+## Service mesh with Istio
+## see more ref. https://istio.io/latest/docs/concepts/traffic-management/#retries
+istio:
+  deployed: false

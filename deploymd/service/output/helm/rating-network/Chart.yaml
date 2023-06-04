@@ -1,0 +1,9 @@
+apiVersion: v2
+name: rating
+description: the microservice contains rating information
+icon: https://ctsi.com/sites/all/themes/logo.png
+version: 1.0.0
+appVersion: v1
+maintainers:
+  - name: Xia ZengWu
+    mail: xiazw1@chinatelecom.cn

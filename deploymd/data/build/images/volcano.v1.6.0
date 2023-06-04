@@ -1,0 +1,6 @@
+docker.io/volcanosh/vc-controller-manager    v1.6.0
+docker.io/volcanosh/vc-scheduler             v1.6.0
+docker.io/volcanosh/vc-webhook-manager       v1.6.0
+quay.io/coreos/kube-state-metrics            v1.9.7
+docker.io/prom/prometheus                    latest
+docker.io/grafana/grafana                    latest

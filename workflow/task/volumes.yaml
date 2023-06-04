@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName:  volumes-
+spec:
+  entrypoint:  volumes-test
+  volumeClaimTemplates:                 # define volume, same syntax as k8s Pod spec
+    - metadata:
+        name: workdir                     # name of volume claim
+      spec:
+        storageClassName: topolvm-provisioner
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
+  templates:
+    - name: volumes-test
+      steps:
+        - - name: generate
+            template:  gen-data
+        - - name: print
+            template:  consume-data
+    - name: gen-data
+      container:
+        image: docker/whalesay:latest
+        command:
+          - sh
+          - -c
+        args:
+          - "echo hello world $(date) > /mnt/vol/hello-world.txt"
+        volumeMounts:
+          - name: workdir
+            mountPath: /mnt/vol
+    - name: consume-data
+      container:
+        image: alpine:latest
+        command:
+          - sh
+          - -c
+          - "cat /mnt/vol1/hello-world.txt; sleep 1000"
+        volumeMounts:
+          - name: workdir
+            mountPath: /mnt/vol1

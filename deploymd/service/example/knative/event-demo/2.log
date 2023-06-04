@@ -1,0 +1,526 @@
+Name:         config-br-default-channel
+Namespace:    knative-eventing
+Labels:       app.kubernetes.io/name=knative-eventing
+              app.kubernetes.io/version=1.2.0
+              eventing.knative.dev/release=v1.2.0
+Annotations:  manifestival: new
+
+Data
+====
+channel-template-spec:
+----
+apiVersion: messaging.knative.dev/v1
+kind: InMemoryChannel
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         config-br-defaults
+Namespace:    knative-eventing
+Labels:       app.kubernetes.io/name=knative-eventing
+              app.kubernetes.io/version=1.2.0
+              eventing.knative.dev/release=v1.2.0
+Annotations:  manifestival: new
+
+Data
+====
+default-br-config:
+----
+clusterDefault:
+  apiVersion: v1
+  brokerClass: MTChannelBasedBroker
+  delivery:
+    backoffDelay: PT0.2S
+    backoffPolicy: exponential
+    retry: 10
+  kind: ConfigMap
+  name: config-br-default-channel
+  namespace: knative-eventing
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         config-features
+Namespace:    knative-eventing
+Labels:       app.kubernetes.io/name=knative-eventing
+              app.kubernetes.io/version=1.2.0
+              eventing.knative.dev/release=v1.2.0
+              knative.dev/config-category=eventing
+              knative.dev/config-propagation=original
+Annotations:  manifestival: new
+
+Data
+====
+new-trigger-filters:
+----
+disabled
+strict-subscriber:
+----
+disabled
+delivery-retryafter:
+----
+disabled
+delivery-timeout:
+----
+disabled
+kreference-group:
+----
+disabled
+kreference-mapping:
+----
+disabled
+
+BinaryData
+====
+
+Events:  <none>
+Name:         config-imc-event-dispatcher
+Namespace:    knative-eventing
+Labels:       app.kubernetes.io/component=imc-controller
+              app.kubernetes.io/name=knative-eventing
+              app.kubernetes.io/version=1.2.0
+              eventing.knative.dev/release=v1.2.0
+Annotations:  manifestival: new
+
+Data
+====
+MaxIdleConnectionsPerHost:
+----
+100
+MaxIdleConnections:
+----
+1000
+
+BinaryData
+====
+
+Events:  <none>
+Name:         config-kafka-source-defaults
+Namespace:    knative-eventing
+Labels:       kafka.eventing.knative.dev/release=v1.2.0
+Annotations:  knative.dev/example-checksum: b6ed351d
+              manifestival: new
+
+Data
+====
+_example:
+----
+################################
+#                              #
+#    EXAMPLE CONFIGURATION     #
+#                              #
+################################
+
+# This block is not actually functional configuration,
+# but serves to illustrate the available configuration
+# options and document them in a way that is accessible
+# to users that `kubectl edit` this config map.
+#
+# These sample configuration options may be copied out of
+# this example block and unindented to be in the data block
+# to actually change the configuration.
+
+# autoscalingClass is the autoscaler class name to use.
+# valid value: keda.autoscaling.knative.dev
+# autoscalingClass: ""
+
+# minScale is the minimum number of replicas to scale down to.
+# minScale: "1"
+
+# maxScale is the maximum number of replicas to scale up to.
+# maxScale: "1"
+
+# pollingInterval is the interval in seconds KEDA uses to poll metrics.
+# pollingInterval: "30"
+
+# cooldownPeriod is the period of time in seconds KEDA waits until it scales down.
+# cooldownPeriod: "300"
+
+# kafkaLagThreshold is the lag (ie. number of messages in a partition) threshold for KEDA to scale up sources.
+# kafkaLagThreshold: "10"
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         config-kreference-mapping
+Namespace:    knative-eventing
+Labels:       eventing.knative.dev/release=v1.2.0
+              knative.dev/config-category=eventing
+              knative.dev/config-propagation=original
+Annotations:  knative.dev/example-checksum: 7375dbe1
+              manifestival: new
+
+Data
+====
+_example:
+----
+################################
+#                              #
+#    EXAMPLE CONFIGURATION     #
+#                              #
+################################
+
+# This block is not actually functional configuration,
+# but serves to illustrate the available configuration
+# options and document them in a way that is accessible
+# to users that `kubectl edit` this config map.
+
+# this is an example of mapping from pod to addressable-pod service
+# the data key must be of the form "kind.version.group"
+# the data value must be a valid URL. Valid template data are:
+# - Name: reference name
+# - Namespace: reference namespace
+# - SystemNamespace: knative namespace
+# - UID: reference UID
+#
+# Pod.v1: https://addressable-pod.{{ .SystemNamespace }}.svc.cluster.local/{{ .Name }}
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         config-leader-election
+Namespace:    knative-eventing
+Labels:       app.kubernetes.io/name=knative-eventing
+              app.kubernetes.io/version=1.2.0
+              eventing.knative.dev/release=v1.2.0
+Annotations:  knative.dev/example-checksum: f7948630
+              manifestival: new
+
+Data
+====
+_example:
+----
+################################
+#                              #
+#    EXAMPLE CONFIGURATION     #
+#                              #
+################################
+
+# This block is not actually functional configuration,
+# but serves to illustrate the available configuration
+# options and document them in a way that is accessible
+# to users that `kubectl edit` this config map.
+#
+# These sample configuration options may be copied out of
+# this example block and unindented to be in the data block
+# to actually change the configuration.
+
+# lease-duration is how long non-leaders will wait to try to acquire the
+# lock; 15 seconds is the value used by core kubernetes controllers.
+lease-duration: "15s"
+
+# renew-deadline is how long a leader will try to renew the lease before
+# giving up; 10 seconds is the value used by core kubernetes controllers.
+renew-deadline: "10s"
+
+# retry-period is how long the leader election client waits between tries of
+# actions; 2 seconds is the value used by core kubernetes controllers.
+retry-period: "2s"
+
+# buckets is the number of buckets used to partition key space of each
+# Reconciler. If this number is M and the replica number of the controller
+# is N, the N replicas will compete for the M buckets. The owner of a
+# bucket will take care of the reconciling for the keys partitioned into
+# that bucket.
+buckets: "1"
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         config-logging
+Namespace:    knative-eventing
+Labels:       app.kubernetes.io/name=knative-eventing
+              app.kubernetes.io/version=1.2.0
+              eventing.knative.dev/release=v1.2.0
+              knative.dev/config-category=eventing
+              knative.dev/config-propagation=original
+Annotations:  manifestival: new
+
+Data
+====
+loglevel.controller:
+----
+info
+loglevel.webhook:
+----
+info
+zap-logger-config:
+----
+{
+  "level": "info",
+  "development": false,
+  "outputPaths": ["stdout"],
+  "errorOutputPaths": ["stderr"],
+  "encoding": "json",
+  "encoderConfig": {
+    "timeKey": "ts",
+    "levelKey": "level",
+    "nameKey": "logger",
+    "callerKey": "caller",
+    "messageKey": "msg",
+    "stacktraceKey": "stacktrace",
+    "lineEnding": "",
+    "levelEncoder": "",
+    "timeEncoder": "iso8601",
+    "durationEncoder": "",
+    "callerEncoder": ""
+  }
+}
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         config-observability
+Namespace:    knative-eventing
+Labels:       app.kubernetes.io/name=knative-eventing
+              app.kubernetes.io/version=1.2.0
+              eventing.knative.dev/release=v1.2.0
+              knative.dev/config-category=eventing
+              knative.dev/config-propagation=original
+Annotations:  knative.dev/example-checksum: f46cf09d
+              manifestival: new
+
+Data
+====
+_example:
+----
+################################
+#                              #
+#    EXAMPLE CONFIGURATION     #
+#                              #
+################################
+
+# This block is not actually functional configuration,
+# but serves to illustrate the available configuration
+# options and document them in a way that is accessible
+# to users that `kubectl edit` this config map.
+#
+# These sample configuration options may be copied out of
+# this example block and unindented to be in the data block
+# to actually change the configuration.
+
+# metrics.backend-destination field specifies the system metrics destination.
+# It supports either prometheus (the default) or stackdriver.
+# Note: Using stackdriver will incur additional charges
+metrics.backend-destination: prometheus
+
+# metrics.request-metrics-backend-destination specifies the request metrics
+# destination. If non-empty, it enables queue proxy to send request metrics.
+# Currently supported values: prometheus, stackdriver.
+metrics.request-metrics-backend-destination: prometheus
+
+# metrics.stackdriver-project-id field specifies the stackdriver project ID. This
+# field is optional. When running on GCE, application default credentials will be
+# used if this field is not provided.
+metrics.stackdriver-project-id: "<your stackdriver project id>"
+
+# metrics.allow-stackdriver-custom-metrics indicates whether it is allowed to send metrics to
+# Stackdriver using "global" resource type and custom metric type if the
+# metrics are not supported by "knative_broker", "knative_trigger", and "knative_source" resource types.
+# Setting this flag to "true" could cause extra Stackdriver charge.
+# If metrics.backend-destination is not Stackdriver, this is ignored.
+metrics.allow-stackdriver-custom-metrics: "false"
+
+# profiling.enable indicates whether it is allowed to retrieve runtime profiling data from
+# the pods via an HTTP server in the format expected by the pprof visualization tool. When
+# enabled, the Knative Eventing pods expose the profiling data on an alternate HTTP port 8008.
+# The HTTP context root for profiling is then /debug/pprof/.
+profiling.enable: "false"
+
+# sink-event-error-reporting.enable whether the adapter reports a kube event to the CRD indicating
+# a failure to send a cloud event to the sink.
+sink-event-error-reporting.enable: "false"
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         config-ping-defaults
+Namespace:    knative-eventing
+Labels:       eventing.knative.dev/release=v1.2.0
+Annotations:  app.kubernetes.io/name: knative-eventing
+              app.kubernetes.io/version: 1.2.0
+              knative.dev/example-checksum: 9185c153
+              manifestival: new
+
+Data
+====
+_example:
+----
+################################
+#                              #
+#    EXAMPLE CONFIGURATION     #
+#                              #
+################################
+
+# This block is not actually functional configuration,
+# but serves to illustrate the available configuration
+# options and document them in a way that is accessible
+# to users that `kubectl edit` this config map.
+#
+# These sample configuration options may be copied out of
+# this example block and unindented to be in the data block
+# to actually change the configuration.
+
+# Max number of bytes allowed to be sent for message excluding any
+# base64 decoding. Default is no limit set for data
+data-max-size: -1
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         config-tracing
+Namespace:    knative-eventing
+Labels:       app.kubernetes.io/name=knative-eventing
+              app.kubernetes.io/version=1.2.0
+              eventing.knative.dev/release=v1.2.0
+              knative.dev/config-category=eventing
+              knative.dev/config-propagation=original
+Annotations:  knative.dev/example-checksum: c8f8c47b
+              manifestival: new
+
+Data
+====
+_example:
+----
+################################
+#                              #
+#    EXAMPLE CONFIGURATION     #
+#                              #
+################################
+# This block is not actually functional configuration,
+# but serves to illustrate the available configuration
+# options and document them in a way that is accessible
+# to users that `kubectl edit` this config map.
+#
+# These sample configuration options may be copied out of
+# this example block and unindented to be in the data block
+# to actually change the configuration.
+#
+# This may be "zipkin" or "none", the default is "none"
+backend: "none"
+
+# URL to zipkin collector where traces are sent.
+# This must be specified when backend is "zipkin"
+zipkin-endpoint: "http://zipkin.istio-system.svc.cluster.local:9411/api/v2/spans"
+
+# Enable zipkin debug mode. This allows all spans to be sent to the server
+# bypassing sampling.
+debug: "false"
+
+# Percentage (0-1) of requests to trace
+sample-rate: "0.1"
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         default-ch-webhook
+Namespace:    knative-eventing
+Labels:       app.kubernetes.io/name=knative-eventing
+              app.kubernetes.io/version=1.2.0
+              eventing.knative.dev/release=v1.2.0
+Annotations:  manifestival: new
+
+Data
+====
+default-ch-config:
+----
+clusterDefault:
+  apiVersion: messaging.knative.dev/v1
+  kind: InMemoryChannel
+namespaceDefaults:
+  some-namespace:
+    apiVersion: messaging.knative.dev/v1
+    kind: InMemoryChannel
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         istio-ca-root-cert
+Namespace:    knative-eventing
+Labels:       istio.io/config=true
+Annotations:  <none>
+
+Data
+====
+root-cert.pem:
+----
+-----BEGIN CERTIFICATE-----
+MIIC/TCCAeWgAwIBAgIRAKFSNkcGVx2JVLm9AoGYzuQwDQYJKoZIhvcNAQELBQAw
+GDEWMBQGA1UEChMNY2x1c3Rlci5sb2NhbDAeFw0yMTEyMTUwMjM3NTFaFw0zMTEy
+MTMwMjM3NTFaMBgxFjAUBgNVBAoTDWNsdXN0ZXIubG9jYWwwggEiMA0GCSqGSIb3
+DQEBAQUAA4IBDwAwggEKAoIBAQC82MuJTQxane1T3M1/91amSd6Vaf6aeyF2V+mF
+e33E7dDJ51m7i1MvZeXp7pJErIg+eMj99wsDt/AwFblhMpB68CNgipd99/k0am52
+UiuU7xO8QgMLTnaWvcaWSIdN0mdNSTmpLpgjL3KCOLcduS/zSVgUagoBly/m0quF
+vUIJv59h3eiOtmMf5TcjoqkVXSTy8zhFzD15i+no9Ry2flodzGnjTygMpVcYtzcC
+Y9i6KQm1Mc3pkPOBsfVdkc/MiLFMdq+SrfJlsydBjwD2aIQM2IeXn29bJKR/g5mW
+acjptiaxolY8N/ZX5crN/G9cgDUxRecN5Oa7nkjDSlKznSC5AgMBAAGjQjBAMA4G
+A1UdDwEB/wQEAwICBDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBSYB7Cbt+RI
+dptfmOnSsMtz4OOPeDANBgkqhkiG9w0BAQsFAAOCAQEAorekkptL7kA7aZwjcEZp
+n1oBmwLwhLD3Y3HfB9FrCVHD56V+OhuSnU6Is3LW9THg+TaoHKrEgxH5EEZoLmwW
+H4AoNNEKSoq3PU0BEkdAiHnwbEzTZxYdvov2uaJj7uQpuYQvshGUQLWPpX0j6iY+
+et8E3/MYFRopoawEtRCTM5wvHENprCSCv0DxNG9iQGgFfw5sejtqJap3nytQCJKC
+VH9lVOyl+hc84+j+zdTUJJ6jk+apF8glGfLC5R2fl6am6zTXFaiIlAHA0LGcmT1j
+6WiuMSG2VK81yY3bPmVv2hgzYAfdc8zd1flg+wflhqIlm2DTa/0PqsFKi8DtDPws
+EA==
+-----END CERTIFICATE-----
+
+
+BinaryData
+====
+
+Events:  <none>
+Name:         kube-root-ca.crt
+Namespace:    knative-eventing
+Labels:       <none>
+Annotations:  kubernetes.io/description:
+                Contains a CA bundle that can be used to verify the kube-apiserver when using internal endpoints such as the internal service IP or kubern...
+
+Data
+====
+ca.crt:
+----
+-----BEGIN CERTIFICATE-----
+MIIC/jCCAeagAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+cm5ldGVzMB4XDTIxMTIwOTA3NTU0OVoXDTMxMTIwNzA3NTU0OVowFTETMBEGA1UE
+AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALLW
+YSk7zhqHgk/qnUGZ3U9Kc7GeCLeb6xzqEW0hM8H7iKzkkI82lltNc2moXg5AWgVB
+YBFViOOM4YtPo0+0S+FsYQN59E7LDv4O30SFgibYEazrRzLkyX8ziIQlZDjr9BVI
+btoyAiOMOTTwtBMYVirA/dDS5I6CHkHJRPqIrCXsRZc7nK/lKDpKcHSUzWQOiQdF
+V3DbIxOCUzTU5g5lwwjtZTRoDmj/OdMEWXnxSaxHbFm1va31BcR/KPuCg9xmEThE
+k0416KJOePuQ5d5XiHmN4dFkXAMGO1WgcdLUlDJsKcSjmQ5YB7IEVqpbBEaxzA8C
+28mQ4JOUM15gKz8aTT0CAwEAAaNZMFcwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+/wQFMAMBAf8wHQYDVR0OBBYEFJWsYkD4oYTi4wnKDJIidKzu5x94MBUGA1UdEQQO
+MAyCCmt1YmVybmV0ZXMwDQYJKoZIhvcNAQELBQADggEBAA+RitsaXmLVGk/1HUaq
+uSc5CQm9gLT7tSepN9FVtE9c5fIXhtVgAJrOb1DyEOlI9yE8wjKcgzSYZ+h7FzPz
+lIALne8nEAkrrP9gVH4W9yTk0AB6VA10Hhu9D/GDeCvtwM5hNxCPWohdFR4GOTOL
+bIjfMkow5LlJiQFUxDVSrfD3G2xl21hGELeFCoH7mNSA3h+YOI+MCVQsCCMtq22C
+GbhzLLC1sz9AHRzyXCKOSaQs57AWAtGSlWBdFZiZcWZKDmr3ckT0YHSM+NtIXzfs
+Rn1WlPZ/eSNkqDCIHItw2iPs/f52aoJ7eNArBtukcsHyX5DtWAYs19wD8EVYaZmO
+2kQ=
+-----END CERTIFICATE-----
+
+
+BinaryData
+====
+
+Events:  <none>

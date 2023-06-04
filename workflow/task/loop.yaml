@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName:  loop-
+spec:
+  entrypoint: loop-example
+  templates:
+    - name: loop-example
+      steps:
+        - - name: print-message
+            template: alpine-echo
+            arguments:
+              parameters:
+                - name: message
+                  value: "{{item}}"
+            withItems:
+              - "hello world"
+              - "goodby"
+    - name: alpine-echo
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: alpine:latest
+        command:
+          - sh
+          - -c
+          - " echo {{inputs.parameters.message}}"
+

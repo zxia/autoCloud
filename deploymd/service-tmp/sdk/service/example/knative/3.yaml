@@ -1,0 +1,24 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: a
+spec:
+  template:
+    metadata:
+      # This is the name of our new "Revision," it must follow the convention {service-name}-{revision-name}
+      name: a-knative
+    spec:
+      containers:
+        - image:  dev.local:10001/library/dev.local/helloworld-go:v1.2.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TARGET
+              value: "knative"
+
+  traffic:
+  - revisionName: a-world
+    percent: 50
+  - revisionName: a-knative
+    percent: 50
+     

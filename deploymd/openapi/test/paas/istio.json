@@ -1,0 +1,19 @@
+{
+  "deploy": {
+    "lab": "dev36",
+    "component": [
+      {
+        "label": [
+          {
+            "nodes": [
+              "dev36"
+            ],
+            "key": "istio",
+            "value": "istio"
+          }
+        ],
+        "component_name": "istio"
+      }
+    ]
+  }
+}

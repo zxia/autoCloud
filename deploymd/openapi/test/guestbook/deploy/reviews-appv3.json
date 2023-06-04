@@ -1,0 +1,145 @@
+{
+  "service": [
+    {
+      "name": "reviews-exporter",
+      "protocols": [
+        {
+          "protocol": "TCP",
+          "appProtocol": "http",
+          "port": "8081",
+          "targetPort": "8081"
+        }
+      ]
+    },
+    {
+      "name": "reviews-internal",
+      "protocols": [
+        {
+          "protocol": "TCP",
+          "appProtocol": "http",
+          "port": "9080",
+          "targetPort": "9080"
+        }
+      ]
+    }
+  ],
+  "istio": {
+    "deployed": true,
+    "gateway": null,
+    "virtualservice": [
+      {
+        "name": "reviews",
+        "hosts": [
+          "reviews-internal"
+        ],
+        "gateways": null,
+        "http": [
+          {
+            "route": [
+              {
+                "destination": {
+                  "host": "reviews-internal",
+                  "subset": "v1"
+                },
+                "weight": 10
+              },
+              {
+                "destination": {
+                  "host": "reviews-internal",
+                  "subset": "v2"
+                },
+                "weight": 20
+              },
+              {
+                "destination": {
+                  "host": "reviews-internal",
+                  "subset": "v3"
+                },
+                "weight": 70
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "destination": {
+      "name": "reviews",
+      "host": "reviews-internal",
+      "subsets": [
+        {
+          "name": "v1",
+          "labels": {
+            "version": "v1"
+          }
+        },
+        {
+          "name": "v2",
+          "labels": {
+            "version": "v2"
+          }
+        },
+        {
+          "name": "v3",
+          "labels": {
+            "version": "v3"
+          }
+        }
+      ]
+    }
+  },
+  "server": {
+    "image": {
+      "repository": "docker.io/istio/examples-bookinfo-reviews-v3",
+      "tag": "1.16.2",
+      "pullPolicy": "IfNotPresent",
+      "imagePullSecrets": ""
+    },
+    "name": "reviews",
+    "replica": 1,
+    "version": "v3",
+    "env": [
+      {
+        "name": "appVersion",
+        "value": "1.0.0"
+      },
+      {
+        "name": "LOG_DIR",
+        "value": "/tmp/logs"
+      },
+      {
+        "name": "RATINGS_HOSTNAME",
+        "value": "rating-internal"
+      }
+    ],
+    "extraContainerargs": {
+      "ports": [
+        {
+          "containerPort": 9080
+        }
+      ],
+      "securityContext": {
+        "runAsUser": 1000
+      }
+    },
+    "volumeMounts": [
+      {
+        "name": "tmp",
+        "mountPath": "/tmp"
+      },
+      {
+        "name": "wlp-output",
+        "mountPath": "/opt/ibm/wlp/output"
+      }
+    ],
+    "volumes": [
+      {
+        "name": "tmp",
+        "emptyDir": {}
+      },
+      {
+        "name": "wlp-output",
+        "emptyDir": {}
+      }
+    ]
+  }
+}

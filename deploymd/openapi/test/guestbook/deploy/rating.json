@@ -1,0 +1,90 @@
+{
+  "service": [
+    {
+      "name": "rating-exporter",
+      "protocols": [
+        {
+          "protocol": "TCP",
+          "appProtocol": "tcp",
+          "port": "8081",
+          "targetPort": "8081"
+        }
+      ]
+    },
+    {
+      "name": "rating-internal",
+      "protocols": [
+        {
+          "protocol": "TCP",
+          "appProtocol": "http",
+          "port": "9080",
+          "targetPort": "9080"
+        }
+      ]
+    }
+  ],
+  "istio": {
+    "deployed": true,
+    "gateway": null,
+    "virtualservice": [
+      {
+        "name": "rating",
+        "hosts": [
+          "rating-internal"
+        ],
+        "gateways": null,
+        "http": [
+          {
+            "route": [
+              {
+                "destination": {
+                  "host": "rating-internal",
+                  "subset": "v1"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "destination": {
+      "name": "rating",
+      "host": "rating-internal",
+      "subsets": [
+        {
+          "name": "v1",
+          "labels": {
+            "version": "v1"
+          }
+        }
+      ]
+    }
+  },
+  "server": {
+    "image": {
+      "repository": "docker.io/istio/examples-bookinfo-ratings-v1",
+      "tag": "1.16.2",
+      "pullPolicy": "IfNotPresent",
+      "imagePullSecrets": ""
+    },
+    "name": "rating",
+    "replica": 1,
+    "version": "v1",
+    "env": [
+      {
+        "name": "appVersion",
+        "value": "1.0.0"
+      }
+    ],
+    "extraContainerargs": {
+      "ports": [
+        {
+          "containerPort": 9080
+        }
+      ],
+      "securityContext": {
+        "runAsUser": 1000
+      }
+    }
+  }
+}

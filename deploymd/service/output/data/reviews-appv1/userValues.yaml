@@ -1,0 +1,35 @@
+## define the workload
+server:
+  name: reviews
+  image:
+    repository: "repository"
+    tag:  "tag"
+    pullPolicy: IfNotPresent
+    imagePullSecrets: ""
+## the number of the replication of the pod
+  replica: 1
+  version: v1
+
+## define the resource for the pod
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "1200Mi"
+      cpu: "1200m"
+  env:
+    - name: appVersion
+      value: 1.0.0
+  extraContainerargs:
+    ports:
+      - containerPort: 9080
+    securityContext:
+      runAsUser: 1000
+  volumeMounts:
+    - name: tmp
+      mountPath: /tmp
+  volumes:
+    - name: tmp
+      emptyDir: { }
+

@@ -1,0 +1,90 @@
+{
+  "service": [
+    {
+      "name": "details-exporter",
+      "protocols": [
+        {
+          "protocol": "TCP",
+          "appProtocol": "http",
+          "port": "8081",
+          "targetPort": "8081"
+        }
+      ]
+    },
+    {
+      "name": "details-internal",
+      "protocols": [
+        {
+          "protocol": "TCP",
+          "appProtocol": "http",
+          "port": "9080",
+          "targetPort": "9080"
+        }
+      ]
+    }
+  ],
+  "istio": {
+    "deployed": true,
+    "gateway": null,
+    "virtualservice": [
+      {
+        "name": "details",
+        "hosts": [
+          "details-internal"
+        ],
+        "gateways": null,
+        "http": [
+          {
+            "route": [
+              {
+                "destination": {
+                  "host": "details-internal",
+                  "subset": "v1"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "destination": {
+      "name": "details",
+      "host": "details-internal",
+      "subsets": [
+        {
+          "name": "v1",
+          "labels": {
+            "version": "v1"
+          }
+        }
+      ]
+    }
+  },
+  "server": {
+    "image": {
+      "repository": "docker.io/istio/examples-bookinfo-details-v1",
+      "tag": "1.16.2",
+      "pullPolicy": "IfNotPresent",
+      "imagePullSecrets": ""
+    },
+    "name": "details",
+    "replica": 1,
+    "version": "v1",
+    "env": [
+      {
+        "name": "appVersion",
+        "value": "1.0.0"
+      }
+    ],
+    "extraContainerargs": {
+      "ports": [
+        {
+          "containerPort": 9080
+        }
+      ],
+      "securityContext": {
+        "runAsUser": 1000
+      }
+    }
+  }
+}

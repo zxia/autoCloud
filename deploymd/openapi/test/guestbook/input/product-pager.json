@@ -1,0 +1,15 @@
+{
+  "servicePackageName": "product-pager",
+  "servicePackageDescription": "The microservice calls the details and reviews to populate the page",
+  "servicePackageVersion": "1.0.0",
+  "serviceApplicationVersion": "v1",
+  "serviceWorkLoad": "deployment",
+  "k8sService": "exporter internal",
+  "gatewayStatus": "enable",
+  "destinationRuleStatus": "enable",
+  "virtualServiceStatus": "disable",
+  "faultInjectionStatus": "disable",
+  "serviceEntryStatus": "disable",
+  "servicePackageType": "helm",
+  "serviceMesh": "istio"
+}

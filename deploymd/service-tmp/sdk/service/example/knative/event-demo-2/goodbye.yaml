@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goodby-display
+  namespace: event-example
+spec:
+  replicas: 1
+  selector:
+    matchLabels: &labels
+      app: goodby-display
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - name: event-display
+          image: 192.168.0.34:10001/library/knative-releases/knative.dev/eventing/cmd/event_display:v1.2.0
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: goodby-display
+  namespace: event-example 
+spec:
+  selector:
+    app: goodby-display
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+

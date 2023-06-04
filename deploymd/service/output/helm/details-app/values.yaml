@@ -1,0 +1,26 @@
+###### Define the Microservice application -- k8s deployment  #####
+## define the workload
+server:
+## define the workload as the deployment
+  deployed: "true"
+  name: details
+  version: v1
+  image:
+    repository: ""
+    tag:  ""
+    pullPolicy: IfNotPresent
+    imagePullSecrets: ""
+## label the node with "schedulelabel=schedulelabel", the workload will be be scheduled to the labeled k8s node
+  schedulelabel:  details
+## the number of the replication of the pod
+  replica: "1"
+  command: ""
+  livenessProbe: ""
+  readinessProbe: ""
+  resources: ""
+## define the environment variable
+  env: ""
+## define the extra
+  extraContainerargs: ""
+  volumeMounts: ""
+  volumes: ""

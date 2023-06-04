@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: diag-
+spec:
+  entrypoint: diag-entry
+  templates:
+    - name: diag-entry
+      dag:
+        tasks:
+          - name: a
+            template: echo-template
+            arguments:
+              parameters:
+                - name: message
+                  value: "hello a"
+          - name: b
+            dependencies:
+              - a
+            template: echo-template
+            arguments:
+              parameters:
+                - name: message
+                  value: "hello b"
+          - name: c
+            dependencies:
+              - a
+            template: echo-template
+            arguments:
+              parameters:
+                - name: message
+                  value: "hello c"
+          - name: d
+            dependencies:
+              - b
+              - c
+            template: echo-template
+            arguments:
+              parameters:
+                - name: message
+                  value: "hello d"
+    - name: echo-template
+      inputs:
+        parameters:
+          - name: message
+      container:
+        image: alpine:latest
+        command:
+          - echo
+          - "{{inputs.parameters.message}}"
