@@ -7,10 +7,10 @@ from jsonmerge import merge
 
 import global_variables as gm
 from cluster_schema import ClusterInfo
-from openapi.base_schema import BaseInfo
-from openapi.deploy_schema import Deploy, DeployComponent, DeployLabel
-from openapi.k8s_schema import K8sInfo
-from openapi.paas_schema import PaasInfo
+from deploymd.openapi.base_schema import BaseInfo
+from deploymd.openapi.deploy_schema import Deploy, DeployComponent, DeployLabel
+from deploymd.openapi.k8s_schema import K8sInfo
+from deploymd.openapi.paas_schema import PaasInfo
 from server_schema import DeployServer
 
 

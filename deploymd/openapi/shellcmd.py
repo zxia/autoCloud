@@ -4,10 +4,10 @@ import yaml
 import json
 from jsonmerge import merge
 from shell import shell
-
 import global_variables as gm
-from openapi.coudtool_schema import DeployParams
-from openapi.deploy_schema import DeployComponent, DeployLabel
+from deploymd.openapi.coudtool_schema import DeployParams
+
+from deploymd.openapi.deploy_schema import DeployComponent, DeployLabel
 from package_schema import Package, DeployPackage, NetworkPackage, ServerPackage
 from fastapi import HTTPException
 import random
@@ -36,6 +36,7 @@ def gen_service_with_package(package: Package):
 
 def gen_server_response_package(package: Package):
     work_dir = gm.get_value("work_dir")
+    work_dir='C:\\Users\\zxia\IdeaProjects\\autoCloud'
     ops_server = work_dir + "/service/output/data/" + package.servicePackageName + "-app" + package.serviceApplicationVersion + "/userValues.yaml"
     dev_server = work_dir + "/service/output/data/" + package.servicePackageName + "-app" + package.serviceApplicationVersion + "/devValues.yaml"
     with open(ops_server, 'r') as f:
@@ -193,3 +194,6 @@ def get_server_cmd(server_name: str):
     with open(ops_network_yaml, 'r') as f:
         ops_network_json = yaml.safe_load(f)
     return ops_network_json
+
+
+

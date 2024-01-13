@@ -6,11 +6,11 @@ from fastapi import applications
 from fastapi.openapi.docs import get_swagger_ui_html
 
 from cluster_schema import ClusterInfo
-from openapi.base_schema import BaseInfo
-from openapi.coudtool_schema import DeployParams
-from openapi.deploy_schema import Deploy, DeployComponent
-from openapi.k8s_schema import K8sInfo
-from openapi.paas_schema import PaasInfo
+from deploymd.openapi.base_schema import BaseInfo
+from deploymd.openapi.coudtool_schema import DeployParams
+from deploymd.openapi.deploy_schema import Deploy, DeployComponent
+from deploymd.openapi.k8s_schema import K8sInfo
+from deploymd.openapi.paas_schema import PaasInfo
 from package_schema import Package, PackageResponse, DeployPackage, ServerPackage, NetworkPackage
 from shellcmd import gen_service_with_package, deploy_package_cmd, deploy_server_package_cmd, \
     deploy_network_package_cmd, get_server_cmd, get_network_cmd, deploy_paas_cmd, update_cluster_cmd, \
@@ -158,6 +158,7 @@ def init():
     import global_variables as gm
     gm._init_()
     work_dir = os.getenv("work_dir")
+    work_dir = 'C:\\Users\\zxia\\IdeaProjects\\autoCloud'
     gm.set_value("work_dir", work_dir)
     command = os.getenv("cli")
     gm.set_value("cli", command)

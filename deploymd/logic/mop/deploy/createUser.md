@@ -29,7 +29,6 @@ executeExpect SSH "changeUserPasswordExp:${SSH_USER} ${SSH_USER_PASSWORD}"
 #### 开放能力接口
 
 ```json
-PUT /command/cloud
 {
   "params": {
      "SSH_HOST": "{{ssh_host}}",
