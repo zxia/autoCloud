@@ -1,0 +1,25 @@
+{
+   "info": {
+      "name": "k8s01",
+      "type": "master",
+      "zone": "zone1",
+      "private_ip": "10.0.162.249"
+   },
+   "disk": {
+      "erased": "false",
+      "disk": "/dev/vdb",
+      "vg": "centos"
+   },
+   "docker": {
+      "path": "/largeDisk",
+      "volume": "30Gi",
+      "lv": "lv01",
+      "pause": "3.7"
+   },
+   "containerd": {
+      "path": "/largeDisk",
+      "volume": "30Gi",
+      "lv": "centos",
+      "pause": "3.7"
+   }
+}
