@@ -1,0 +1,60 @@
+{
+   "name": "dev37",
+   "nodes": [
+      {
+         "info": {
+            "name": "k8s01",
+            "type": "master",
+            "zone": "zone1",
+            "private_ip": "192.168.56.107"
+         },
+         "disk": {
+            "erased": "true",
+            "disk": "/dev/vdb",
+            "vg": "vg01"
+         },
+         "docker": {
+            "path": "/largeDisk",
+            "volume": "30Gi",
+            "lv": "lv01",
+            "pause": "3.7"
+         },
+         "containerd": {
+            "path": "/largeDisk",
+            "volume": "60Gi",
+            "lv": "lv01",
+            "pause": "3.7"
+         }
+      }
+   ],
+   "harbor": {
+      "name": "gmct.storage.com",
+      "ip": "192.168.56.102",
+      "uri": "gmct.storage.com",
+      "user": "admin",
+      "password": "Ctsi5G@2021",
+      "path": "library",
+      "crt_root": "/etc/docker/certs.d/gmct.storage.com",
+      "library": "library"
+   },
+   "repo": {
+      "host": "192.168.56.102",
+      "path": "/usr/local/middlePlatform"
+   },
+   "gitops": {
+      "user": "root",
+      "password": "Ctsi5G@2021",
+      "uri": "http://192.168.0.32:8080/gitlab-instance-b9319445/dev37-paas.git",
+      "local": "/dev37-git"
+   },
+   "ssh": {
+      "user_password": "Opuser5G@2021",
+      "root_password": "Ctsi5G@2021",
+      "user": "opuser"
+   },
+   "gitlab": {
+      "token": "NydRJtXPUc8QVshwxgY1",
+      "url": "192.168.0.32:8080",
+      "groupid": "1"
+   }
+}

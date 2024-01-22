@@ -52,7 +52,7 @@ NAMESPACE="istio-system"
 
 ````bash
 sleep 60
-executeExpect SSH "kubectl label namespace default istio-injection=enabled" 
+executeExpect SSH "kubectl label namespace default istio-injection=enabled --overwrite" 
 executeExpect SSH "setupIstioDashboard"
 ````
 

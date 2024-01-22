@@ -26,9 +26,11 @@ function genGitlabValue(){
   replaceVariabls gitlabBase ${workDir}/output/gitlab/gitlab.rb || return $?
 }
 
+
 function configGitlab(){
   rsync  /home/opuser/gitlab/gitlab.rb   /usr/local/gitlab/config/gitlab.rb || return $?
 }
+
 
 function deployGitlab(){
   docker restart gitlab-dev || return $?

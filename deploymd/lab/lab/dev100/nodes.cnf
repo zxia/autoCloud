@@ -1,0 +1,4 @@
+dev100   master    zone1    192.168.0.100        seaweedfsmaster elasticsearch-data volcano mongoconf  topolvm mariadb seaweedfsmaster seaweedfsvolume swcsinode prometheus swcsicontroller mongos logstash
+dev101   master    zone2    192.168.0.101        seaweedfsvolume nacos elasticsearch-ingest kibana mongoconf  kafka   mariadb seaweedfsmaster seaweedfsvolume swcsinode zookeeper  grafana    mongodata mongos
+dev102   master    zone3    192.168.0.102        swcsinode seaweedfsfiler seaweedfsvolume nacos logstash kibana elasticsearch-master mongoconf  kafka   mariadb seaweedfsfiler  seaweedfsvolume swcsinode zookeeper  redis prometheus    alertmanager
+dev103   worker    zone1    192.168.0.103        swcsinode swcsicontroller seaweedfsvolume nacos mongodata  kafka   seaweedfsfiler  seaweedfsvolume         swcsinode zookeeper  redis   istio   knative filebeat

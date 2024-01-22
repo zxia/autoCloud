@@ -75,9 +75,9 @@ function loadScripts(){
 #---------------------------------------------------#
 umask 022
 ####when failure ,force to exist
-#set -o errexit
-#set -o nounset
-#set -o pipefail
+set -o errexit
+set -o nounset
+set -o pipefail
 
 
 workDir=$(dirname $0)

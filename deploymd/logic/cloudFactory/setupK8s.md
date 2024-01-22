@@ -42,9 +42,7 @@ HOSTS=$(complementSet allHost readyHost)
 
 1.   #### [创建用户](../mop/deploy/createUser.md)
 1.   #### [安装基础设施](../mop/deploy/prepareHostInstall.md)
-1.   #### [更新内核](../mop/deploy/updateKernal.md)
 1.   #### [主机配置](../mop/deploy/configHost.md)
-1.   #### [磁盘分区](../mop/deploy/diskOperation.md)
 
 ### 3. 每一个主机，需要准备Kubernetes安装工作
 

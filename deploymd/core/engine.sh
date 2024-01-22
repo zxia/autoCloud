@@ -154,13 +154,16 @@ function execDpFunc(){
   local runFile=${runFile%\)*}
   local parentPath=$2
   local sshHostBack=${SSH_HOST}
+  local result=0
   for host in ${HOSTS}
   do
      eval SSH_HOST=${host}
      runEngine "${parentPath}/${runFile}"
+     result=$?
   done
 
   SSH_HOST=${sshHostBack}
+  return ${result}
 }
 function execBashFunc(){
   local function=$1

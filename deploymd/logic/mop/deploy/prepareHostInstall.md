@@ -27,7 +27,6 @@ executeExpect Bash "rsyncFoldExp:${workDir}/output/deploy/${REPO_VERSION} /home/
 EXECUTED_PERMISSION="suroot"
 executeExpect SSH  "prepareCtyunOS:${REPO_VERSION}"
 executeExpect SSH  "addHostAllow:${LOCAL_HOST_IP}"
-executeExpect SSH  "yum update -y"
 unsetConfig repo
 ````
 

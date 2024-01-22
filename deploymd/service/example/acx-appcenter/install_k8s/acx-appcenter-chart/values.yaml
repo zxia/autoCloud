@@ -1,0 +1,40 @@
+# Default values for acx-appcenter.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+
+image:
+  repository: image.sourcefind.cn:5000/acx/acx-appcenter
+  pullPolicy: IfNotPresent
+  # replaced by Jenkins.
+  tag: "$container_tag"
+
+serviceAccount:
+  create: false
+
+service:
+  type: ClusterIP
+  port: 31050
+
+resources:
+   limits:
+     cpu: 1
+     memory: 2560Mi
+
+autoscaling:
+  enabled: false
+
+tolerations:
+  - key: node-role.kubernetes.io/control-plane
+    effect: NoSchedule
+
+acx:
+  share:
+    logs: /public/acx/acx-appcenter/logs
+  nacos:
+    server: nacos-service.nacos
+    port: 31000
+    namespace: public
+    user: nacos
+    passwd: nacos

@@ -180,3 +180,20 @@ function saveImagesToFile(){
       docker rmi ${image}
   done
 }
+
+function uploadImages(){
+   local privateRegistry=${1}/library
+   local securityName=$2
+   local securityWord=$3
+   local dataDir=$4
+
+   docker login ${1} -u ${securityName} -p ${securityWord} || return $?
+
+  local images=$(ls ${dataDir} | xargs )
+  for image in ${images}; do
+      docker load < ${image}  || return $?
+      local savefile=$(echo ${image%.*} | tr  '~' '/' | tr '@' ':')
+      docker push ${savefile} || return $?
+      docker rmi ${savefile}
+  done
+}

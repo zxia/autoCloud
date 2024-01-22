@@ -47,7 +47,7 @@ function log() {
   echo "[$(date +"%Y-%m-%d-%T")]  $logMessage" ${result}
 }
 
-
+#todo bug if there is no "ip" command ?
 function getLocalHostIP(){
    local ipAddr=$(ip -o addr  | grep eth0 | grep -w inet | awk '{print $4}')
    echo ${ipAddr%/*}
@@ -204,6 +204,26 @@ function replaceVariabls(){
 
 }
 
+function convertVariabls(){
+  local infile=$1
+  local file=$2
+  [ -f ${file} ]  || return $?
+  local vars=$(cat ${infile}| grep -v "#" | awk '{print $1}'| xargs)
+  local value=''
+  local key=''
+  local escapeValue=''
+  for var in ${vars}
+  do
+    eval $var
+    key=${var%%=*}
+    eval "value=\$$key"
+    escapeValue=$(trs1 $value )
+    #escapeValue=${value/\//\\/}
+    sed -i "s/\${${key}}/${escapeValue}/g" ${file}
+  done
+
+}
+
 function replaceNodeVariabls(){
   local type=$1
   local file=$2
@@ -224,6 +244,7 @@ function replaceNodeVariabls(){
   done
 
 }
+
 #--------------------------------------------------------
 # utility function to diff two set
 # Input: arrayA : A
@@ -283,8 +304,8 @@ function getNodeListByExcludeType(){
 
 function getHostIP(){
   local nodeName=$1
-  local nodeInfo=${workDir}/lab/${LAB_NAME}/nodes.ini
-  nodes=($(cat ${nodeInfo} | grep -v "#" | grep  ${nodeName} | awk '{print $4}' | xargs))
+  local nodeInfo=${workDir}/lab/${LAB_NAME}/k8s.ini
+  nodes=($(cat ${nodeInfo} |  jq -r '.k8s.controlPlaneEndpointIP'))
   echo "${nodes[@]}"
 }
 
