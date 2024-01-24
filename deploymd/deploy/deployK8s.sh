@@ -171,3 +171,22 @@ function updateReadyIpList() {
   mkdir -p /home/opuser/k8s  || return 0 
   kubectl get nodes -o wide > /home/opuser/k8s/nodes.log || return 0
 }
+
+function getLiveK8sNodesInfo(){
+  local nodeInfo=/home/opuser/k8s/nodes.log
+  kubectl get nodes -o wide >${nodeInfo}
+  #whatever success or failure, return 0
+  return 0
+}
+function getLiveNodes(){
+  local nodes=$1
+  local nodeList=""
+  for node in ${nodes}
+  do
+      ping -c 3  ${node} >/dev/null 2>&1
+      if [ $? -eq 0 ]; then
+        nodeList="${nodeList} ${node}"
+      fi
+  done
+  echo ${nodeList}
+}

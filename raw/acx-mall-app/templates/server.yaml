@@ -71,7 +71,7 @@ spec:
 {{- end }}
 {{- if .Values.server.command }}
           command:
-            - {{ .Values.server.command }}
+            - {{ .Values.server.command.exec }}
           args:
 {{- range .Values.server.args }}
             - {{ . | quote }}
@@ -97,7 +97,7 @@ spec:
 {{- end }}
           volumeMounts:
             - name: cfg
-              mountPath: "/etc/conf"
+              mountPath: "/opt/acx/{{ $serverbase }}/conf"
               readOnly: true
 {{- if .Values.server.volumeMounts }}
 {{ toYaml .Values.server.volumeMounts | indent 12 }}

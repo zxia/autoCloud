@@ -263,7 +263,7 @@ function complementSet() {
       [ "$a" = "$b" ] && flag=1
     done
 
-    [ $flag -eq 0 ] && arrayC+=($a)
+    [ $flag -eq 0 ] && arrayC+=(  $a)
   done
   echo ${arrayC[@]}
 }

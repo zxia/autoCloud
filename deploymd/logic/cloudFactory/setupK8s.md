@@ -5,6 +5,16 @@
 setConfig k8s
 #容器云主机列表
 allHost=$(getNodeIpList)
+
+#对于新加入的机器，需要进行一些初始化配置
+````
+````bash
+HOSTS=$(getLiveNodes allHost)
+````
+
+### [创建用户](../mop/deploy/createUser.md)
+
+````bash
 #容器云控制结点列表
 allMasterHost=$(getNodeIpListByType master)
 #获取已经安装的主机列表
@@ -15,9 +25,10 @@ executeExpect Bash  "rm -rf /root/.ssh/known_hosts"
 ````
 ### 2. 获取容器云拓扑
 ````bash
-HOSTS=${controlPlaneEndpointIP}
+HOSTS=$(getLiveNodes ${controlPlaneEndpointIP})
+
 ````
-1.   ### [创建用户](../mop/deploy/createUser.md)
+
 #### [获取容器云拓扑](../mop/deploy/getK8sInfo.md)
 
 ````bash
@@ -35,7 +46,7 @@ k8sReadyHost=$(getK8sReadyIpList)
 
 ````bash
 #需要安装的主机列表为容器云主机总数-已经安装的主机列表
-HOSTS=$(complementSet allHost readyHost)
+HOSTS=$(getLiveNodes $(complementSet allHost readyHost))
 ````
 
 ### 2. 每一个主机，需要安装和配置
@@ -43,6 +54,7 @@ HOSTS=$(complementSet allHost readyHost)
 1.   #### [创建用户](../mop/deploy/createUser.md)
 1.   #### [安装基础设施](../mop/deploy/prepareHostInstall.md)
 1.   #### [主机配置](../mop/deploy/configHost.md)
+1.   #### [配置时间同步](../mop/deploy/setupChrony.md)
 
 ### 3. 每一个主机，需要准备Kubernetes安装工作
 
@@ -56,7 +68,7 @@ HOSTS=$(complementSet allHost readyHost)
 ### 1. 主结点选取
 
 ````bash
-HOSTS=$(complementSet initHost k8sReadyHost)
+HOSTS=$(getLiveNodes $(complementSet initHost k8sReadyHost))
 ````
 
 1. #### [安装主控制结点](../mop/deploy/initK8s.md)
@@ -72,7 +84,7 @@ HOSTS=$(complementSet initHost k8sReadyHost)
 
 ````bash
 #添加的K8s结点=期望增加的非主点-已经安装过的结点
-HOSTS=$(complementSet joinHost k8sReadyHost)
+HOSTS=$(getLiveNodes $(complementSet joinHost k8sReadyHost))
 ````
 
 - #### [准备创建](../mop/deploy/prepareJoinK8s.md)
@@ -81,7 +93,7 @@ HOSTS=$(complementSet joinHost k8sReadyHost)
 ### 2. 对于控制结点，需要进行后处理
 
 ````bash
-HOSTS=$(complementSet allMasterHost k8sReadyHost)
+HOSTS=$(getLiveNodes $(complementSet allMasterHost k8sReadyHost))
 ````
 
 - #### [配置支持TopoLVM](../mop/paas/topolvmjoin.md)

@@ -198,8 +198,7 @@ function genHelmDeploymentDevConfigTemplate(){
 
 server:
 ##application start command
-  command:
-    exec:  /bin/sh
+  command: /bin/sh
     args:
       - c
       - |

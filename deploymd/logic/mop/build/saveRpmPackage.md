@@ -13,6 +13,6 @@ setConfig ssh
 
 ````
 EXECUTED_PERMISSION="suroot"
-executeExpect Bash "rsyncDownFoldExp:/allinone/repo/${REPO_VERSION}  /tmp/baseRpm"
-executeExpect Bash "rsyncDownFoldExp:/allinone/repo/${REPO_VERSION}  /var/cache/yum"
+executeExpect Bash "rsyncDownFoldExp:/allinone/repo/  /tmp/baseRpm"
+executeExpect Bash "rsyncDownFoldExp:/allinone/repo/  /var/cache/yum"
 ````

@@ -6,7 +6,7 @@
 setConfig k8s
 SERVICE=argocd
 NAMESPACE=argocd
-HOSTS=${controlPlaneEndpointIP}
+SSH_HOST=${controlPlaneEndpointIP}
 ```
 
 ## 利用通用部署模板进行部署
@@ -19,7 +19,7 @@ HOSTS=${controlPlaneEndpointIP}
 EXECUTED_PERMISSION="suroot"
 setConfig argocd
 sleep 30
-executeExpect SSH "setArgocdNodePort:${controlPlaneEndpointIP}"
+executeExpect SSH "setArgocdNodePort"
 updateArgoConfig
 ARGOCD_PASSWORD=${init_ARGOCD_PASSWORD}
 executeExpect Bash loginArgocdExp

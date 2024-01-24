@@ -48,6 +48,7 @@ function loadParams(){
 }
 
 function loadScripts(){
+  set +x
   local command=$1
   loadFunction core  || return $?
 
@@ -70,14 +71,15 @@ function loadScripts(){
     return 1
   ;;
  esac
+  set -x
 }
 
 #---------------------------------------------------#
 umask 022
 ####when failure ,force to exist
-set -o errexit
-set -o nounset
-set -o pipefail
+#set -o errexit
+#set -o nounset
+#set -o pipefail
 
 
 workDir=$(dirname $0)

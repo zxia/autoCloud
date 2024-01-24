@@ -7,8 +7,9 @@ setConfig k8s
 EXECUTED_PERMISSION="opuser"
 executeExpect SSH createFold:/home/opuser/k8s
 EXECUTED_PERMISSION="suroot"
-# executeExpect SSH "kubectl get nodes -o wide > /home/opuser/k8s/nodes.log"
-executeExpect SSH "updateReadyIpList"
+ping -c 5 ${SSH_HOST} || exit 0
+executeExpect SSH "getLiveK8sNodesInfo"
+
 EXECUTED_PERMISSION="opuser"
 rm -rf ${workDir}/output/k8s  || return 0
 mkdir -p ${workDir}/output/k8s  || return 0 

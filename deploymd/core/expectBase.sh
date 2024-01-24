@@ -92,7 +92,7 @@ function insertSideCar() {
 }
 
 function genFunctionDeclaration() {
-  set -x
+  set +x
   local command=$1
   local functionName=${command%%:*}
   local funcstr=$(type -a ${functionName})

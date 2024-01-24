@@ -1,9 +1,9 @@
 {
    "info": {
-      "name": "k8s01",
-      "type": "master",
-      "zone": "zone1",
-      "private_ip": "10.0.162.249"
+      "name": "k8s02",
+      "type": "work",
+      "zone": "zone2",
+      "private_ip": "10.0.162.252"
    },
    "disk": {
       "erased": "false",

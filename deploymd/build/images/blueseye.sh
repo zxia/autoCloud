@@ -14,7 +14,9 @@ RUN apt-get install -y expect \
      rsync \
      jq \
      openssh-server \
-     vim
+     vim \
+     dialog \
+     iputils-ping
 RUN apt-get clean
 RUN ln /bin/bash /usr/bin/bash
 COPY ./files/requirements.txt /requirements.txt

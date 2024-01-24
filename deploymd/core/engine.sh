@@ -20,6 +20,7 @@ function runEngine(){
  # load steps
  local -A steps
  local cnt=0
+ set +x
   while read line; do
     case $line in
     '^$' | $'\r' )
@@ -34,6 +35,8 @@ function runEngine(){
      ;;
     esac
   done <${runFile}
+  set -x
+
  # execute steps
  local result=0
  local arrayLen=${#steps[@]}
@@ -44,8 +47,10 @@ function runEngine(){
  local step
  local i=0
  local oneTimeError=0
+ local overrideResult=0
 
  for (( i=0; i<${arrayLen}; i++    ))
+      set +x
  do
     #reset the runFile in case modified by the sub function
     [ "${featureMark}"  = true ] && featureMark=false
@@ -97,9 +102,15 @@ function runEngine(){
 
     interactMode || return $?
 
-    if [ ${result} -eq 0 ] ; then
+    if [ ${result} -eq 0   ] ; then
         execFunc "${lang}" "${step}" "${runFile%/*}"
         result=$?
+        # if the step is failed and the step is not override, then the whole run is failed
+        if [ ${result} -ne 0 -a ${overrideResult} -eq 1 ] ;then
+          result=0
+          overrideResult=0
+        fi
+
         log "${lang} ${step} ${runFile%/*}" $result
         echo "${lang} ${step} ${runFile%/*}" $result
         sleep 0.1
@@ -139,6 +150,7 @@ function runEngine(){
 
 
 function execFunc(){
+  set -x
   local lang=$1
   local function=$2
   local parentPath=$3
@@ -149,6 +161,7 @@ function execFunc(){
  }
 
 function execDpFunc(){
+  set -x
   local rawLine=$1
   local runFile=${rawLine##*\(}
   local runFile=${runFile%\)*}

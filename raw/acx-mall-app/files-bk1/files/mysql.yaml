@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    #driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://${mysql.host}:${mysql.port}/acx_mall?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true
+    username: ${mysql.username}
+    password: ${mysql.password}
+    hikari:
+      minimum-idle: 2
+      read-only: false
+      connection-timeout: 100000
+      idle-timeout: 600000
+      max-lifetime: 28770000
+      maximum-pool-size: 5
+      pool-name: acx-db-connection
+      prepStmtCacheSize: 300
+      prepStmtCacheSqlLimit: 2048
+      useServerPrepStmts: true
+      useLocalSessionState: true
+      rewriteBatchedStatements: true
+      cacheResultSetMetadata: true
+      cacheServerConfiguration: true
+      elideSetAutoCommits: true
+      maintainTimeStats: false

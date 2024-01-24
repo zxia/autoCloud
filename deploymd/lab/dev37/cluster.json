@@ -69,7 +69,7 @@
    "gitops": {
       "user": "root",
       "password": "Ctsi5G@2021",
-      "uri": "http://10.0.162.248:8080/gitlab-instance-b9319445/dev37-paas.git",
+      "uri": "http://10.0.162.247:8090/gitlab-instance-befc5088/dev37-pass.git",
       "local": "/dev37-git"
    },
    "ssh": {
@@ -79,7 +79,7 @@
    },
    "gitlab": {
       "token": "NydRJtXPUc8QVshwxgY1",
-      "url": "10.0.162.247:8080",
+      "url": "10.0.162.248:8080",
       "groupid": "1"
    }
 }
