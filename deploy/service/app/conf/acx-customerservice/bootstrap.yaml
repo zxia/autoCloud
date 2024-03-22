@@ -1,0 +1,33 @@
+server:
+  port: 31210
+
+spring:
+  cloud:
+    nacos:
+      username: ${NACOS_USERNAME}
+      password: ${NACOS_PASSWD}
+      config:
+        server-addr: ${NACOS_SERVER}:${NACOS_PORT}
+        namespace: ${NACOS_NAMESPACE}
+        group: acx-customerservice
+        file-extension: yaml
+        prefix: acx-customerservice
+        shared-configs:
+          - data-id: mysql.yaml
+            group: acx-customerservice
+            refresh: true
+          - data-id: undertow.yaml
+            group: acx
+            refresh: true
+          - data-id: redis.yaml
+            group: acx
+            refresh: true
+          - data-id: common.yaml
+            group: acx
+            refresh: true
+          - data-id: log4j2-spring.xml
+            group: acx-customerservice
+            refresh: true
+
+logging:
+  config: http://${spring.cloud.nacos.config.server-addr}/nacos/v1/cs/configs?group=${spring.cloud.nacos.config.group}&tenant=${spring.cloud.nacos.config.namespace}&dataId=log4j2-spring.xml&username=${spring.cloud.nacos.username}&password=${spring.cloud.nacos.password}

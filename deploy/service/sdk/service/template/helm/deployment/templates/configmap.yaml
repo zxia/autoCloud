@@ -1,0 +1,20 @@
+#////////////////////////////////////////////////////////////
+#/
+#/ File: configmap.yaml
+#/
+#////////////////////////////////////////////////////////////
+#/
+#/ Author: Xia Zeng Wu
+#/
+#/
+#////////////////////////////////////////////////////////////
+
+{{- $server := (empty .Values.server.name | ternary  .Release.Name .Values.server.name   )  }}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ $server }}-{{ .Values.server.version }}-env
+data:
+{{ (.Files.Glob "files/*").AsConfig | indent 2 }}
+
+---

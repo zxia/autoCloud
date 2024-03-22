@@ -1,0 +1,30 @@
+server:
+  port: 8080
+  
+spring:
+  cloud:
+    nacos:
+      username: ${NACOS_USERNAME}
+      password: ${NACOS_PASSWD}
+      config:
+        server-addr: ${NACOS_SERVER}:${NACOS_PORT}
+        namespace: ${NACOS_NAMESPACE}
+        group: acx-charge
+        file-extension: yaml
+        prefix: acx-charge
+        shared-configs:
+          - data-id: undertow.yaml
+            group: acx
+            refresh: true
+          - data-id: redis.yaml
+            group: acx
+            refresh: true
+          - data-id: message.yaml
+            group: message
+            refresh: true
+          - data-id: log4j2-spring.xml
+            group: acx-charge
+            refresh: true
+logging:
+  config: http://${spring.cloud.nacos.config.server-addr}/nacos/v1/cs/configs?group=${spring.cloud.nacos.config.group}&tenant=${spring.cloud.nacos.config.namespace}&dataId=log4j2-spring.xml&username=${spring.cloud.nacos.username}&password=${spring.cloud.nacos.password}
+
