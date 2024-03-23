@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Build') {
+            steps {
+                // 执行构建步骤，这里只是一个示例
+                sh 'echo "Building..."'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // 执行测试步骤，这里只是一个示例
+                sh 'echo "Testing..."'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // 执行部署步骤，这里只是一个示例
+                sh 'echo "Deploying..."'
+            }
+        }
+    }
+}
