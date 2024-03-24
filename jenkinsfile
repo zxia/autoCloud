@@ -6,7 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 // 执行构建步骤，这里只是一个示例
-                sh 'cp -f deploy/ /deploy/‘
+                sh 'cp -f deploy/ /deploy/'
             }
         }
 
