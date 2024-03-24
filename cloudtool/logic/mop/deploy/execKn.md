@@ -31,7 +31,9 @@ executeExpect SSH scheduleServerless:"${TASK_NAME}  /home/opuser/service/${TASK_
 执行该原子功能，需要通过
 
 #### 开放能力接口
+
 PUT /command/cloud
+
 ```json
 {
   "params": {

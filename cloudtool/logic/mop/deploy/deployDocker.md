@@ -4,7 +4,6 @@
 
 在目标机器上，部署容器
 
-
 ### 执行命令
 
 1. 同步任务描述文件
@@ -29,7 +28,9 @@ executeExpect SSH scheduleDocker:"${TASK_NAME}  /home/opuser/service/${TASK_NAME
 执行该原子功能，需要通过
 
 #### 开放能力接口
+
 PUT /command/cloud
+
 ```json
 {
   "params": {
@@ -38,7 +39,7 @@ PUT /command/cloud
     "TASK_PARAM": {
       "image": "gmct.storage.com/library/knative-samples/helloworld-go",
       "port": 8080,
-      "env":{
+      "env": {
         "TARGET": "how are you",
         "NAME": "Jackey"
       }

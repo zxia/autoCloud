@@ -1,9 +1,0 @@
-apiVersion: v2
-name: acx-mall
-description: The mall and shop managment microservice 
-icon: https://ctsi.com/sites/all/themes/logo.png
-version: 1.0.0
-appVersion: v1
-maintainers:
-  - name: Xia ZengWu
-    mail: xiazw1@chinatelecom.cn

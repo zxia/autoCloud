@@ -30,14 +30,16 @@ executeExpect SSH scheduleTask:"${TASK_NAME} ${TASK_PARAM}"
 执行该原子功能，需要通过
 
 #### 开放能力接口
+
 PUT /command/cloud
+
 ```json
 
 {
   "params": {
-        "LAB_NAME": "{{lab_name}}",
-        "TASK_NAME": "cron_test",
-        "TASK_PARAM": "1 2 3 4 5"
+    "LAB_NAME": "{{lab_name}}",
+    "TASK_NAME": "cron_test",
+    "TASK_PARAM": "1 2 3 4 5"
   },
   "COMMAND": "deploy",
   "workflow": "/cloudtool/logic/mop/deploy/scheduleTask.md"

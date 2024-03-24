@@ -4,7 +4,6 @@
 
 在目标集群上，执行Kubernetes 命令
 
-
 ### 执行命令
 
 1. 同步任务描述文件
@@ -14,10 +13,10 @@ EXECUTED_PERMISSION="suroot"
 executeExpect SSH "kubectl ${K8S_COMMAND}"
 ```
 
-
-
 #### 开放能力接口
+
 PUT /command/cloud
+
 ```json
 
 {

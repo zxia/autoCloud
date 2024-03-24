@@ -1,6 +1,6 @@
 # 原子功能
 
-## 资源网关管理--patch 
+## 资源网关管理--patch
 
 在资源网关服务上，应用patch
 
@@ -29,8 +29,8 @@ rsync -ar ${workDir}/resource_gw_manager/patch/   ${workDir}/deploy
 
 #### 命令解释
 
-
 #### 开放能力接口
+
 PUT /command/cloud
 
 ```json

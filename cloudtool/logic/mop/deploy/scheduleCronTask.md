@@ -31,7 +31,9 @@ executeExpect SSH scheduleCronTask:"${TASK_NAME} \'${CRON_TIME}\' /home/opuser/w
 执行该原子功能，需要通过
 
 #### 开放能力接口
+
 PUT /command/cloud
+
 ```json
 {
   "params": {
