@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 import json
 import os
+import sys
 
+sys.path.append("/deploy/openapi")
 import yaml
 from jsonmerge import merge
 
 import global_variables as gm
 from cluster_schema import ClusterInfo
-from deploy.openapi.base_schema import BaseInfo
-from deploy.openapi.deploy_schema import Deploy, DeployComponent, DeployLabel
-from deploy.openapi.k8s_schema import K8sInfo
-from deploy.openapi.paas_schema import PaasInfo
+from base_schema import BaseInfo
+from deploy_schema import Deploy, DeployComponent, DeployLabel
+from k8s_schema import K8sInfo
+from paas_schema import PaasInfo
 from server_schema import DeployServer
 
 

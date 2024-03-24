@@ -1,4 +1,6 @@
 import os
+import sys
+sys.path.append("/deploy/openapi")
 
 import uvicorn
 from fastapi import FastAPI
@@ -6,11 +8,11 @@ from fastapi import applications
 from fastapi.openapi.docs import get_swagger_ui_html
 
 from cluster_schema import ClusterInfo
-from deploy.openapi.base_schema import BaseInfo
-from deploy.openapi.coudtool_schema import DeployParams
-from deploy.openapi.deploy_schema import Deploy, DeployComponent
-from deploy.openapi.k8s_schema import K8sInfo
-from deploy.openapi.paas_schema import PaasInfo
+from base_schema import BaseInfo
+from coudtool_schema import DeployParams
+from deploy_schema import Deploy, DeployComponent
+from k8s_schema import K8sInfo
+from paas_schema import PaasInfo
 from package_schema import Package, PackageResponse, DeployPackage, ServerPackage, NetworkPackage
 from shellcmd import gen_service_with_package, deploy_package_cmd, deploy_server_package_cmd, \
     deploy_network_package_cmd, get_server_cmd, get_network_cmd, deploy_paas_cmd, update_cluster_cmd, \

@@ -1,13 +1,16 @@
 import os
+import sys
+
+sys.path.append("/deploy/openapi")
 
 import yaml
 import json
 from jsonmerge import merge
 from shell import shell
 import global_variables as gm
-from deploy.openapi.coudtool_schema import DeployParams
+from coudtool_schema import DeployParams
 
-from deploy.openapi.deploy_schema import DeployComponent, DeployLabel
+from deploy_schema import DeployComponent, DeployLabel
 from package_schema import Package, DeployPackage, NetworkPackage, ServerPackage
 from fastapi import HTTPException
 import random
