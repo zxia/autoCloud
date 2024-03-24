@@ -20,22 +20,67 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-workDir=$(dirname $0)
 
+#--------------------------------------------------------
+# Infrastructure codes
+#
+# --------------------------------------------------------
+
+workDir=$(dirname $0)
+genDir=${workDir}/output
+
+
+#--------------------------------------------------------
+# format the log string and save to the main.log
+# INPUT: log string
+#        return code
+# --------------------------------------------------------
+function log() {
+  local logMessage=$1
+  local retCode=${2:-0}
+  silentMode=false
+  if [ -n "${retCode}" ]; then
+    result="Success"
+    [ "${retCode}" -eq 0 ] || result="Failed"
+  fi
+  logfile=${workDir}/main.log
+  if [ "${silentMode}" = "false" ]; then
+    echo "[$(date +"%Y-%m-%d-%T")]  $logMessage" ${result} >>${logfile}
+    echo "[$(date +"%Y-%m-%d-%T")]  $logMessage" ${result}
+  fi
+}
+
+#--------------------------------------------------------
+# execute the input functions one by one
+# INPUT: the strings includes the function list
+#
+# --------------------------------------------------------
+function execFuncs(){
+  local functions=( $* )
+
+  for func in ${functions[@]}
+  do
+    if [ "$(type -t ${func})" = "function" ] ;then
+        eval ${func}  || return $?
+    fi
+  done
+}
+
+#--------------------------------------------------------
+# Read the service definition file, and assign the variables
+# INPUT: service definition file
+# --------------------------------------------------------
 function loadiniFile() {
   local configFile=$1
 
   while read line; do
-
     case $line in
-    '^$' | '#*') ;;
-
+    '^$' | '#*')
+    ;;
     [[:word:]]*)
       eval ${line} || return $?
       ;;
-
     *) ;;
-
     esac
   done <${configFile}
 
@@ -44,21 +89,70 @@ function loadiniFile() {
   return $RC
 }
 
-genDir=${workDir}/output
+#--------------------------------------------------------
+# Main logic
+#
+# --------------------------------------------------------
 
+
+#--------------------------------------------------------
+# Main entry to generate the service package
+# OUTPUT:
+#   helm/service : the generated helm package
+#   date/service : the generated configuration value.yaml
+#
+# --------------------------------------------------------
 function genService() {
-
   genServicePackage || return $?
   genServiceData || return $?
+
   local RC=$?
   log "genService" $RC
   return $RC
 }
 
+#--------------------------------------------------------
+# Override the function with specified type
+# supported type is [Helm,Knative]
+#
+# --------------------------------------------------------
 function genServicePackage(){
   eval gen${servicePackageType^}ServicePackage || return $?
-  log "genServicePackage"
+  log "gen${servicePackageType^}ServicePackage success"
 }
+
+#--------------------------------------------------------
+# Main entry to generate the service Data
+# OUTPUT:
+#   helm/service : the generated helm package
+#   date/service : the generated configuration value.yaml
+#
+# --------------------------------------------------------
+function genServiceData(){
+  genPackageData  || return $?
+  genDevConfigTemplate || return $?
+  genOpsConfigTemplate || return $?
+}
+
+function genPackageData() {
+  local functions="gen${servicePackageType^}${serviceWorkLoad^}PackageData \
+   gen${servicePackageType^}NetworkPackageData"
+
+  execFuncs "${functions}"
+}
+
+function genDevConfigTemplate() {
+  local functions="gen${servicePackageType^}${serviceWorkLoad^}DevConfigTemplate \
+     gen${servicePackageType^}NetworkDevConfigTemplate"
+  execFuncs "${functions}"
+}
+
+function genOpsConfigTemplate() {
+  local functions="gen${servicePackageType^}${serviceWorkLoad^}OpsConfigTemplate \
+    gen${servicePackageType^}NetworkOpsConfigTemplate"
+  execFuncs "${functions}"
+}
+
 
 function genHelmServicePackage() {
   local servicePackageDir=${genDir}/helm/
@@ -85,42 +179,6 @@ function genHelmServicePackage() {
     ;;
   esac
 
-}
-
-function genServiceData(){
-  genPackageData  || return $?
-  genDevConfigTemplate || return $?
-  genOpsConfigTemplate || return $?
-}
-
-function execFuncs(){
-  local functions=( $* )
-
-  for func in ${functions[@]}
-  do
-    if [ "$(type -t ${func})" = "function" ] ;then
-        eval ${func}  || return $?
-    fi
-  done
-}
-
-function genPackageData() {
-  local functions="gen${servicePackageType^}${serviceWorkLoad^}PackageData \
-   gen${servicePackageType^}NetworkPackageData"
-
-  execFuncs "${functions}"
-}
-
-function genDevConfigTemplate() {
-  local functions="gen${servicePackageType^}${serviceWorkLoad^}DevConfigTemplate \
-     gen${servicePackageType^}NetworkDevConfigTemplate"
-  execFuncs "${functions}"
-}
-
-function genOpsConfigTemplate() {
-  local functions="gen${servicePackageType^}${serviceWorkLoad^}OpsConfigTemplate \
-    gen${servicePackageType^}NetworkOpsConfigTemplate"
-  execFuncs "${functions}"
 }
 
 function genHelmDeploymentPackageData() {
@@ -171,10 +229,10 @@ server:
 ## the number of the replication of the pod
   replica: "1"
   command: ""
-  livenessProbe: ""
-  readinessProbe: ""
-
+  livenessProbe: []
+  readinessProbe: []
   resources: ""
+  preStop: []
 ## define the environment variable
   env: ""
 ## define the extra
@@ -207,7 +265,7 @@ server:
     - |
       #!/usr/bin/env bash -e
       [ -d /opt/acx/${servicePackageName}/logs ] || mkdir -p /opt/acx/${servicePackageName}/logs
-      bash /opt/acx/${servicePackageName}/conf/start.sh
+      bash /opt/acx/${servicePackageName}/script/start.sh
 ## scripts in container , detect if the application is living
   livenessProbe:
     exec:
@@ -234,6 +292,15 @@ server:
     initialDelaySeconds: 10
     periodSeconds: 10
     timeoutSeconds: 5
+## scripts in container , preStop some service if necessary
+  preStop:
+    exec:
+      command:
+        - sh
+        - -c
+        - |
+          #!/usr/bin/env bash -e
+          bash /opt/acx/${servicePackageName}/script/preStop.sh ${servicePackageName} 8080
 EOF
 
 }
@@ -402,21 +469,6 @@ EOF6
  fi
 }
 
-function log() {
-  local logMessage=$1
-  local retCode=${2:-0}
-  silentMode=false
-  if [ -n "${retCode}" ]; then
-    result="Success"
-    [ "${retCode}" -eq 0 ] || result="Failed"
-  fi
-  logfile=${workDir}/main.log
-  if [ "${silentMode}" = "false" ]; then
-    echo "[$(date +"%Y-%m-%d-%T")]  $logMessage" ${result} >>${logfile}
-    echo "[$(date +"%Y-%m-%d-%T")]  $logMessage" ${result}
-  fi
-}
-
 
 
 ### define the global variables
@@ -447,4 +499,15 @@ shift $((OPTIND - 1))
 [ -f ${serviceIniFile} ] || exit 1
 loadiniFile ${serviceIniFile} || exit 2
 
+#--------------------------------------------------------
+# Main entry to generate the helm package from micro-service
+# INPUT:
+#   - service description file
+#
+# OUTPUT:
+#   - output/helm/${service}-app     : workload helm
+#   - output/helm/${service}-network : network helm
+#   - output/data/${service}-app{version} : workload example value
+#   - output/data/${service}-network      :  network example value
+# --------------------------------------------------------
 genService

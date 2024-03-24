@@ -1,8 +1,0 @@
-apiVersion: v2
-name: cloudservice
-description: A Helm chart for CTSI  application
-icon: https://ctsi.com/sites/all/themes/logo.png
-version: 1.0.0
-appVersion: 1.0.0
-maintainers:
-  - name: CTSI

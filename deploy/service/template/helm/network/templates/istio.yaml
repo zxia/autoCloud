@@ -6,10 +6,9 @@
 #/
 #/ Author: Xia Zeng Wu
 #/
-#/ China telecom digital intelligent - Confidential
-#/ Copyright (c) 2018, 2024 All rights reserved.
 #/
 #////////////////////////////////////////////////////////////
+{{- if .Values.istio.deployed }}
 {{- $server := (empty .Values.server.name | ternary  .Release.Name .Values.server.name   )  }}
 {{- range .Values.istio.gateway }}
 apiVersion: networking.istio.io/v1alpha3
@@ -80,4 +79,5 @@ spec:
   host: {{ .Values.istio.destination.host }}
   subsets:
 {{  toYaml .Values.istio.destination.subsets | indent 2  }}
+{{- end }}
 {{- end }}

@@ -6,7 +6,6 @@
 #/
 #/ Author: Xia Zeng Wu
 #/
-#/ Copyright (c) 2018, 2024 All rights reserved.
 #/
 #////////////////////////////////////////////////////////////
 {{- if .Values.server.deployed | quote  "true" -}}
@@ -78,6 +77,11 @@ spec:
 {{- if .Values.server.extraContainerargs }}
 {{ toYaml .Values.server.extraContainerargs | indent 10 }}
 {{- end  }}
+{{- if .Values.server.preStop }}
+          lifecycle:
+            preStop:
+{{ toYaml .Values.server.preStop | indent 14 }}
+{{- end  }}
 {{- if .Values.server.livenessProbe }}
           livenessProbe:
 {{ toYaml .Values.server.livenessProbe | indent 12 }}
@@ -97,13 +101,26 @@ spec:
             - name: cfg
               mountPath: "/opt/acx/{{ $serverbase }}/conf"
               readOnly: true
+            - name: script
+              mountPath: "/opt/acx/{{ $serverbase }}/script"
+              readOnly: true
+            - name: data
+              mountPath: "/opt/acx/{{ $serverbase }}/data"
+              readOnly: true
+
 {{- if .Values.server.volumeMounts }}
 {{ toYaml .Values.server.volumeMounts | indent 12 }}
 {{- end }}
       volumes:
         - name: cfg
           configMap:
-            name:  {{ $server }}-env
+            name:  {{ $server }}-conf-env
+        - name: script
+          configMap:
+            name:  {{ $server }}-script-env
+        - name: data
+          configMap:
+            name:  {{ $server }}-data-env
 {{- if .Values.server.volumes }}
 {{ toYaml .Values.server.volumes | indent 8 }}
 {{- end }}

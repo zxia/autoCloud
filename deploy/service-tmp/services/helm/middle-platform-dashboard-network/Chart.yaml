@@ -1,9 +1,0 @@
-apiVersion: v2
-name: middle-platform-dashboard
-description: This is a example package for cloud native service
-icon: https://ctsi.com/sites/all/themes/logo.png
-version: 1.0.0
-appVersion: v1
-maintainers:
-  - name: Xia ZengWu
-    mail: xiazw1@chinatelecom.cn

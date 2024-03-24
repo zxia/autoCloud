@@ -6,7 +6,6 @@
 #/
 #/ Author: Xia Zeng Wu
 #/
-#/ Copyright (c) 2018, 2024 All rights reserved.
 #/
 #////////////////////////////////////////////////////////////
 
@@ -14,8 +13,24 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ $server }}-{{ .Values.server.version }}-env
+  name: {{ $server }}-{{ .Values.server.version }}-conf-env
 data:
-{{ (.Files.Glob "files/*").AsConfig | indent 2 }}
+{{ (.Files.Glob "files/conf/*").AsConfig | indent 2 }}
 
 ---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ $server }}-{{ .Values.server.version }}-script-env
+data:
+{{ (.Files.Glob "files/script/*").AsConfig | indent 2 }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ $server }}-{{ .Values.server.version }}-data-env
+data:
+{{ (.Files.Glob "files/data/*").AsConfig | indent 2 }}
+
+

@@ -6,8 +6,6 @@
 #/
 #/ Author: Xia Zeng Wu
 #/
-#/ China telecom digital intelligent - Confidential
-#/ Copyright (c) 2018, 2024 All rights reserved.
 #/
 #////////////////////////////////////////////////////////////
 {{- $server := (empty .Values.server.name | ternary  .Release.Name .Values.server.name   )  }}
