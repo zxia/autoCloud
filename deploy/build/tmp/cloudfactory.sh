@@ -1,6 +1,6 @@
 function genCloudfactoryDockerFile(){
   local dockerPath=${workDir}/output/docker/cloudfactory
-  local proxy=${BUILDDOCKER_PROXY}
+  local proxy=${BUILD_DOCKER_PROXY}
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
@@ -25,7 +25,7 @@ function prepareCloudfactoryDockerfile(){
   local dockerPath=${workDir}/output/docker/cloudfactory/files
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
-  local proxy=${BUILDDOCKER_PROXY}
+  local proxy=${BUILD_DOCKER_PROXY}
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
   buildCloudfactory || return $?
   \cp /allinone/installpackage/argocd  ${dockerPath}

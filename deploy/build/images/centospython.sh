@@ -1,6 +1,6 @@
 function genCentospythonDockerFile(){
   local dockerPath=${workDir}/output/docker/centospython
-  local proxy=${BUILDDOCKER_PROXY}
+  local proxy=${BUILD_DOCKER_PROXY}
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
@@ -36,7 +36,7 @@ function prepareOpenapiDockerfile(){
   local dockerPath=${workDir}/output/docker/openapi/files
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
-  local proxy=${BUILDDOCKER_PROXY}
+  local proxy=${BUILD_DOCKER_PROXY}
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
   buildOpenapi || return $?
   \cp /allinone/installpackage/argocd  ${dockerPath}

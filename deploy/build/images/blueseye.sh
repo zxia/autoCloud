@@ -1,6 +1,6 @@
 function genBlueseyeDockerFile(){
   local dockerPath=${workDir}/output/docker/blueseye
-  local proxy=${BUILDDOCKER_PROXY}
+  local proxy=${BUILD_DOCKER_PROXY}
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')

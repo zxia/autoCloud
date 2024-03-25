@@ -1,7 +1,7 @@
 function genOpenapiOldDockerFile(){
 
   local dockerPath=${workDir}/output/docker/openapi
-  local proxy=${BUILDDOCKER_PROXY}
+  local proxy=${BUILD_DOCKER_PROXY}
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
@@ -25,7 +25,7 @@ EOF
 function genOpenapiDockerFile(){
 
   local dockerPath=${workDir}/output/docker/openapi
-  local proxy=${BUILDDOCKER_PROXY}
+  local proxy=${BUILD_DOCKER_PROXY}
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
@@ -42,7 +42,7 @@ function prepareOpenapiOldDockerfile(){
   local dockerPath=${workDir}/output/docker/openapi/files
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
-  local proxy=${BUILDDOCKER_PROXY}
+  local proxy=${BUILD_DOCKER_PROXY}
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
   buildOpenapi || return $?
   \cp /allinone/installpackage/argocd  ${dockerPath}
@@ -57,7 +57,7 @@ function prepareOpenapiDockerfile(){
   local dockerPath=${workDir}/output/docker/openapi/files
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
-  local proxy=${BUILDDOCKER_PROXY}
+  local proxy=${BUILD_DOCKER_PROXY}
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
   \cp /allinone/installpackage/argocd  ${dockerPath}
   [ -d ${dockerPath}/deploy/ ] && rm -rf ${dockerPath}/deploy
