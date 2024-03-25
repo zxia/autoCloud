@@ -9,16 +9,16 @@ function genBlueseyeDockerFile(){
 FROM python:3.11.0rc2-bullseye
 ENV https_proxy=http://${proxy}
 ENV http_proxy=http://${proxy}
-RUN apt-get update -y &&
-    apt-get install -y  --no-install-recommends\
+RUN apt-get update -y && \
+    apt-get install -y  --no-install-recommends \
      expect \
      rsync \
      jq \
      openssh-server \
      vim \
      dialog \
-     iputils-ping \
-  &&  apt-get clean
+     iputils-ping  &&
+    apt-get clean
 
 COPY ./files/requirements.txt /requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /requirements.txt
