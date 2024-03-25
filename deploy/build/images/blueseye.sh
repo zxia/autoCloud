@@ -17,8 +17,7 @@ RUN apt-get update -y && \
      openssh-server \
      vim \
      dialog \
-     iputils-ping  &&
-    apt-get clean
+     iputils-ping \ &&   apt-get clean
 
 COPY ./files/requirements.txt /requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /requirements.txt
