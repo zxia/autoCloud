@@ -101,4 +101,4 @@ class ClusterInfo(BaseModel):
     ssh: SSHInfo
     gitlab: GitLab | None = None
     gitlabBase: GitlabBase | None = None
-    build_docker: BuildDocker | None = None
+    buildDocker: BuildDocker | None = None
