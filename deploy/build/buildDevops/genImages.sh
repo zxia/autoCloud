@@ -30,7 +30,7 @@ EOF
 function genDockerFile(){
     local type=$1
     local baseImage=${BUILD_DOCKER_BASE_IMAGE}
-    local proxy=${BUILD_DOCKER_PROXY}
+    local proxy=${BUILDDOCKER_PROXY}
     [ -n "${type}" ]  || return $?
 
     local buildServer=${workDir}/output/buildDocker/${type}

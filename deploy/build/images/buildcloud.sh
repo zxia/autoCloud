@@ -1,7 +1,7 @@
 function genBuildcloudDockerFile(){
 
   local dockerPath=${workDir}/output/docker/buildcloud
-  local proxy=${BUILD_DOCKER_PROXY}
+  local proxy=${BUILDDOCKER_PROXY}
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
@@ -20,7 +20,7 @@ function prepareBuildcloudDockerfile(){
   local dockerPath=${workDir}/output/docker/buildcloud/files
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
-  local proxy=${BUILD_DOCKER_PROXY}
+  local proxy=${BUILDDOCKER_PROXY}
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
   buildCloud || return $?
   \cp ${workDir}/output/build_${version}.tar.gz  ${dockerPath}

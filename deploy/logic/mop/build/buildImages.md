@@ -6,7 +6,7 @@
 
 ````bash
 setConfig harbor 
-setConfig builddocker
+setConfig buildDocker
 genDockerFile ${COMPONENT}
 prepareDockerfile  ${COMPONENT}
 ````
