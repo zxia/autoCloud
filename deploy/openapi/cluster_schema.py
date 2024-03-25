@@ -80,11 +80,18 @@ class Harbor(BaseModel):
     library = "library"
     crt_root = "/etc/docker/certs.d/"
 
+
 class GitlabBase(BaseModel):
     gitlab_ip: str
     gitlab_port: str
     gitlab_webport: str
     gitlab_ssh_port: str
+
+
+class BuildDocker(BaseModel):
+    base_image = "centos:7.9.2009"
+    proxy: str | None = None
+
 
 class ClusterInfo(BaseModel):
     nodes: list[Node]
@@ -94,5 +101,4 @@ class ClusterInfo(BaseModel):
     ssh: SSHInfo
     gitlab: GitLab | None = None
     gitlabBase: GitlabBase | None = None
-
-
+    buildDocker: BuildDocker | None = None
