@@ -1,7 +1,7 @@
 function genFastapiDockerFile(){
   local type=fastapi
   local dockerPath=${workDir}/output/docker/${type}
-  local proxy=${BUILD_DOCKER_PROXY}
+  local proxy=${BUILDDOCKER_PROXY}
   [ -d ${dockerPath} ] || mkdir -p ${dockerPath}
 
   local  version=$(cat ${workDir}/version/base.ini | grep middleplatform | awk '{print $2}')
