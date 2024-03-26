@@ -83,7 +83,7 @@ function upgradeKernal(){
 
 function genRepos(){
   local version=$1
-  eval "genKubernetesRepo{version}" || return $?
+  eval "genKubernetesRepo${version}" || return $?
   genDockerRepo || return $?
 }
 
