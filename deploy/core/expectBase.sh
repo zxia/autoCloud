@@ -211,6 +211,74 @@ EOF
 
 }
 
+function scpUpFile() {
+  local localFile=$2
+  local remotePath=$3
+
+  [ -d ${localFile} ] || mkdir -p ${localFile}
+
+
+  cat <<EOF >>$1
+send -- "mkdir -p   ${localFile} \r "
+expect -re "${prompt}"
+send -- "scp -r ${localFile} ${USER}@${SSH_HOST}:${remotePath} \r"
+expect {
+  *sername* {
+    send -- "${USER_PASSWORD}\r"
+    exp_continue
+  }
+  *continue* {
+    send -- "yes\r"
+    exp_continue
+  }
+
+  *assword* {
+    send -- "${USER_PASSWORD}\r"
+  }
+  "*Proceed insecurely*" {
+    send -- "y\r"
+    exp_continue
+  }
+}
+expect -re "${prompt}"
+
+EOF
+}
+
+function scpDownFile() {
+  local localFile=$2
+  local remotePath=$3
+
+  [ -d ${localFile} ] || mkdir -p ${localFile}
+
+
+  cat <<EOF >>$1
+send -- "mkdir -p   ${localFile} \r "
+expect -re "${prompt}"
+send -- "scp -r {USER}@${SSH_HOST}:${remotePath} ${localFile}  \r"
+expect {
+  *sername* {
+    send -- "${USER_PASSWORD}\r"
+    exp_continue
+  }
+  *continue* {
+    send -- "yes\r"
+    exp_continue
+  }
+
+  *assword* {
+    send -- "${USER_PASSWORD}\r"
+  }
+  "*Proceed insecurely*" {
+    send -- "y\r"
+    exp_continue
+  }
+}
+expect -re "${prompt}"
+
+EOF
+}
+
 function rsyncDownFileExp(){
   local localPath=$2
   local remoteFile=$3

@@ -93,6 +93,8 @@ expect -re "${prompt}"
 EOF
 }
 
+
+
 #copy the local file or folder to remote
 function scpUpFileExp() {
   local serverParams=${GLOBAL_PARAMS_JSON}
