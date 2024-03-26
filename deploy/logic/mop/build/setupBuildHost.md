@@ -5,6 +5,7 @@
 
 ```bash
 setConfig builddocker
+genGeneralRepo
 genRepos ${K8S_VERSION}
 EXECUTED_PERMISSION="opuser"
 executeExpect SSH "createFold:/home/opuser/repo/data"
