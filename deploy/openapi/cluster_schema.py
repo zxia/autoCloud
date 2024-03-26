@@ -91,6 +91,7 @@ class GitlabBase(BaseModel):
 class BuildDocker(BaseModel):
     base_image = "centos:7.9.2009"
     proxy: str | None = None
+    nameserver = "8.8.8.8"
 
 
 class ClusterInfo(BaseModel):

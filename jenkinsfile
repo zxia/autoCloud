@@ -7,7 +7,6 @@ pipeline {
             steps {
                 // 执行构建步骤，这里只是一个示例
                 sh 'find . -type -f | xargs -I {} dos2unix {}'
-                sh ' rsync -av deploy/  /deploy'
             }
         }
 
