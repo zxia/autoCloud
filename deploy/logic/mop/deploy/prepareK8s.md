@@ -4,14 +4,15 @@
 
 ### 安装 kubeadm
 
-````
+```bash
+setConfig k8s
 EXECUTED_PERMISSION="suroot"
-executeExpect SSH  "yum install -y kubeadm-1.24.3-0 kubectl-1.24.3-0 kubelet-1.24.3-0"
-````
+executeExpect SSH  "yum install -y kubeadm kubectl kubelet"
+```
 
 ### K8s安装需要调整的环境变量
 
-````
+```bash
 EXECUTED_PERMISSION="suroot"
 executeExpect SSH   prepareK8sInstall
 executeExpect SSH  "forwordIpv4"
@@ -24,6 +25,6 @@ genCalicoNetworkManagerConf
 executeExpect Bash "rsyncFoldExp:${workDir}/output/deploy /home/opuser/deploy"
 executeExpect SSH "updateCalicoNetworkManagerConf"
 executeExpect SSH  "changeNodeState:5GMC_HOST"
-````
+```
 
 #### @由数智云图-自动化云平台构建工具支持
