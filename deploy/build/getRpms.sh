@@ -130,7 +130,7 @@ function genDockerRepo(){
     sed -i 's+download.docker.com+mirrors.aliyun.com/docker-ce+' ${workDir}/output/deploy/docker-ce.repo
 }
 
-function saveRpms(){
+function saveRpmsOld(){
   local dependency="saveHostRpms"
   local file=/home/opuser/repo/data/component.ini
   [ -f $file ]  || return $?
@@ -143,3 +143,49 @@ function saveRpms(){
   done
 }
 
+function saveRpms(){
+  local dependency="saveK8sRpms,saveHostRpms"
+  local centosVersion=$(cat  /etc/system-release  | awk ' { print $1$4 } ' | tr -s '.' '_')
+  local BaseRpm=/tmp/baseRpm
+  local rpmDir=${BaseRpm}/${centosVersion}/${component}
+
+  [ -d ${rpmDir} ] || mkdir -p ${rpmDir}
+
+  saveK8sRpms ${rpmDir}    || return $?
+  saveHostRpms ${rpmDir}   || return $?
+  saveRepoRpms ${rpmDir}   || return $?
+
+}
+
+function saveK8sRpms()
+{
+  local rpmDir=$1
+  yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes  --downloadonly --downloaddir=${rpmDir}
+}
+
+
+function saveHostRpms()
+{
+  yum install -y lvm2 \
+                 openssl \
+                 docker-ce \
+                 docker-ce-cli \
+                 containerd.io\
+                 docker-compose-plugin\
+                 device-mapper-persistent-data \
+                 jq\
+                 unzip\
+                 net-tools\
+                 traceroute\
+                 tcpdump\
+                 bind-utils \
+                 -downloadonly --downloaddir=${rpmDir}
+}
+
+function saveRepoRpms()
+{
+  yum install -y lvm2 \
+                 yum-utils \
+                 createrepo \
+                 -downloadonly --downloaddir=${rpmDir}
+}
