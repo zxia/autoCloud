@@ -83,6 +83,7 @@ function upgradeKernal(){
 
 function genRepos(){
   local version=$1
+  [ -d ${workDir}/output/deploy ] || mkdir -p ${workDir}/output/deploy
   eval "genKubernetesRepo${version}" || return $?
   genDockerRepo || return $?
 }
