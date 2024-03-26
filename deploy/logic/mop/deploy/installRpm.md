@@ -7,7 +7,7 @@
 ```bash
 EXECUTED_PERMISSION="opuser"
 executeExpect SSH "createFold:/home/opuser/deploy/rpms" 
-executeExpect Bash "scpUpFile:/allineone/installpackage/${RPM_PACKAGE_NAME} /home/opuser/deploy/rpms/"
+executeExpect Bash "scpUpFilesExp:/allineone/installpackage/${RPM_PACKAGE_NAME} /home/opuser/deploy/rpms/"
 EXECUTED_PERMISSION="suroot"
 executeExpect SSH  "rpm -ivh /home/opuser/deploy/rpms/${RPM_PACKAGE_NAME} --force --nodeps "
 

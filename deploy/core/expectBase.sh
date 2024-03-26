@@ -211,7 +211,7 @@ EOF
 
 }
 
-function scpUpFile() {
+function scpUpFilsExp() {
   local localFile=$2
   local remotePath=$3
 
@@ -245,7 +245,7 @@ expect -re "${prompt}"
 EOF
 }
 
-function scpDownFile() {
+function scpDownFilesExp() {
   local localFile=$2
   local remotePath=$3
 
