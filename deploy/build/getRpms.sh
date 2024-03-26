@@ -179,7 +179,7 @@ function saveHostRpms()
                  traceroute\
                  tcpdump\
                  bind-utils \
-                 -downloadonly --downloaddir=${rpmDir}
+                 --downloadonly --downloaddir=${rpmDir}
 }
 
 function saveRepoRpms()
@@ -188,5 +188,5 @@ function saveRepoRpms()
   yum install -y lvm2 \
                  yum-utils \
                  createrepo \
-                 -downloadonly --downloaddir=${rpmDir}
+                 --downloadonly --downloaddir=${rpmDir}
 }
