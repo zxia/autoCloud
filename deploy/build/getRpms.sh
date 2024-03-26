@@ -28,6 +28,12 @@ function setupRepos(){
   upgradeKernel
  }
 
+ function updateKernel(){
+    local dependency="genEpelRepo upgradeKernel"
+    genEpelRepo
+    upgradeKernel
+ }
+
 function installRpmFromInternet(){
   local proxy_host=$1
   local proxy_port=$2
@@ -74,12 +80,6 @@ function setupBuildHost() {
     echo "exclude=centos-release*" >> /etc/yum.conf
 
 }
-
-function upgradeKernal(){
-  local dependency="genEpelRepo upgradeKernel"
-
-}
-
 
 function genRepos(){
   local version=$1
@@ -131,10 +131,6 @@ function genDockerRepo(){
 }
 
 function saveRpms(){
-  local proxy_host=$1
-  local proxy_port=$2
-  [ -z ${proxy_port} ] || export http_proxy=http://${proxy_host}:${proxy_port}
-  [ -z ${proxy_port} ] || export https_proxy=http://${proxy_host}:${proxy_port}
   local dependency="saveHostRpms"
   local file=/home/opuser/repo/data/component.ini
   [ -f $file ]  || return $?

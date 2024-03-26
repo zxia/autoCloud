@@ -5,7 +5,7 @@
 
 ```bash
 EXECUTED_PERMISSION="suroot"
-executeExpect SSH "saveRpms:${PROXY_HOST}  ${PROXY_PORT}"
+executeExpect SSH "saveRpms"
 executeExpect Bash "rsyncDownFoldExp:/allinone/repo/${OS} /tmp/baseRpm"
 executeExpect Bash "rsyncDownFoldExp:/allinone/repo/${OS} /var/cache/yum"
 ```
