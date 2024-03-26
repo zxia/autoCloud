@@ -4,7 +4,7 @@
 ## 准备工作
 
 ```bash
-setConfig builddocker
+setConfig buildDocker
 genGeneralRepo
 genRepos ${K8S_VERSION}
 EXECUTED_PERMISSION="opuser"
