@@ -211,16 +211,12 @@ EOF
 
 }
 
-function scpUpFilsExp() {
+function scpUpFilesExp() {
   local localFile=$2
   local remotePath=$3
 
-  [ -d ${localFile} ] || mkdir -p ${localFile}
-
 
   cat <<EOF >>$1
-send -- "mkdir -p   ${localFile} \r "
-expect -re "${prompt}"
 send -- "scp -r ${localFile} ${USER}@${SSH_HOST}:${remotePath} \r"
 expect {
   *sername* {
@@ -253,8 +249,6 @@ function scpDownFilesExp() {
 
 
   cat <<EOF >>$1
-send -- "mkdir -p   ${localFile} \r "
-expect -re "${prompt}"
 send -- "scp -r {USER}@${SSH_HOST}:${remotePath} ${localFile}  \r"
 expect {
   *sername* {
