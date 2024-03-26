@@ -5,7 +5,7 @@
 
 ```bash
 setConfig builddocker
-genRepos
+genRepos ${K8S_VERSION}
 EXECUTED_PERMISSION="opuser"
 executeExpect SSH "createFold:/home/opuser/repo/data"
 executeExpect Bash "rsyncFoldExp:/${workDir}/data/build/rpms /home/opuser/repo/data"
