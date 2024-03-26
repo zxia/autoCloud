@@ -144,7 +144,7 @@ function saveRpmsOld(){
 }
 
 function saveRpms(){
-  local dependency="saveK8sRpms,saveHostRpms"
+  local dependency="saveK8sRpms,saveHostRpms,saveRepoRpms"
   local centosVersion=$(cat  /etc/system-release  | awk ' { print $1$4 } ' | tr -s '.' '_')
   local BaseRpm=/tmp/baseRpm
   local rpmDir=${BaseRpm}/${centosVersion}/${component}
