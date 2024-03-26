@@ -144,7 +144,7 @@ function saveRpmsOld(){
 }
 
 function saveRpms(){
-  local dependency="saveK8sRpms,saveHostRpms,saveRepoRpms"
+  local dependency="saveK8sRpms saveHostRpms saveRepoRpms"
   local centosVersion=$(cat  /etc/system-release  | awk ' { print $1$4 } ' | tr -s '.' '_')
   local BaseRpm=/tmp/baseRpm
   local rpmDir=${BaseRpm}/${centosVersion}/${component}
@@ -163,9 +163,9 @@ function saveK8sRpms()
   yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes  --downloadonly --downloaddir=${rpmDir}
 }
 
-
 function saveHostRpms()
 {
+  local rpmDir=$1
   yum install -y lvm2 \
                  openssl \
                  docker-ce \
@@ -184,6 +184,7 @@ function saveHostRpms()
 
 function saveRepoRpms()
 {
+  local rpmDir=$1
   yum install -y lvm2 \
                  yum-utils \
                  createrepo \
