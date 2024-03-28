@@ -63,7 +63,10 @@ HOSTS=$(getLiveNodes "$(complementSet allHost readyHost)")
 1.   #### 容器运行环境安装
 
 -  ##### [安装containerd](../mop/deploy/installContainerd.md)
-
+```bash
+CLUSTER_STATE=5GMC_HOST
+```
+1.   ##### [更新状态](../mop/deploy/updateState.md)
 ## 安装Kubernetes主结点
 
 ### 1. 主结点选取

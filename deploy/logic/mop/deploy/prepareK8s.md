@@ -20,11 +20,9 @@ setConfig k8s
 executeExpect SSH  "addEtcHost: ${controlPlaneEndpoint} ${controlPlaneEndpointIP}"
 hostName=$(grep "${SSH_HOST}" ${workDir}/lab/${LAB_NAME}/nodes.ini | awk '{print $1}')
 executeExpect SSH  "addEtcHost: ${hostName} ${SSH_HOST}"
-unsetConfig k8s 
 genCalicoNetworkManagerConf
 executeExpect Bash "rsyncFoldExp:${workDir}/output/deploy /home/opuser/deploy"
 executeExpect SSH "updateCalicoNetworkManagerConf"
-executeExpect SSH  "changeNodeState:5GMC_HOST"
 ```
 
 #### @由数智云图-自动化云平台构建工具支持

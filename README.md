@@ -32,3 +32,4 @@ argocd repo add http://10.0.162.247:8090/gitlab-instance-befc5088/dev37-pass.git
 ###15.  getstate 花费太多时间
 ###16. argocd 不能自动退出
 ###17， 需要手动创建argocd repo .
+###18. 安装host 失败， 再次安装跳过。
