@@ -94,6 +94,12 @@ class BuildDocker(BaseModel):
     nameserver = "8.8.8.8"
 
 
+class Chrony(BaseModel):
+    server: str
+    allow_ip: str
+    version: str
+
+
 class ClusterInfo(BaseModel):
     nodes: list[Node]
     harbor: Harbor
@@ -103,3 +109,4 @@ class ClusterInfo(BaseModel):
     gitlab: GitLab | None = None
     gitlabBase: GitlabBase | None = None
     buildDocker: BuildDocker | None = None
+    chrony: Chrony | None = None

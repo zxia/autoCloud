@@ -1,19 +1,21 @@
-# 数智容器云平台构建
-## 准备配置数据
-### 1. 获取主机拓扑
-````bash
+# 容器云平台构建
+
+## 0. 对于新机器，进行一些初始化安装
+###配置变量
+```bash
 setConfig k8s
 #容器云主机列表
 allHost=$(getNodeIpList)
-
-#对于新加入的机器，需要进行一些初始化配置
-````
 ````bash
 HOSTS=$(getLiveNodes "${allHost}")
-````
+RPM_PACKAGE_NAME="rsync-3.1.2-12.el7_9.x86_64.rpm"
+```
 
-### [创建用户](../mop/deploy/createUser.md)
+###执行任务
+1. ### [创建用户](../mop/deploy/createUser.md)
+2. ### [部署rsync](../mop/deploy/installRpm.md)
 
+## 1. 获取集群拓扑
 
 ````bash
 
@@ -52,7 +54,6 @@ HOSTS=$(getLiveNodes "$(complementSet allHost readyHost)")
 
 ### 2. 每一个主机，需要安装和配置
 
-1.   #### [创建用户](../mop/deploy/createUser.md)
 1.   #### [安装基础设施](../mop/deploy/prepareHostInstall.md)
 1.   #### [主机配置](../mop/deploy/configHost.md)
 1.   #### [配置时间同步](../mop/deploy/setupChrony.md)

@@ -2,9 +2,6 @@
 # Please consider joining the pool (http://www.pool.ntp.org/join.html).
 server CHRONY_SERVER iburst 
 
-
-
-
 # Record the rate at which the system clock gains/losses time.
 driftfile /var/lib/chrony/drift
 
