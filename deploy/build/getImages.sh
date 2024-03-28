@@ -11,7 +11,7 @@ function saveImages(){
       local images=$(cat ${dataDir}/${component} | awk ' {print $1":"$2}' | xargs )
       for image in ${images}; do
         if [[ ${image} =~ .*\.k8s\.io.*  || ${image} =~ gcr\.io.* ]]; then
-          getInternetImage ${image} ${privateRegistry} || return $?
+            getInternetImage ${image} ${privateRegistry} || return $?
         else
           local privateImage=${privateRegistry}/${image#*/}
           docker pull ${image}  || return $?
