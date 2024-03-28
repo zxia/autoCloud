@@ -10,14 +10,14 @@ function saveImages(){
    for component in ${components}; do
       local images=$(cat ${dataDir}/${component} | awk ' {print $1":"$2}' | xargs )
       for image in ${images}; do
-        if [[ ${image} =~ .*\.k8s\.io.*  || ${image} =~ gcr\.io.* ]]; then
-            getInternetImage ${image} ${privateRegistry} || return $?
-        else
+      #  if [[ ${image} =~ .*\.k8s\.io.*  || ${image} =~ gcr\.io.* ]]; then
+      #      getInternetImage ${image} ${privateRegistry} || return $?
+      #  else
           local privateImage=${privateRegistry}/${image#*/}
           docker pull ${image}  || return $?
           docker tag ${image} ${privateImage}  || return $?
           docker push ${privateImage} || return $?
-        fi
+       # fi
       done
   done
 }
