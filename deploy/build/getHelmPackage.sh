@@ -1,5 +1,5 @@
 function addHelmRepo(){
-    local packages=$1
+    local proxy=$1
     export https_proxy=http://${proxy}
     export http_proxy=http://${proxy}
     cat /home/opuser/helm/data/repoList.ini | awk '{ print "helm repo add "  $1 " " $2}' > /tmp/repoList.sh
