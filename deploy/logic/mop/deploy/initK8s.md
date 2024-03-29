@@ -16,7 +16,6 @@ EXECUTED_PERMISSION="suroot"
 setConfig harbor
 initKubernetes
 executeExpect SSH "kubectl taint nodes --all node-role.kubernetes.io/control-plane-"
-executeExpect SSH "kubectl taint nodes --all node-role.kubernetes.io/master-"
 unsetConfig k8s
 unsetConfig harbor
 ```
