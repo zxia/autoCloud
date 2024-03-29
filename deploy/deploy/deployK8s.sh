@@ -138,7 +138,7 @@ function initKubernetesHelper() {
   kubeadm init --control-plane-endpoint ${controlPlaneEndpoint} \
       --upload-certs --pod-network-cidr=${podNetworkCidr}/16 \
       --kubernetes-version=${kubernetesVersion} \
-      --image-repository=${dockerRegistry}/library/ \
+      --image-repository=${dockerRegistry}/library \
       --apiserver-advertise-address=${hostIp} \
       --node-name=${hostName} \
       --v=10
