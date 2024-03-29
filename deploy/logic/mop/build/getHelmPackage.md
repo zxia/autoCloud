@@ -17,5 +17,4 @@ EXECUTED_PERMISSION="suroot"
 executeExpect SSH "addHelmRepo:\"${BUILDDOCKER_RPOXY}\"" 
 executeExpect SSH "getHelmPackage:\"${BUILDDOCKER_RPOXY}\""
 executeExpect Bash 'rsyndfcDownFoldExp:/allinone/helm /tmp/helm '
-
 ```

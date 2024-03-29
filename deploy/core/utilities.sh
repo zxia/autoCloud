@@ -56,7 +56,7 @@ function getLocalHostIP(){
 function loadProperties(){
  local configFile=$1
  local unset=$2
-
+  set -x
  [ -f "${configFile}" ] || return $?
 
  while read line; do
