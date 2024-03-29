@@ -14,7 +14,7 @@ executeExpect Bash "rsyncFoldExp:/${workDir}/data/build/helm /home/opuser/helm/d
 ```bash
 setConfig buildDocker
 EXECUTED_PERMISSION="suroot"
-executeExpect SSH "addHelmRepo:\"${BUILDDOCKER_RPOXY}\"" 
-executeExpect SSH "getHelmPackage:\"${BUILDDOCKER_RPOXY}\""
+executeExpect SSH "addHelmRepo:\"${BUILDDOCKER_PROXY}\"" 
+executeExpect SSH "getHelmPackage:\"${BUILDDOCKER_PROXY}\""
 executeExpect Bash 'rsyndfcDownFoldExp:/allinone/helm /tmp/helm '
 ```
