@@ -138,7 +138,7 @@ function initKubernetesHelper() {
   kubeadm init --control-plane-endpoint ${controlPlaneEndpoint} \
       --upload-certs --pod-network-cidr=${podNetworkCidr}/16 \
       --kubernetes-version=${kubernetesVersion} \
-      --image-repository=${dockerRegistry}/library/google_containers \
+      --image-repository=${dockerRegistry}/library/ \
       --apiserver-advertise-address=${hostIp} \
       --node-name=${hostName} \
       --v=10
@@ -156,42 +156,6 @@ function initKubernetesHelper() {
   return 0
 }
 
-function initKubernetesHelper() {
-
-  local hostName=$1
-  local hostIp=$2
-  local controlPlaneEndpoint=$3
-  local podNetworkCidr=$4
-  local kubernetesVersion=$5
-  local dockerRegistry=$6
-
-  state=$(cat /home/opuser/state/.state)
-  [ "${state}" = "5GMC_HOST" -o "${state}" = "5GMC_K8S" ] || return $?
-
-  kubeadm reset -f >/dev/null
-  rm -rf /etc/kubernetes/pki
-  rm -rf /etc/cni/net.d
-  rm -rf $HOME/.kube/config
-
-  kubeadm init --control-plane-endpoint ${controlPlaneEndpoint} \
-      --upload-certs --pod-network-cidr=${podNetworkCidr}/16 \
-      --kubernetes-version=${kubernetesVersion} \
-      --apiserver-advertise-address=${hostIp} \
-      --node-name=${hostName} \
-      --v=10
-  result=$?
-
-  if [ "${result}" -ne 0 ]; then
-    echo "execute kubeadm failure"
-    return 1
-  fi
-
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-  return 0
-}
 function getK8sReadyIpList(){
   local nodeInfo=${workDir}/output/k8s/nodes.log
   local nodesList=$(cat ${nodeInfo} | grep Ready | awk '{print $6}'|xargs)

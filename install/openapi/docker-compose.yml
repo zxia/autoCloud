@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  openapi:
+    image: gmct.storage.com/library/blueseye:v4.0.0.1109
+    ports:
+      - "8000:8000"
+    volumes:
+      - /deploy:/deploy
+      - /allinone:/allinone
+    restart: always
+    command: tail -f /dev/null
+    container_name: openapi
+    stdin_open: true
+    tty: true
