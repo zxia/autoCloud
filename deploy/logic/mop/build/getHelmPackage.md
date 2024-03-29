@@ -16,6 +16,6 @@ setConfig buildDocker
 EXECUTED_PERMISSION="suroot"
 executeExpect SSH "addHelmRepo: \"${BUILDDOCKER_RPOXY}\"" 
 executeExpect SSH "getHelmPackage: \"${BUILDDOCKER_RPOXY}\""
-executeExpect Bash 'rsyncDownFoldExp:/allinone/helm /tmp/helm '
+executeExpect Bash 'rsyndfcDownFoldExp:/allinone/helm /tmp/helm '
 
 ```
