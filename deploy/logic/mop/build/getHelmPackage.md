@@ -12,7 +12,7 @@ executeExpect Bash "rsyncFoldExp:/${workDir}/data/build/helm /home/opuser/helm/d
 ## 下载最新helm package
 
 ```bash
-setconfig buildDocker
+setConfig buildDocker
 EXECUTED_PERMISSION="suroot"
 executeExpect SSH "addHelmRepo:\"${BUILDDOCKER_NAMESERVER}\"" 
 executeExpect SSH "getHelmPackage:\"${BUILDDOCKER_NAMESERVER}\""
