@@ -9,7 +9,6 @@ setConfig k8s
 setConfig harbor
 genJoinK8sCommand
 executeExpect SSH 'systemctl restart containerd'
-executeExpect SSH  "changeNodeState:5GMC_K8S"
 
 ````
 

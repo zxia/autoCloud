@@ -41,7 +41,6 @@ executeExpect SSH "createDomain:tigera-operator ${HARBOR_USER} ${HARBOR_PASSWORD
 executeExpect SSH "deployService calico tigera-operator-v3.23.3.tgz  tigera-operator"
 executeExpect SSH 'systemctl restart containerd'
 executeExpect SSH  "waitFunctionReady:300 'healthCheckPods kube-system' "
-executeExpect SSH  "changeNodeState:5GMC_K8S"
 unsetConfig harbor
 unsetConfig k8s
 ```
