@@ -58,6 +58,7 @@ ping -c 3  ${initHost} >/dev/null 2>&1 || return $?
 isInitHostReady "${initHost}" || return $?
 #如果主控节点状态为5GMC_HOST, 进行安装，否则跳过安装
 HOSTS=$(getInitK8sNodeIP "${initHost}")
+CLUSTER_STATE=5GMC_K8S
 ```
 ### 3.2 进行主控节点安装
 
@@ -66,6 +67,7 @@ HOSTS=$(getInitK8sNodeIP "${initHost}")
 ### 2. 安装TopoLVM插件，支持动态本地存储
 1. #### 配置TopoLVM 临时跳过
 1. #### [TopoLVM安装]####(../mop/paas/topolvm.md)
+1. ##### [更新状态](../mop/deploy/updateState.md)
 
 ### 3.3获取在线容器云拓扑
 ```bash
@@ -87,6 +89,7 @@ HOSTS=$(getLiveNodes "$(complementSet readyHost k8sReadyHost)")
 
 - #### [准备创建](../mop/deploy/prepareJoinK8s.md)
 - #### [创建Kubernets集群](../mop/deploy/joinK8s.md)
+- ##### [更新状态](../mop/deploy/updateState.md)
 
 ### 2. 对于控制结点，需要进行后处理
 
