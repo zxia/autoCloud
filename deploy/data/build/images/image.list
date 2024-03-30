@@ -17,4 +17,5 @@
 #nacos       v2.1.1
 #seaweedfs   v1.1.1
 #knative      v1.8.2
-k8s          v1.28.2
+#k8s          v1.28.2
+#calico   v3.27.2
