@@ -295,6 +295,39 @@ function getNodeIpList(){
    nodes=($(cat ${nodeInfo} | grep -v "#" | awk '{print $4}' | xargs))
    echo "${nodes[@]}"
 }
+
+function getLiveNodes(){
+  set -x
+  local nodes="$1"
+  local liveNodes
+  for node in ${nodes}
+  do
+     # Test connectivity to the host
+    ping -c 3 ${node} > /dev/null 2>&1
+    if [[ $? -ne 0 ]]; then
+        echo "Network error: Unable to connect to host ${node}."
+    else
+        liveNodes="${liveNodes} ${node}"
+    fi
+  done
+  echo "${liveNodes}"
+}
+
+function getFreshNodes(){
+  local nodes="$1"
+  local freshNodes
+  local HOST_BACK=${SSH_HOST}
+  for node in ${nodes}
+  do
+    SSH_HOST=${node}
+    executeExpect SSH "ls"
+    if [ $? -eq 10 ]; then
+      freshNodes="${freshNodes} ${node}"
+    fi
+  done
+  echo ${freshNodes}
+}
+
 function getNodeListByExcludeType(){
    local type=$1
    local nodeInfo=${workDir}/lab/${LAB_NAME}/nodes.ini

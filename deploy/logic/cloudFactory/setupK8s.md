@@ -6,6 +6,8 @@
 setConfig k8s
 #容器云主机列表
 allHost=$(getNodeIpList)
+allLiveHost=$(getLiveNodes "${allHost}")
+
 HOSTS=$(getLiveNodes "${allHost}")
 RPM_PACKAGE_NAME="rsync-3.1.2-12.el7_9.x86_64.rpm"
 ```
