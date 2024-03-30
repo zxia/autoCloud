@@ -7,7 +7,7 @@ SSH_OPTIONS="-o StrictHostKeyChecking=no -o ConnectTimeout=30 "
 #permission [root, opuser,suroot]
 EXECUTED_PERMISSION="root"
 
-function executeSSHExpect(){
+function executeS:wqSHExpect(){
  local expectFile=$1
  changeUser ${EXECUTED_PERMISSION}
  cat << EOF >>  ${expectFile}
@@ -20,6 +20,9 @@ expect  {
   "continue connecting (yes/no)" {
        send -- "yes\r"
        exp_continue
+  }
+  "Permission denied"  {
+      exit 10
   }
    -re "${prompt}" {
      send -- "\r"

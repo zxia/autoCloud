@@ -33,3 +33,4 @@ argocd repo add http://10.0.162.247:8090/gitlab-instance-befc5088/dev37-pass.git
 ###16. argocd 不能自动退出
 ###17， 需要手动创建argocd repo .
 ###18. 安装host 失败， 再次安装跳过。
+###19. 安装K8s 失败，再次安装跳过
