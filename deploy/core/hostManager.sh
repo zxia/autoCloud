@@ -91,7 +91,7 @@ function addEtcHost(){
 }
 
 function getHostReadyHostIpList(){
-  local nodes=$(getNodeIpList)
+  local nodes=$1
   local state
   local nodeList=""
   for node in ${nodes}
@@ -101,6 +101,50 @@ function getHostReadyHostIpList(){
   done
 
   echo ${nodeList}
+}
+function getHostNotReadyHostIpList(){
+  local nodes=$1
+  local state
+  local nodeList=""
+  for node in ${nodes}
+  do
+     state=$(getHostState $node )
+     if [ ${state} = 5GMC_HOST -o ${state} = 5GMC_K8S ]; then
+        continue
+     else
+        nodeList="$nodeList $node "
+     fi
+  done
+
+  echo ${nodeList}
+}
+
+function isInitHostReady(){
+    local node=$1
+    local liveNode=$(getLiveNodes "${node}")
+    if [ -z ${liveNode} ]; then
+      echo "node does not live "
+      return 1
+    fi
+
+    local state=$(getHostState "${node}")
+
+    if [ "${state}" = "5GMC_HOST"  -o "${state}" = "5GMC_K8S" ];then
+       return  0
+    else
+      echo "wrong state is ${state}"
+      return 1
+    fi
+
+}
+
+function getInitK8sNodeIP(){
+  local node=$1
+  local state=$(getHostState "${node}")
+  if [ "${state}" = "5GMC_HOST" ]; then
+    echo "${node}"
+  fi
+  echo ""
 }
 
 function getHostState(){
@@ -113,6 +157,7 @@ function getHostState(){
   fi
   echo ${state}
 }
+
 
 function getHostStateHelper(){
   local tmpHostDir=${workDir}/output/state

@@ -296,22 +296,6 @@ function getNodeIpList(){
    echo "${nodes[@]}"
 }
 
-function getLiveNodes(){
-  set -x
-  local nodes="$1"
-  local liveNodes
-  for node in ${nodes}
-  do
-     # Test connectivity to the host
-    ping -c 3 ${node} > /dev/null 2>&1
-    if [[ $? -ne 0 ]]; then
-        echo "Network error: Unable to connect to host ${node}."
-    else
-        liveNodes="${liveNodes} ${node}"
-    fi
-  done
-  echo "${liveNodes}"
-}
 
 function getFreshNodes(){
   local nodes="$1"
