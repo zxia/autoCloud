@@ -94,6 +94,7 @@ fi
 while getopts "a:b:hj:o:p:i:w:" opt; do
   case ${opt} in
   b)
+    #for example  bash -x dp.sh -p COMMAND=deploy -b "getFreshNodes '192.168.3.141 192.168.3.142 192.168.3.143'"  -o"LAB_NAME=k8s01"
     shellCommand=${OPTARG}
     mode=bash
     ;;

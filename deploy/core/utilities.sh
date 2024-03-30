@@ -322,7 +322,7 @@ function getFreshNodes(){
   do
     SSH_HOST=${node}
     EXECUTED_PERMISSION="opuser"
-    executeExpect SSH "ls /root"
+    executeExpect SSH "ls /home/opuser"
     if [ $? -eq 10 ]; then
       freshNodes="${freshNodes} ${node}"
     fi
