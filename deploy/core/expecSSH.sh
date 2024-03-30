@@ -7,7 +7,7 @@ SSH_OPTIONS="-o StrictHostKeyChecking=no -o ConnectTimeout=30 "
 #permission [root, opuser,suroot]
 EXECUTED_PERMISSION="root"
 
-function executeS:wqSHExpect(){
+function executeSSHExpect(){
  local expectFile=$1
  changeUser ${EXECUTED_PERMISSION}
  cat << EOF >>  ${expectFile}
