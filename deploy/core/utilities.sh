@@ -316,15 +316,19 @@ function getLiveNodes(){
 function getFreshNodes(){
   local nodes="$1"
   local freshNodes
-  local HOST_BACK=${SSH_HOST}
+  local host_back=${SSH_HOST}
+  local permission_back=${EXECUTED_PERMISSION}
   for node in ${nodes}
   do
     SSH_HOST=${node}
-    executeExpect SSH "ls"
+    EXECUTED_PERMISSION="opuser"
+    executeExpect SSH "ls /root"
     if [ $? -eq 10 ]; then
       freshNodes="${freshNodes} ${node}"
     fi
   done
+  SSH_HOST=${host_back}
+  EXECUTED_PERMISSION=${permission_back}
   echo ${freshNodes}
 }
 
