@@ -39,7 +39,7 @@ EOF
 
 logbuf=""
 function executeExpect() {
-  set +x
+
   local type=$1
   local command=$2
   local output=${workDir}/output/expect
