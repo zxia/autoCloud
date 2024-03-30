@@ -57,7 +57,7 @@ ping -c 3  ${initHost} >/dev/null 2>&1 || return $?
 #如果主控节点状态不是5GMC_HOST或者5GMC_K8S, 退出
 isInitHostReady  || return -1 
 #如果主控节点状态为5GMC_HOST, 进行安装，否则跳过安装
-HOSTS=$(getInitK8sNodeIP "initHost")
+HOSTS=$(getInitK8sNodeIP "${initHost}")
 ```
 ### 3.2 进行主控节点安装
 
