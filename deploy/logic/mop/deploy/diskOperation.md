@@ -2,7 +2,7 @@
 
 ## 磁盘操作
 
-````bash
+```bash
 EXECUTED_PERMISSION="suroot"
 setNodeConfig disk   
 setNodeConfig docker 
@@ -11,6 +11,6 @@ executeExpect SSH "formatFsDisk:${DISK_ERASED} ${DOCKER_PATH} ${DISK_DISK} ${DOC
 
 unsetNodeConfig disk  
 unsetNodeConfig docker 
-````
+```
 
 #### @由数智云图-自动化云平台构建工具支持

@@ -34,3 +34,7 @@ argocd repo add http://10.0.162.247:8090/gitlab-instance-befc5088/dev37-pass.git
 ###17， 需要手动创建argocd repo .
 ###18. 安装host 失败， 再次安装跳过。
 ###19. 安装K8s 失败，再次安装跳过
+###20.  需要enable kubelet
+###21. topolvm vg create 
+       topolvm  delete pod  terminating --grace-period=0 --force 
+       topolvm vg01 is not generated in the lvmd configuration files.
