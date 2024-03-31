@@ -42,7 +42,7 @@ EXECUTED_PERMISSION="suroot"
 #executeExpect SSH "prepareTopolvm"
 executeExpect SSH  "installCertManagerCRD"
 executeExpect SSH "createDomain:topolvm-system ${HARBOR_USER} ${HARBOR_PASSWORD} ${HARBOR_URI}"
-executeExpect SSH "deployService topolvm topolvm-14.1.0.tgz.tgz  topolvm-system"
+executeExpect SSH "deployService topolvm topolvm-14.1.0.tgz topolvm-system"
 
 ````
 
