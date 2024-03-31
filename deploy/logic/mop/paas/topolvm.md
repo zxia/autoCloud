@@ -3,13 +3,6 @@
 TopoLVM 是一个 Kubernetes CSI 插件,
 它采用CSI和LVM实现了本地存储能力。[官方地址](https://github.com/topolvm/topolvm#readme)
 
-## 通用配置参数
-
-```bash
-
-LOCAL_HOST_IP=$(getLocalHostIP)
-```
-
 ## 生成配置数据
 
 - 生成TooLVM 配置数据

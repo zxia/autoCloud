@@ -8,7 +8,8 @@ function prepareTopolvm(){
 }
 function installCertManagerCRD(){
     kubectl apply -f /home/opuser/topolvm/cert-manager.crds.yaml -n topolvm-system
-    kubectl label namespace kube-system topolvm.cybozu.com/webhook=ignore
+    kubectl label namespace topolvm-system topolvm.io/webhook=ignore
+    kubectl label namespace kube-system topolvm.io/webhook=ignore
 }
 function genTopolvmValue(){
   local userValue=$1/userValues.yaml
