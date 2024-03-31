@@ -7,31 +7,31 @@ TopoLVM 是一个 Kubernetes CSI 插件,
 
 - 生成TooLVM 配置数据
 
-````bash
+```bash
 EXECUTED_PERMISSION="opuser"
 setConfig harbor
 setConfig topolvm
 #下载k8s scheduler file 
 executeExpect SSH "createFold:/home/opuser/topolvm"
-EXECUTED_PERMISSION="suroot"
-executeExpect SSH "getK8sSchedulerFile"
-EXECUTED_PERMISSION="opuser"
-executeExpect Bash "rsyncDownFoldExp:${workDir}/output/topolvm /home/opuser/topolvm"
+#EXECUTED_PERMISSION="suroot"
+#executeExpect SSH "getK8sSchedulerFile"
+#EXECUTED_PERMISSION="opuser"
+#executeExpect Bash "rsyncDownFoldExp:${workDir}/output/topolvm /home/opuser/topolvm"
 #生成配置文件
 genTopolvmFile
 genValue topolvm
-````
+```
 
 ## 上传安装包
 
-````bash
+```bash
 EXECUTED_PERMISSION="opuser"
 executeExpect SSH createFold:/home/opuser/helm
 executeExpect Bash 'rsyncFoldExp:/allinone/helm /home/opuser/helm'
 executeExpect Bash "rsyncFoldExp:${workDir}/output/topolvm /home/opuser/topolvm"
 executeExpect SSH createFold:/home/opuser/configure
 executeExpect Bash "rsyncFoldExp:${workDir}/output/helm  /home/opuser/configure"
-````
+```
 
 ## 安装TopoLVM
 
@@ -39,10 +39,10 @@ executeExpect Bash "rsyncFoldExp:${workDir}/output/helm  /home/opuser/configure"
 
 ````bash
 EXECUTED_PERMISSION="suroot"
-executeExpect SSH "prepareTopolvm"
+#executeExpect SSH "prepareTopolvm"
 executeExpect SSH  "installCertManagerCRD"
 executeExpect SSH "createDomain:topolvm-system ${HARBOR_USER} ${HARBOR_PASSWORD} ${HARBOR_URI}"
-executeExpect SSH "deployService topolvm topolvm-8.0.1.tgz  topolvm-system"
+executeExpect SSH "deployService topolvm topolvm-14.1.0.tgz.tgz  topolvm-system"
 
 ````
 
