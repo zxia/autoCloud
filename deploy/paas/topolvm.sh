@@ -116,9 +116,9 @@ function genTopolvmFile(){
 
   rsync ${workDir}/template/deploy/cert-manager.crds.yaml.tpl  ${topolvmPath}/cert-manager.crds.yaml  || return $?
 
-  rsync ${workDir}/template/deploy/scheduler-config-v1beta2.yaml.tpl  ${topolvmPath}/scheduler-config.yaml || return $?
+  #rsync ${workDir}/template/deploy/scheduler-config-v1beta2.yaml.tpl  ${topolvmPath}/scheduler-config.yaml || return $?
 
-  genSchedulerFile || return $?
+  #genSchedulerFile || return $?
 
 }
 

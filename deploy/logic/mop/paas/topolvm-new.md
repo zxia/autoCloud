@@ -25,6 +25,9 @@ executeExpect Bash 'rsyncFoldExp:/allinone/helm /home/opuser/helm'
 executeExpect Bash "rsyncFoldExp:${workDir}/output/topolvm /home/opuser/topolvm"
 executeExpect SSH createFold:/home/opuser/configure
 executeExpect Bash "rsyncFoldExp:${workDir}/output/helm  /home/opuser/configure"
+#生成配置文件
+genTopolvmFile
+genValue topolvm
 ````
 
 ## 安装TopoLVM
