@@ -151,7 +151,7 @@ function runEngine(){
 
 
 function execFunc(){
-  set -x
+  set +x
   local lang=$1
   local function=$2
   local parentPath=$3
@@ -162,7 +162,7 @@ function execFunc(){
  }
 
 function execDpFunc(){
-  set -x
+  set +x
   local rawLine=$1
   local runFile=${rawLine##*\(}
   local runFile=${runFile%\)*}
