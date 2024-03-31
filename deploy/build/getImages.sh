@@ -8,7 +8,7 @@ function saveImages(){
    components=$(cat ${dataDir}/image.list  |  grep -v '#' | awk '{print $1"."$2}' | xargs)
 
    for component in ${components}; do
-      local images=$(cat ${dataDir}/${component} | grep -v # | awk ' {print $1":"$2}' | xargs )
+      local images=$(cat ${dataDir}/${component} | grep -v ''# | awk ' {print $1":"$2}' | xargs )
       for image in ${images}; do
       #  if [[ ${image} =~ .*\.k8s\.io.*  || ${image} =~ gcr\.io.* ]]; then
       #      getInternetImage ${image} ${privateRegistry} || return $?
