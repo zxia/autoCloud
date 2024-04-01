@@ -40,3 +40,5 @@ argocd repo add http://10.0.162.247:8090/gitlab-instance-befc5088/dev37-pass.git
        topolvm vg01 is not generated in the lvmd configuration files.
 ###22. logResult timeout 时间调整， 允许重试一次
 ###23. joinNode 执行错误，不退出。
+###24.  容器中，配置ssh_config. 
+###25.  argocd 需要复制到/usr/local

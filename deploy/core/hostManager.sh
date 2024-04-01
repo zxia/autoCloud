@@ -73,8 +73,6 @@ function formatFsDiskNew(){
       mkfs.xfs -f ${directory} || return $?
       pvcreate -y ${directory} || return $?
       vgcreate -ff -y ${vgName} ${directory}  || return $?
-      echo y|lvcreate -L ${size} -n ${lvName} ${vgName}
-      mkfs.xfs  -f /dev/${vgName}/${lvName}  || return $?
     fi
 }
 

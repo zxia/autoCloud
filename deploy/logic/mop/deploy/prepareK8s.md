@@ -8,6 +8,7 @@
 setConfig k8s
 EXECUTED_PERMISSION="suroot"
 executeExpect SSH  "yum install -y kubeadm kubectl kubelet"
+executeExpect SSH  'systemctl enable kubelet.service'
 ```
 
 ### K8s安装需要调整的环境变量
