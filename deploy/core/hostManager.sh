@@ -58,50 +58,6 @@ function formatFsDisk(){
     echo "/dev/${vgName}/${lvName} ${largeDisk} xfs rw 0 0" >> /etc/fstab
     mount -a  || return $?
 }
-function formatFsDiskNew(){
-    local DISK_ERASED=$1
-    local largeDisk=$2
-    local directory=$3
-    local size=$4
-    local lvName=$5
-    local vgName=$6
-    lvs | grep ${lvName}
-    isLvCreate=$?
-
-     # remove lvs if possible
-    if [ "${DISK_ERASED}" = "true" -a ${isLvCreate} -eq 0 ] ;then
-      mount | grep ${largeDisk} && umount  ${largeDisk}
-      [ -d "${largeDisk}" -a  -n "${largeDisk}" ]  && rm -rf ${largeDisk}
-
-      lvs  | grep  LV
-      if [ $? -eq 0 ]; then
-          lvs | awk ' { print $1} ' | grep -v LV  | xargs -I {} lvremove -f /dev/vg01/{} || return  $?
-      fi
-      vgs  | grep  VG
-      if [ $? -eq 0 ];then
-          vgs | grep -v VG | awk '{print $1}' | xargs  vgremove || return  $?
-      fi
-
-      pvs | grep PV
-      if [ $? -eq 0 ];then
-         pvs  | grep -v PV | awk '{print $1}' | xargs pvremove  || return  $?
-      fi
-    fi
-
-    if [ "${DISK_ERASED}" = "true" -o ${isLvCreate} -eq 0 ]; then
-      mkfs.xfs -f ${directory} || return $?
-      pvcreate -y ${directory} || return $?
-      vgcreate -ff -y ${vgName} ${directory}  || return $?
-      echo y|lvcreate -L ${size} -n ${lvName} ${vgName}
-      mkfs.xfs  -f /dev/${vgName}/${lvName}  || return $?
-    fi
-
-    [ -d "${largeDisk}" -a  -n "${largeDisk}" ]  && rm -rf ${largeDisk}
-    mkdir -p ${largeDisk}
-    sed -i "/${lvName}/d"   /etc/fstab
-    echo "/dev/${vgName}/${lvName} ${largeDisk} xfs rw 0 0" >> /etc/fstab
-    mount -a  || return $?
-}
 #create vg
 function formatFsDiskNew(){
     local DISK_ERASED=$1
