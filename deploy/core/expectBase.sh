@@ -126,7 +126,7 @@ EOFA
 
   cat <<EOF >>${expectFile}
   set timeout 1800
-  send -- "logResult ${functionName} \$? \r"
+  send -- "logResult ${functionName} \$?\r"
   expect  {
    "${functionName} success" {
       send -- "\r"
