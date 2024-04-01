@@ -139,10 +139,11 @@ EOFA
      exit 3
      }
 }
+
+EOF
   cat <<'EOFB' >>${expectFile}
   set timeout \${original_timeout}
 EOFB
-EOF
 }
 function declareFunction(){
   local expectFile=$1
