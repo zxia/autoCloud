@@ -102,6 +102,25 @@ function formatFsDiskNew(){
     echo "/dev/${vgName}/${lvName} ${largeDisk} xfs rw 0 0" >> /etc/fstab
     mount -a  || return $?
 }
+#create vg
+function formatFsDiskNew(){
+    local DISK_ERASED=$1
+    local largeDisk=$2
+    local directory=$3
+    local size=$4
+    local lvName=$5
+    local vgName=$6
+    lvs | grep ${lvName}
+    isLvCreate=$?
+
+    if [ "${DISK_ERASED}" = "true" -o ${isLvCreate} -eq 0 ]; then
+      mkfs.xfs -f ${directory} || return $?
+      pvcreate -y ${directory} || return $?
+      vgcreate -ff -y ${vgName} ${directory}  || return $?
+      echo y|lvcreate -L ${size} -n ${lvName} ${vgName}
+      mkfs.xfs  -f /dev/${vgName}/${lvName}  || return $?
+    fi
+}
 
 function prepareCtyunOS() {
    local rpmDir=$1
