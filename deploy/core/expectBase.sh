@@ -121,17 +121,21 @@ function checkFunctionResult(){
   local functionName=${command%%:*}
   functionName=${functionName%%' '*}
   cat <<EOF >>${expectFile}
+  set original_timeout $timeout
+  set timeout 30
   send -- "logResult ${functionName} \$? \r"
   expect  {
    "${functionName} success" {
       send -- "\r"
     }
     "${functionName} failed" {
-       exit 2
+         exit 2
     }
     timeout {
      exit 3
      }
+  set timeout ${original_timeout}
+
 }
 EOF
 }
