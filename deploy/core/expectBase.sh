@@ -125,7 +125,7 @@ function checkFunctionResult(){
 EOFA
 
   cat <<EOF >>${expectFile}
-  set timeout 90
+  set timeout 180
   send -- "logResult ${functionName} \$? \r"
   expect  {
    "${functionName} success" {

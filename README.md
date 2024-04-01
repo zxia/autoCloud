@@ -38,3 +38,4 @@ argocd repo add http://10.0.162.247:8090/gitlab-instance-befc5088/dev37-pass.git
 ###21. topolvm vg create 
        topolvm  delete pod  terminating --grace-period=0 --force 
        topolvm vg01 is not generated in the lvmd configuration files.
+###22. logResult timeout 时间调整， 允许重试一次
