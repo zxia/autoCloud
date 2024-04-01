@@ -78,7 +78,7 @@ HOSTS=${controlPlaneEndpointIP}
 ### 3.4 计算需要安装的K8s节点
 ```bash
 k8sReadyHost=$(getK8sReadyIpList)
-joinHost=$(complementSet  k8sReadyHost ${controlPlaneEndpointIP})
+joinHost=$(complementSet  k8sReadyHost initHost)
 #添加的K8s结点=期望增加的非主点-已经安装过的结点
 HOSTS=$(complementSet allLiveHost joinHost)
 ```
