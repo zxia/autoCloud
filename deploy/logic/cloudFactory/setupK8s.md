@@ -77,12 +77,9 @@ HOSTS=${controlPlaneEndpointIP}
 
 ### 3.4 计算需要安装的K8s节点
 ```bash
-#获取已经安装的主机列表
-readyHost=$(getHostReadyHostIpList ${allLiveHost})
-#容器云已经安装的结点
 k8sReadyHost=$(getK8sReadyIpList)
 #添加的K8s结点=期望增加的非主点-已经安装过的结点
-HOSTS=$(getLiveNodes "$(complementSet readyHost k8sReadyHost)")
+HOSTS=$(getLiveNodes "$(complementSet allLiveHost k8sReadyHost)")
 
 ```
 ### 3.5 安装其它节点
