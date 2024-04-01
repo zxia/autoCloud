@@ -120,6 +120,10 @@ function checkFunctionResult(){
   local command=$2
   local functionName=${command%%:*}
   functionName=${functionName%%' '*}
+  cat <<'EOFA' >>${expectFile}
+  set original_timeout $timeout
+EOFA
+
   cat <<EOF >>${expectFile}
   set original_timeout \$timeout
   set timeout 30
@@ -134,9 +138,10 @@ function checkFunctionResult(){
     timeout {
      exit 3
      }
-  set timeout \${original_timeout}
-
 }
+  cat <<'EOFB' >>${expectFile}
+  set timeout \${original_timeout}
+EOFB
 EOF
 }
 function declareFunction(){
