@@ -44,7 +44,7 @@ function executeExpect() {
   local command=$2
   local output=${workDir}/output/expect
   [ -d ${output} ] || mkdir -p ${output}
-
+  set +x
   local randNum=$(($RANDOM % 49999))
 
   expFile=${output}/${type}-$$-${randNum}.exp
