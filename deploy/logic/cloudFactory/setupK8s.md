@@ -75,16 +75,18 @@ HOSTS=${controlPlaneEndpointIP}
 ```
 #### [获取容器云拓扑](../mop/deploy/getK8sInfo.md)
 
-### 3.4 计算需要安装的K8s节点
+### 3.4 准备工作，加入其它节点
+- #### [准备创建](../mop/deploy/prepareJoinK8s.md)
+
+### 3.5 计算需要安装的K8s节点
 ```bash
 k8sReadyHost=$(getK8sReadyIpList)
 joinHost=$(complementSet  k8sReadyHost initHost)
 #添加的K8s结点=期望增加的非主点-已经安装过的结点
 HOSTS=$(complementSet allLiveHost joinHost)
 ```
-### 3.5 安装其它节点
+### 3.6 安装其它节点
 
-- #### [准备创建](../mop/deploy/prepareJoinK8s.md)
 - #### [创建Kubernets集群](../mop/deploy/joinK8s.md)
 - ##### [更新状态](../mop/deploy/updateState.md)
 
