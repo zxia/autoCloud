@@ -80,8 +80,7 @@ HOSTS=${controlPlaneEndpointIP}
 k8sReadyHost=$(getK8sReadyIpList)
 joinHost=$(complementSet  k8sReadyHost ${controlPlaneEndpointIP})
 #添加的K8s结点=期望增加的非主点-已经安装过的结点
-HOSTS=$(complementSet allLiveHost k8sReadyHost)
-
+HOSTS=$(complementSet allLiveHost joinHost)
 ```
 ### 3.5 安装其它节点
 
