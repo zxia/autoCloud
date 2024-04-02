@@ -134,6 +134,9 @@ EOFA
     "${functionName} failed" {
          exit 2
     }
+    "logResult" {
+       send -- "logResult ${functionName} \$?\r"
+    }
     timeout {
         exit 3
     }
