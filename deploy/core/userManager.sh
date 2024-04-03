@@ -4,27 +4,25 @@ function createUser(){
   local name=$1
   local password=$2
 
-  # 检查用户是否已存在
+  # Check if user already exists
   id -u $name &> /dev/null
   if [ $? -eq 0 ]; then
-    echo "用户 $name 已存在"
+    echo "User $name already exists."
     return 1
   fi
 
-  # 检查用户组是否已存在
+  # Check if user group already exists
   getent group ${name}group &> /dev/null
   if [ $? -ne 0 ]; then
-    # 如果用户组不存在，则创建用户组
-    groupadd ${name}group || { echo "无法创建用户组 ${name}group"; return 1; }
+    # If user group doesn't exist, create it
+    groupadd ${name}group || return $?
   fi
 
-  # 创建用户并将其添加到用户组
-  useradd -g ${name}group -m $name || { echo "无法创建用户 $name"; return 1; }
+  # Create user and add to user group
+  useradd -g ${name}group -m $name || return $?
 
-  # 设置用户密码
-  echo "$name:$password" | chpasswd || { echo "无法设置用户 $name 的密码"; return 1; }
 
-  echo "用户 $name 创建成功"
+  echo "User $name created successfully."
   return 0
 }
 
