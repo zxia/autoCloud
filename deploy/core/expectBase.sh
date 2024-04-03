@@ -206,7 +206,7 @@ function rsyncFileExp(){
 
   cat << EOF >> $1
 set timeout 1200
-send --  "rsync -aqz -e \'ssh  ${SSH_OPTIONS}   \' ${localFile}  ${USER}@${SSH_HOST}:${remotePath}/\r"
+send --  "rsync -aq -e \'ssh  ${SSH_OPTIONS}   \' ${localFile}  ${USER}@${SSH_HOST}:${remotePath}/\r"
 expect  {
   "assword: " {
         send -- "${USER_PASSWORD}\r"
@@ -288,7 +288,7 @@ function rsyncDownFileExp(){
   [ -d ${localFile} ] || mkdir -p ${localFile}
   cat << EOF >> $1
 set timeout 1200
-send --  "rsync -az -e \'ssh  ${SSH_OPTIONS}   \'  ${USER}@${SSH_HOST}:${remoteFile}/  ${localPath}\r"
+send --  "rsync -aq -e \'ssh  ${SSH_OPTIONS}   \'  ${USER}@${SSH_HOST}:${remoteFile}/  ${localPath}\r"
 expect  {
   "assword: " {
         send -- "${USER_PASSWORD}\r"
