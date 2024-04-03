@@ -6,6 +6,6 @@
 
 ```bash
 EXECUTED_PERMISSION="suroot"
-executeExpect SSH "genEpelRepo"
+executeExpect SSH "genEpelRepogenEpelRepo"
 executeExpect SSH "upgradeKernel"
 ```

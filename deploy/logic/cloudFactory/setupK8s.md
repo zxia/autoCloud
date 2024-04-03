@@ -31,7 +31,7 @@ HOSTS=$(getHostNotReadyHostIpList "${allLiveHost}")
 1.   #### [安装基础设施](../mop/deploy/prepareHostInstall.md)
 1.   #### [主机配置](../mop/deploy/configHost.md)
 1.   #### [配置时间同步](../mop/deploy/setupChrony.md)
-
+1.   #### [升级内核](../mop/deploy/updateKernal.md)
 ### 2.3 每一个主机，需要准备Kubernetes安装工作
 
 1.   #### [kubernetes安装准备工作-采用kubeadm进行安装](../mop/deploy/prepareK8s.md)

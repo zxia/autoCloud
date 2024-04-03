@@ -95,7 +95,7 @@ function installKernal(){
   yum install kernel-lt.x86_64 -y
   grub2-set-default 0
   sed -i 's/GRUB_DEFAULT=saved/GRUB_DEFAULT=0/g' /etc/default/grub
-  grub2-mkconfig -o /boot/grub2/grub.cfg
+  grub2-mkconfig -o g
 }
 
 function addEtcHost(){
