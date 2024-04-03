@@ -172,8 +172,7 @@ function execDpFunc(){
   for host in ${HOSTS}
   do
      eval SSH_HOST=${host}
-     runEngine "${parentPath}/${runFile}"
-     result=$?
+     runEngine "${parentPath}/${runFile}" || return $?
   done
 
   SSH_HOST=${sshHostBack}
