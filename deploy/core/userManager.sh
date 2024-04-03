@@ -8,7 +8,7 @@ function createUser(){
   id -u $name &> /dev/null
   if [ $? -eq 0 ]; then
     echo "User $name already exists."
-    return 1
+    return 0
   fi
 
   # Check if user group already exists
