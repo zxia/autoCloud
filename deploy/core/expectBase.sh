@@ -2,7 +2,7 @@
 expectTimeout=60
 debug=true
 #SSHPrompt="%|#|\\$|\\]\\s{0,3}\$"
-SSHPrompt='{[%|#|\$|\]]\s*}'
+SSHPrompt='{\]\s*$|%\s*$|#\s*$|\$\s*$}'
 TIME_OUT=${expectTimeout}
 ###################################################
 #######################Base Expect ################
