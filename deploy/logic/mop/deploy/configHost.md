@@ -11,7 +11,7 @@ executeExpect SSH changeHostNameExp
 
 ```bash
 EXECUTED_PERMISSION="suroot"
-executeExpect SSH  "yum clean all ; yum makecache ; yum update -y ; yum install -y jq"
+executeExpect SSH  "updateRepo"
 ```
 
 #### @由数智云图-自动化云平台构建工具支持
