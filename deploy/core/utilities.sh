@@ -381,7 +381,7 @@ function scpFileExp() {
 
   cat <<EOF >>$1
 send -- "mkdir -p   ${localFile} \r "
-expect -re "${prompt}"
+expect -re ${prompt}
 send -- "scp -r  ${user}@${remoteFile} ${localFile} \r"
 expect {
   *sername* {
@@ -401,7 +401,7 @@ expect {
     exp_continue
   }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 
 EOF
 }
@@ -418,7 +418,7 @@ function scpUpFileExp() {
 
   cat <<EOF >>$1
 send -- "mkdir -p   ${localFile} \r "
-expect -re "${prompt}"
+expect -re ${prompt}
 send -- "scp -r  ${localFile} ${user}@${remoteFile}/  \r"
 expect {
   *sername* {
@@ -438,7 +438,7 @@ expect {
     exp_continue
   }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 
 EOF
 }

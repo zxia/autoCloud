@@ -1,7 +1,8 @@
 ###################golabel variable################
 expectTimeout=60
 debug=true
-SSHPrompt='%|#|\\$|\\]\\s{0,3}'
+#SSHPrompt="%|#|\\$|\\]\\s{0,3}\$"
+SSHPrompt='{[%|#|\$|\]]\s*}'
 TIME_OUT=${expectTimeout}
 ###################################################
 #######################Base Expect ################
@@ -79,7 +80,7 @@ function executeCommand() {
     local expectFile=$1
     cat <<EOF >>${expectFile}
 send -- "${command}\r"
-expect -re "${prompt}"
+expect -re ${prompt}
 EOF
   fi
   checkFunctionResult ${expectFile}  "${command}"
@@ -112,7 +113,7 @@ function loadFunctionResult() {
   local cmd2=$(genFunctionDeclaration logResult)
   cat <<EOF >>${expectFile}
 send -- "function ${cmd2}\r"
-expect -re "${prompt}"
+expect -re ${prompt}
 EOF
 }
 
@@ -151,7 +152,7 @@ function declareFunction(){
   local cmd=$(genFunctionDeclaration ${functionName})
     cat <<EOF >>${expectFile}
 send -- "function ${cmd}\r"
-expect -re "${prompt}"
+expect -re ${prompt}
 EOF
 }
 
@@ -183,7 +184,7 @@ function exectueFunction() {
    #local appendix=$(insertSideCar logResult)
   cat <<EOF >>${expectFile}
 send -- "${command}\r "
-expect -re "${prompt}"
+expect -re ${prompt}
 EOF
 }
 
@@ -216,7 +217,7 @@ expect  {
       exit  3
    }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 EOF
 
 }
@@ -246,7 +247,7 @@ expect {
     exp_continue
   }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 
 EOF
 }
@@ -278,7 +279,7 @@ expect {
     exp_continue
   }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 
 EOF
 }
@@ -298,7 +299,7 @@ expect  {
       exit  3
    }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 EOF
 
 }
@@ -318,7 +319,7 @@ expect  {
       exit  3
    }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 EOF
 
 }
@@ -337,7 +338,7 @@ expect  {
       exit  3
    }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 EOF
 
 }

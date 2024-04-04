@@ -24,7 +24,7 @@ expect  {
   "Permission denied"  {
       exit 10
   }
-   -re "${prompt}" {
+   -re ${prompt} {
      send -- "\r"
    }
    timeout {
@@ -38,7 +38,7 @@ EOF
 send -- "su -\r"
 expect "assword"
 send -- "${SSH_ROOT_PASSWORD}\r"
-expect -re "${prompt}"
+expect -re ${prompt}
 EOF
   fi
 
@@ -47,7 +47,7 @@ EOF
 cat << EOF >> ${expectFile}
 
 expect  {
-    -re  "${prompt}" {
+    -re  ${prompt} {
      send -- "exit\r"
 	   expect "*"
      send -- "exit\r"

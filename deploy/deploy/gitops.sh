@@ -58,7 +58,7 @@ expect {
     exp_continue
   }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 
 EOF
 }
@@ -88,7 +88,7 @@ expect {
     exp_continue
   }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 
 EOF
 }
@@ -105,7 +105,7 @@ function operateGitPushExp(){
 
   cat << EOF >> $1
 send -- "cd ${git_path}; git add \.; git commit -m ${git_message}\r"
-expect -re "${prompt}"
+expect -re ${prompt}
 send -- "git push \r"
 expect {
   *sername* {
@@ -116,7 +116,7 @@ expect {
     send -- "${GITOPS_PASSWORD}\r"
   }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 
 EOF
 }
@@ -205,7 +205,7 @@ expect {
     send -- "${ARGOCD_PASSWORD}\r"
   }
 }
-expect -re "${prompt}"
+expect -re ${prompt}
 
 EOF
 }

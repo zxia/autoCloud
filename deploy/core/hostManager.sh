@@ -87,7 +87,7 @@ function changeHostNameExp(){
   local hostName=$(grep "${targetIP}" ${workDir}/lab/${LAB_NAME}/nodes.ini | awk '{print $1}')
   cat << EOF >> $1
 send -- "hostnamectl set-hostname ${hostName}\r"
-expect -re "${prompt}"
+expect -re ${prompt}
 EOF
 }
 

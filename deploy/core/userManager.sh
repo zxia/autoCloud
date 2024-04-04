@@ -47,7 +47,7 @@ expect  {
    "Retype" {
     send -- "${passwd}\r"
   }
-  -re "${prompt}" {
+  -re ${prompt} {
    send -- "\r"
   }
   timeout {

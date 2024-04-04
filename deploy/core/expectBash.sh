@@ -16,7 +16,7 @@ cat << EOF >> ${expectFile}
 
 set timeout 1
 expect  {
-     "${prompt}" {
+    -re ${prompt} {
      send -- "exit\r"
 	   expect "*"
      send -- "exit\r"
