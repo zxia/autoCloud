@@ -2,6 +2,7 @@
 expectTimeout=60
 debug=true
 SSHPrompt='(%|#|\\$|\])(\\s{0,3})'
+TIME_OUT=${expectTimeout}
 ###################################################
 #######################Base Expect ################
 ###################################################
@@ -125,7 +126,7 @@ function checkFunctionResult(){
 EOFA
 
   cat <<EOF >>${expectFile}
-  set timeout 540
+  set timeout ${TIME_OUT}
   send -- "logResult ${functionName} \$?\r"
   expect  {
    "${functionName} success" {
@@ -141,7 +142,7 @@ EOFA
 
 EOF
   cat <<'EOFB' >>${expectFile}
-  set timeout \${original_timeout}
+  set timeout ${original_timeout}
 EOFB
 }
 function declareFunction(){
