@@ -108,8 +108,8 @@ function setConfig(){
 function unsetConfig(){
   set +x
   local component=${1%-*}
-  [ -f ${workDir}/lab/${LAB_NAME}/${component}.ini ] || return 0
-  loadProperties  "${workDir}/lab/${LAB_NAME}/${component}.ini"  "true"
+  #[ -f ${workDir}/lab/${LAB_NAME}/${component}.ini ] || return 0
+  #loadProperties  "${workDir}/lab/${LAB_NAME}/${component}.ini"  "true"
 }
 
 function trs(){
