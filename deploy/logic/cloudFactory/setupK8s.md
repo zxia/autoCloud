@@ -71,7 +71,7 @@ CLUSTER_STATE=5GMC_K8S
 
 ### 3.3获取在线容器云拓扑
 ```bash
-HOSTS=${controlPlaneEndpointIP}
+HOSTS=${initHost}
 ```
 #### [获取容器云拓扑](../mop/deploy/getK8sInfo.md)
 
