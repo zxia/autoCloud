@@ -1,7 +1,7 @@
 ###################golabel variable################
 expectTimeout=60
 debug=true
-SSHPrompt='(%|#|\\$|\])(\\s{0,3})'
+SSHPrompt='(%|#|\\$|\\])(\\s{0,3})'
 TIME_OUT=${expectTimeout}
 ###################################################
 #######################Base Expect ################
