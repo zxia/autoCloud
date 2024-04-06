@@ -66,12 +66,12 @@ function formatFsDiskNew(){
     local size=$4
     local lvName=$5
     local vgName=$6
-    lvs | grep ${lvName}
-    isLvCreate=$?
+    vgs | grep ${vgName}
+    isVgCreate=$?
 
-    if [ "${DISK_ERASED}" = "true" -o ${isLvCreate} -eq 0 ]; then
+    if [ "${DISK_ERASED}" = "true" -o ${isVgCreate} -eq 0 ]; then
       mkfs.xfs -f ${directory} || return $?
-      pvcreate -y ${directory} || return $?
+      pvcreate -ff -y ${directory} || return $?
       vgcreate -ff -y ${vgName} ${directory}  || return $?
     fi
 }
