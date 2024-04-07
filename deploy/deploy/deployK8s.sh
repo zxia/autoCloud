@@ -2,7 +2,7 @@ function initKubernetes(){
   local hostIp=${SSH_HOST}
   local hostName=$(grep "${hostIp}" ${workDir}/lab/${LAB_NAME}/nodes.ini | awk '{print $1}')
   executeExpect SSH "initKubernetesHelper:${hostName}  ${hostIp} \
-             ${controlPlaneEndpoint} ${podNetworkCidr}  ${kubernetesVersion} ${HARBOR_NAME}"
+             ${controlPlaneEndpoint} ${podNetworkCidr}  ${kubernetesVersion} ${HARBOR_NAME} 86"
   return $?
 }
 
@@ -125,6 +125,7 @@ function initKubernetesHelper() {
   local podNetworkCidr=$4
   local kubernetesVersion=$5
   local dockerRegistry=$6
+  local index=$7
 
   state=$(cat /home/opuser/state/.state)
   [ "${state}" = "5GMC_HOST" -o "${state}" = "5GMC_K8S" ] || return $?
@@ -139,6 +140,7 @@ function initKubernetesHelper() {
       --kubernetes-version=${kubernetesVersion} \
       --image-repository=${dockerRegistry}/library \
       --apiserver-advertise-address=${hostIp} \
+      --service-cluster-ip-range=10.${index}.0.0/16 \
       --node-name=${hostName} \
       --v=10
   result=$?
