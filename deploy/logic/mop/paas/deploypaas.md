@@ -31,7 +31,7 @@ deployArgoCDApp paas ${COMPONENT} ${NAMESPACE} ${GITOPS_URI}
 sleep 1
 executeExpect SSH "applyRegcredSa:${NAMESPACE}"
 executeExpect SSH "resetPods:${NAMESPACE}"
-executeExpect SSH  "waitFunctionReady:600 'healthCheckPods ${NAMESPACE}' "
+executeExpect SSH  "waitFunctionReady:1200 'healthCheckPods ${NAMESPACE}' "
 ```
 
 ##安装后清理
