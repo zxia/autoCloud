@@ -140,7 +140,7 @@ function initKubernetesHelper() {
       --kubernetes-version=${kubernetesVersion} \
       --image-repository=${dockerRegistry}/library \
       --apiserver-advertise-address=${hostIp} \
-      --service-cidr=10.${index}.0.0/16 \
+      --service-cidr=${serviceCidr}/16 \
       --node-name=${hostName} \
       --v=10
   result=$?

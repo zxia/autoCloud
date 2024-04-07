@@ -7,6 +7,7 @@ class K8s(BaseModel):
     kubernetesVersion = "v1.24.3"
     k8sCidr: str
     controlPlaneEndpointIP: str
+    serviceCidr: str
 
 
 class K8sInfo(BaseModel):
