@@ -12,8 +12,8 @@ allLiveHost=$(getLiveNodes "${allHost}")
 HOSTS=${allLiveHost}
 ````
 
-## 磁盘分区
+## 每个集群主机进行部署
 
-1.   #### [磁盘分区](../mop/deploy/diskOperation.md)
+1.   #### [部署组件](../mop/deploy/${HOST_OPERATION}.md)
 
 #### @由数智云图-自动化云平台构建工具支持
