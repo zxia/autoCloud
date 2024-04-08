@@ -7,7 +7,9 @@ function genGrafanaValue() {
   cat <<EOF >${userValue}
 #genVersion: ${version}
 image:
-  repository: ${dockerRegistry}/grafana/grafana-oss
+  registry: ${dockerRegistry}
+  repository: grafana/grafana-oss
+  tag: "9.0.5"
 service:
   type: NodePort
   port: 8180
@@ -32,10 +34,14 @@ persistence:
 testFramework:
   enabled: false
 downloadDashboardsImage:
-  repository: ${dockerRegistry}/curl
+  registry: ${dockerRegistry}
+  repository: curl
+  tag: 7.87.0
 initChownData:
   image:
-    repository: ${dockerRegistry}/busybox
+    registry: ${dockerRegistry}
+    repository: busybox
+    tag: 1.31.1
 datasources:
   datasources.yaml:
     apiVersion: 1
@@ -118,7 +124,7 @@ function loadDashboardHelper(){
   # Set up grafana dashboards. Split into 2 and compress to single line json to avoid Kubernetes size limits
   for dashboard in $(ls *.json| xargs )
   do
-    compressDashboard ${dashboard} ${DASHBOARDS}
+     ${dashboard} ${DASHBOARDS}
   done
 
   if [ "${force}" = "true"  ]; then
