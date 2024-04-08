@@ -5,7 +5,7 @@
 ```bash
 
 COMPONENT="grafana"
-helmPackage=grafana-6.32.14.tgz
+helmPackage=grafana-7.3.7.tgz
 NAMESPACE="grafana-system"
 HOSTS=${HOSTS:=${SSH_HOST}}
 
