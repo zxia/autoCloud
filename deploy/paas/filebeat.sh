@@ -78,7 +78,7 @@ daemonset:
                 config:
                   - type: container
                     paths:
-                      - "/containers/\${data.kubernetes.container.id}/*-json.log"
+                      - "/containers/*\${data.kubernetes.container.id}/*-json.log"
   secretMounts: []
 image: "${dockerRegistry}/beats/filebeat"
 EOF
