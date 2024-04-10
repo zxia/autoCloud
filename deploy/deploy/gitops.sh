@@ -152,6 +152,11 @@ function deployArgoCDApp(){
    --sync-option CreateNamespace=true
 }
 
+function deleteArgoCDApp(){
+  local service=$1
+  argocd app delete ${service}
+}
+
 function loginArgocdExp(){
   cat << EOF >> $1
 send -- "argocd login ${ARGOCD_URI}\r"
