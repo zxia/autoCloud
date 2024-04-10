@@ -74,11 +74,11 @@ daemonset:
             templates:
               - condition:
                   equals:
-                    kubernetes.labels.logcollections: fb
+                    kubernetes.namespace: kube-system
                 config:
                   - type: container
                     paths:
-                      - "/containers/*\${data.kubernetes.container.id}/*-json.log"
+                      - "/containers/*\${data.kubernetes.container.id}.log"
   secretMounts: []
 image: "${dockerRegistry}/beats/filebeat"
 EOF
