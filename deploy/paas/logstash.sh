@@ -9,8 +9,8 @@ logstashConfig:
   logstash.yml: |
     http.host: 0.0.0.0
     xpack.monitoring.enabled: true
-    xpack.monitoring.elasticsearch.username: '${ELASTICSEARCH_USERNAME}'
-    xpack.monitoring.elasticsearch.password: '${ELASTICSEARCH_PASSWORD}'
+    xpack.monitoring.elasticsearch.username: \${ELASTICSEARCH_USERNAME}
+    xpack.monitoring.elasticsearch.password: \${ELASTICSEARCH_PASSWORD}
     xpack.monitoring.elasticsearch.hosts: ["https://elasticsearch-ingest-headless:9200"]
     xpack.monitoring.elasticsearch.ssl.certificate_authority: /usr/share/logstash/config/certs/elastic-certificate.crt
   log4j2.properties: |
