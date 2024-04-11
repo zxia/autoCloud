@@ -6,7 +6,7 @@
 
 ```bash
 EXECUTED_PERMISSION="root"
-executeExpect Docker "copySSHKeyExp:\"${HOSTS}\""
+executeExpect Docker "copySSHKeyExp:\'${HOSTS}'"
 ```
 
 
