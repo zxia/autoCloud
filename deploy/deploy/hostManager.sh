@@ -9,7 +9,7 @@ EOF
 
 function copySSHKeyExp(){
   local hosts="$2"
-  for host in ${host}
+  for host in ${hosts}
   do
   cat << EOF >> $1
 send --  "ssh-copy-id ${host}\r"
