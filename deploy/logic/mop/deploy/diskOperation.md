@@ -7,7 +7,7 @@ EXECUTED_PERMISSION="suroot"
 setNodeConfig disk   
 setNodeConfig docker 
 executeExpect SSH  "yum install -y lvm2"
-executeExpect SSH "formatFsDiskNew:${DISK_ERASED} ${DOCKER_PATH} ${DISK_DISK} ${DOCKER_VOLUME} ${DOCKER_LV} ${DISK_VG}"
+executeExpect SSH "formatFsDisk:${DISK_ERASED} ${DOCKER_PATH} ${DISK_DISK} ${DOCKER_VOLUME} ${DOCKER_LV} ${DISK_VG}"
 
 unsetNodeConfig disk  
 unsetNodeConfig docker 

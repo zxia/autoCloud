@@ -6,7 +6,7 @@ send --  "ssh-keygen -t ed25519 -N '' -f ~/.ssh/id_ed25519\r"
 expect -re ${prompt}
 EOF
 }
-
+#未完成有些问题
 function copySSHKeyExp(){
   local hosts="$(echo $2 | tr -d \')"
   for host in ${hosts}
