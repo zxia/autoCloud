@@ -8,7 +8,7 @@ EOF
 }
 
 function copySSHKeyExp(){
-  local hosts="$2"
+  local hosts="$(echo $2 | tr -d \')"
   for host in ${hosts}
   do
   cat << EOF >> $1
@@ -19,3 +19,4 @@ expect -re ${prompt}
 EOF
   done
 }
+
