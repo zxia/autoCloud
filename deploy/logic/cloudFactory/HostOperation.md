@@ -3,14 +3,15 @@
 
 ## 配置数据
 
-````bash
+```bash
 # default HOST 
 setConfig k8s
 #容器云主机列表
 allHost=$(getNodeIpList)
 allLiveHost=$(getLiveNodes "${allHost}")
 HOSTS=${allLiveHost}
-````
+
+```
 
 ## 每个集群主机进行部署
 

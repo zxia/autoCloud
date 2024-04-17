@@ -162,7 +162,6 @@ function execFunc(){
  }
 
 function execDpFunc(){
-  set +x
   local rawLine=$1
   local runFile=${rawLine##*\(}
   local runFile=${runFile%\)*}

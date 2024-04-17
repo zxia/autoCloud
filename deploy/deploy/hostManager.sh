@@ -20,3 +20,31 @@ EOF
   done
 }
 
+function etcdHealthCheck(){
+  export NODE_IPS="$1"
+for ip in ${NODE_IPS}; do
+  ETCDCTL_API=3 etcdctl \
+  --endpoints=https://${ip}:2379  \
+  --cacert=/etc/kubernetes/ssl/ca.pem \
+  --cert=/etc/kubernetes/ssl/etcd.pem \
+  --key=/etc/kubernetes/ssl/etcd-key.pem \
+  endpoint health; done
+
+for ip in ${NODE_IPS}; do
+  ETCDCTL_API=3 etcdctl \
+  --endpoints=https://${ip}:2379  \
+  --cacert=/etc/kubernetes/ssl/ca.pem \
+  --cert=/etc/kubernetes/ssl/etcd.pem \
+  --key=/etc/kubernetes/ssl/etcd-key.pem \
+  --write-out=table endpoint status; done
+
+}
+
+function rebootHosts(){
+  local clusterName=$1
+  local hosts=$(cat /etc/kubeasz/clusters/${clusterName}/hosts  \
+      | grep -r "k8s_nodename=[w|m].*" | awk '{print $1}'| xargs )
+  for host in $hosts ; do
+    ssh $host reboot
+  done
+}
