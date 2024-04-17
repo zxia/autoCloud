@@ -164,7 +164,8 @@ function execFunc(){
 function execDpFunc(){
   local rawLine=$1
   local runFile=${rawLine##*\(}
-  local runFile=${runFile%\)*}
+  runFile=${runFile%\)*}
+  runFile=$(eval echo ${runFile})
   local parentPath=$2
   local sshHostBack=${SSH_HOST}
   local result=0
