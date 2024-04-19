@@ -10,19 +10,20 @@ setConfig harborbase
 
 - 生成 Harbor 安装文件并上传到安装主机
 
-````bash
+```bash
 EXECUTED_PERMISSION="opuser"
 executeExpect SSH "createFold: /home/opuser/installpackage"
 executeExpect Bash "rsyncFoldExp:/allinone/base /home/opuser/installpackage"
 genHarborValue
 executeExpect SSH "createFold: /home/opuser/harbor"
 executeExpect Bash "rsyncFoldExp:${workDir}/output/harbor /home/opuser/harbor"
-````
+```
 
 - 安装 Harbor
 
-````bash
-EXECUTED_PERMISSION="suroot"       
+```bash
+EXECUTED_PERMISSION="suroot"
+   
 executeExpect SSH "prepareHarbor:${HARBORBASE_VERSION}"
 executeExpect SSH  "genHarborConfig:${HARBORBASE_VERSION}"
 executeExpect SSH "configHarbor"
@@ -30,4 +31,4 @@ executeExpect SSH "deployCrt:${HARBORBASE_HOST_NAME}"
 executeExpect SSH "deployHarbor"
 executeExpect SSH "uploadcrt"
 unsetConfig harborbase
-````
+```
