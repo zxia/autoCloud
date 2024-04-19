@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - /deploy:/deploy
+      - /opt/workspace/autocloud/deploy:/deploy
       - /allinone:/allinone
     restart: always
     command: tail -f /dev/null
